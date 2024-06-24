@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 
 
 <section id="insta" class="my-5">
@@ -60,9 +61,11 @@
 
   
   <footer id="footer" class="my-5">
+=======
+<footer id="footer" class="my-5">
+>>>>>>> parkseongjun
     <div class="container py-5 my-5">
       <div class="row">
-
         <div class="col-md-3">
           <div class="footer-menu">
             <img src="images/logo.png" alt="logo">

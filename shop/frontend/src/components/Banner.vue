@@ -1,5 +1,4 @@
 <template>
-    
   <section id="banner" style="background: #F9F3EC;">
     <div class="container">
       <div class="swiper main-swiper">
@@ -63,9 +62,7 @@
             </div>
           </div>
         </div>
-
         <div class="swiper-pagination mb-5"></div>
-
       </div>
     </div>
   </section>
