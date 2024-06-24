@@ -1,6 +1,5 @@
 <template>
   <div>
-     
     <HeaderComponent />
     <BannerComponent />
     <CategoriesComponent />
