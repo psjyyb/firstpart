@@ -1,5 +1,5 @@
 <template>
-    <!-- <header> -->
+    <header>
     <div class="container py-2">
       <div class="row py-4 pb-0 pb-sm-4 align-items-center ">
 
@@ -75,7 +75,6 @@
               <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch"
                 aria-controls="offcanvasSearch">
                 <iconify-icon icon="tabler:search" class="fs-4"></iconify-icon>
-                </span>
               </a>
             </li>
           </ul>
@@ -192,7 +191,7 @@
 
 
     </div>
-  <!-- </header> -->
+  </header>
 </template>
 <script>
     export default{

@@ -2,7 +2,7 @@
   <div>
     <HeaderComponent />
     <BannerComponent />
-    <CategoriesComponent />
+    <!-- <CategoriesComponent /> -->
     <FooterComponent />
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 import HeaderComponent from '@/components/Header.vue'
 import BannerComponent from '@/components/Banner.vue'
-import CategoriesComponent from '@/components/Categories.vue'
+// import CategoriesComponent from '@/components/Categories.vue'
 import FooterComponent from '@/components/Footer.vue'
 
 export default {
@@ -18,7 +18,7 @@ export default {
   components: {
     HeaderComponent,
     BannerComponent,
-    CategoriesComponent,
+    // CategoriesComponent,
     FooterComponent
   },
   mounted() {
