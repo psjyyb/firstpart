@@ -1,13 +1,22 @@
-const express	=require('express')
-const app	=express()
-const port	=3000
-//JSON	형태의	요청	body	파싱	미들웨어
-app.use(express.json({	 limit:'50mb'	}));
-//Query	String	형태의	요청	body	파싱	미들웨어
-app.use(express.urlencoded({	extended:false }));
-app.get('/',(req , res )=>{
-		res.send('Hello	World!')
-})
-app.listen(port ,()=>{
-		console.log(`Example	app	listening	on	http://localhost:${port }`)
-})
+const express = require("express");
+const port = 3000;
+
+var path = require('path');
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+app.get("/", (req, res) => {
+    res.send("Hello World!~~");
+});
+
+app.listen(port, () => {
+    console.log(`Example app listening on http://localhost:${port}`);
+});
+
+module.exports = app;
