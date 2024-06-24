@@ -42,7 +42,6 @@ export default {
   }
 }
 </script>
-
 <style>
 @import url('../assets/css/vendor.css');
 @import url('../assets/css/style.css');
