@@ -1,8 +1,10 @@
 <template>
-    <!-- <router-link to="/">Home</router-link> | -->
+  <div id="app">
     <Header />
-    <router-view />
+    <router-view></router-view>
     <Footer />
+  </div>
+
 </template>
 
 <script>
