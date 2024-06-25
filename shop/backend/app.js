@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
-app.use("/mypage",mypageRouter)
+app.use("/mypage/",mypageRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
