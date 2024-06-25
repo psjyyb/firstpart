@@ -45,8 +45,11 @@ const mysql = require('mysql2');
 // const query = require('../mysql')
 
 // MySQL 연결 설정
-// 
+// const connection = mysql.createConnection({
 
+
+
+// });
 
 connection.connect();
 
