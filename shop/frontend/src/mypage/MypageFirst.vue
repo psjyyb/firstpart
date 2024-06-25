@@ -67,11 +67,6 @@ import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{
         components: { Header, Footer,SideVar },
-
-
-
-    export default{
-
     data(){
      return {
         id:9999,
