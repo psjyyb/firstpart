@@ -73,14 +73,24 @@
       </div>
     </div>
   </section>
-  
+
 </template>
 <script>
+
     export default{
     data(){
     return {};
     },
     created () {},
+    mounted(){
+      var swiper = new Swiper(".main-swiper", {
+      speed: 500,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+    },
     methods :{}
         }
 </script>
