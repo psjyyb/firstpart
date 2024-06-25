@@ -1,5 +1,6 @@
 <template>
-  <section id="banner" style="background: #F9F3EC;">
+ 
+ <section id="banner" style="background: #F9F3EC;">
     <div class="container">
       <div class="swiper main-swiper">
         <div class="swiper-wrapper">
@@ -62,10 +63,17 @@
             </div>
           </div>
         </div>
-        <div class="swiper-pagination mb-5"></div>
+
+        <div class="swiper-pagination mb-5 swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+          <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+            aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0"
+            role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0"
+            role="button" aria-label="Go to slide 3"></span></div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
       </div>
     </div>
   </section>
+  
 </template>
 <script>
     export default{
