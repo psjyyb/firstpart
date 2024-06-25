@@ -2,6 +2,7 @@ const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
 var path = require('path');
+const categoryRouter = require('./routes/category.js')
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,12 @@ app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
 app.use("/mypage/",mypageRouter)
+
+app.use("/category",categoryRouter)
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
