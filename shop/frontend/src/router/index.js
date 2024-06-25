@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MypageView from '../mypage/MypageFirst.vue'
-
+import AdminPage from '../views/AdminPage.vue'
 
 const routes = [
   {
@@ -14,6 +14,12 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  {
+    path: '/admin',
+    name: 'AdminPage',
+    component: AdminPage,
+    meta: { isAdmin: true }
+  }
 ]
 
 const router = createRouter({
