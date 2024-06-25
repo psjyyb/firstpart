@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MypageView from '../mypage/MypageFirst.vue'
-<<<<<<< HEAD
+
 import AdminPage from '../views/AdminPage.vue'
-=======
+
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
->>>>>>> 809082646011addc4792e7610481063051d97bbb
+
 
 const routes = [
   {
