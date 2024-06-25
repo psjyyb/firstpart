@@ -1,21 +1,19 @@
 <template>
     <Banner />
     <Categories />
-    <Clothing />
     <Etc />
 </template>
 
 <script>
 import Banner from '@/components/Banner.vue'
 import Categories from '@/components/Categories.vue'
-import Clothing from '@/components/Clothing.vue'
 import Etc from '@/components/Etc.vue'
 
 
 export default {
   name: 'HomeView',
   components: {
-    Banner,Categories,Clothing,Etc
+    Banner,Categories,Etc
   },
   // mounted() {
   //   // 외부 스크립트를 동적으로 로드
