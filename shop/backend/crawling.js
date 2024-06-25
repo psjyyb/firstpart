@@ -44,23 +44,6 @@ const iconv = require('iconv-lite');
 // const mysql = require('mysql2');
 const query = require('../mysql')
 
-// MySQL 데이터베이스 연결 설정
-const connection = mysql.createConnection({
-  host: '3.36.49.13',
-  user: 'shop',
-  port: 3306,
-  password: 'Yedam#2024',
-  database: 'shopdb'
-});
-
-// MySQL 연결
-connection.connect(err => {
-  if (err) {
-    console.error('MySQL 연결 오류: ', err);
-    return;
-  }
-  console.log('MySQL 연결 성공');
-});
 
 
 // 웹 스크래핑 함수
