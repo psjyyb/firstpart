@@ -60,12 +60,18 @@
     <!-- <Footer /> -->
 </template>
 <script>
+
 import Header from "@/components/Header.vue"
 import Footer from "@/components/Footer.vue"
 import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{
         components: { Header, Footer,SideVar },
+
+
+
+    export default{
+
     data(){
      return {
         id:9999,
