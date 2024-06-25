@@ -1,6 +1,6 @@
 const express = require("express");
 const port = 3000;
-
+const mypageRouter = require('./routes/mypage.js')
 var path = require('path');
 
 const app = express();
@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
+app.use("/mypage",mypageRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
