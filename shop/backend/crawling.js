@@ -41,20 +41,14 @@ const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const iconv = require('iconv-lite');
-// const mysql = require('mysql2');
-const query = require('../mysql')
+const mysql = require('mysql2');
+// const query = require('../mysql')
 
 // MySQL 연결 설정
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  port: '3306',
-  password: 'password',
-  database: 'your_database'
-});
+// 
+
 
 connection.connect();
-
 
 // 웹 스크래핑 함수
 const getHtml = async () => {
@@ -81,7 +75,6 @@ const getHtml = async () => {
         product_img: $(element).find("div.thumb_gray img").attr("src")
       });
     });
-
     // 데이터 저장
     saveToDatabase(ulList);
 
