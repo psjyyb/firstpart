@@ -3,7 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// jQuery와 Isotope 임포트
+import $ from 'jquery'
+import Isotope from 'isotope-layout'
 
+// jQuery와 Isotope를 글로벌로 설정
+window.$ = $
+window.jQuery = $
+window.Isotope = Isotope
+
+// jQuery 플러그인으로 Isotope 추가
+$.fn.isotope = function (options) {
+    return new Isotope(this[0], options)
+}
 
 createApp(App).use(store).use(router).mount('#app')
-
