@@ -1,6 +1,7 @@
 const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
+const wishRouter = require('./routes/wish.js')
 var path = require('path');
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
 app.use("/mypage",mypageRouter)
+app.use('/wish', wishRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
