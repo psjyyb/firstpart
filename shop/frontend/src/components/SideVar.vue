@@ -7,12 +7,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypage">마피아지이</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypage">마이페이지</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageOrderList">주문/배송조회</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageCancelList">취소조회</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/boardInsert">찜목록</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/testView">상품Q&A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/strapView">리뷰</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageWishList">찜목록</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageQnAList">상품Q&A</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageReviewList">리뷰</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">개인정보수정</a></li>
                 </ul>
             </div>

@@ -7,9 +7,27 @@ import AdminPage from '../views/AdminPage.vue'
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
+import MypageWishList from '../mypage/MypageWishList.vue'
+import MypageQnAList from '../mypage/MypageQnAList.vue'
+import MypageReviewList from '../mypage/MypageReviewList.vue'
 
 
 const routes = [
+  {
+    path: '/mypageReviewList',
+    name: 'mypageReviewList',
+    component: MypageReviewList
+  },
+  {
+    path: '/mypageQnAList',
+    name: 'mypageQnAList',
+    component: MypageQnAList
+  },
+  {
+    path: '/mypageWishList',
+    name: 'mypageWishList',
+    component: MypageWishList
+  },
   {
     path: '/mypageCancelList',
     name: 'mypageCancelList',
