@@ -14,8 +14,14 @@ import MypageWishList from '../mypage/MypageWishList.vue'
 import MypageQnAList from '../mypage/MypageQnAList.vue'
 import MypageReviewList from '../mypage/MypageReviewList.vue'
 
+import joinForm from '../user/joinForm.vue'
 
 const routes = [
+  {
+    path: '/joinForm',
+    name: 'joinForm',
+    component: joinForm
+  },
   {
     path: '/mypageReviewList',
     name: 'mypageReviewList',
