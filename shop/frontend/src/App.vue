@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <Header />
+    <component :is="headerComponent" />
     <router-view></router-view>
-    <Footer />
+    <component :is="footerComponent" />
   </div>
-
 </template>
 
 <script>
 import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
+import AdminHeader from "./components/AdminHeader.vue"
+import AdminFooter from "./components/AdminFooter.vue"
 
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, AdminHeader, AdminFooter },
+  computed: {
+    headerComponent() {
+      return this.$route.meta.isAdmin ? 'AdminHeader' : 'Header';
+    },
+    footerComponent() {
+      return this.$route.meta.isAdmin ? 'AdminFooter' : 'Footer';
+    }
+  }
 };
 </script>
+
 
 <style>
 #app {
@@ -23,6 +33,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  
 }
 
 nav {
