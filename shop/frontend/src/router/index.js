@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProductCategory from '../category/ProductCategory.vue'
 import ProductDetail from '../category/ProductDetail.vue'
+import DetailTest from '../category/DetailTest.vue'
 
 //관리자
 import AdminPage from '../views/AdminPage.vue'
@@ -12,9 +13,19 @@ import MypageView from '../mypage/MypageFirst.vue'
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
-
+import joinForm from '../user/joinForm.vue'
 
 const routes = [
+  {
+    path: '/joinForm',
+    name: 'joinForm',
+    component: joinForm
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: DetailTest
+  },
   {
     path: '/category',
     name: 'ProductCategory',

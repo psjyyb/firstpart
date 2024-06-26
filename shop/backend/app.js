@@ -28,9 +28,9 @@ app.use("/mypage/",mypageRouter)
 app.use("/user",userRouter)
 // app.use("/",logRouter);
 
-app.use(function(req, res, next) {
-	next(createError(404));
-  });
+// app.use(function(req, res, next) {
+// 	next(createError(404));
+//   });
 
 
 app.use("/category",categoryRouter)
