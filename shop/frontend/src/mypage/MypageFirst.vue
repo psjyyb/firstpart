@@ -1,7 +1,12 @@
 <template>
     <!-- <Header /> -->
+
      <SideVar></SideVar>
     <div id="padd">
+
+    <SideVar></SideVar>
+    <div>
+
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
@@ -51,6 +56,7 @@
     </div>
 </template>
 <script>
+
 import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{

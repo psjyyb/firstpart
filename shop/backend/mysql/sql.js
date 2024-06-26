@@ -1,10 +1,8 @@
 
 const mypageSql = require('./mypageSql.js')
-//const wishSql = require('./wishSql.js')
 const userSql = require('./userSql.js')
+const cartSql = require('./cartSql.js')
 
 module.exports =	{
- 	...mypageSql,...userSql
-	 //...wishSql, 
-
+ 	...mypageSql,...userSql, ...cartSql,
 }
