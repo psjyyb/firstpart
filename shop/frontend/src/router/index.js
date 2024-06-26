@@ -32,6 +32,16 @@ const routes = [
     component: joinForm
   },
   {
+    path: '/mypageWishList',
+    name: 'mypageWishList',
+    component: MypageWishList
+  },
+  {
+    path: '/mypageQnAList',
+    name: 'mypageQnAList',
+    component: MypageQnAList
+  },
+  {
     path: '/noticeInfo',
     name: 'noticeInfo',
     component: NoticeInfo
