@@ -2,6 +2,7 @@ const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
 
+
 const wishRouter = require('./routes/wish.js')
 
 const userRouter =	require("./routes/user.js");
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
 
+
 app.use('/wish', wishRouter)
 
 
@@ -33,6 +35,7 @@ app.use("/user",userRouter)
 app.use(function(req, res, next) {
 	next(createError(404));
   });
+
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);

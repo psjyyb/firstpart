@@ -54,12 +54,34 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import mixin from '../mixin.js'
+
   export default {
+    mixins: [mixin],
     data() {
-      return {};
+      return {
+        cartlist: [],
+      }
     },
-    created() {},
-    methods: {},
+    computed: {
+      account() {
+        return this.$store.state.user.userid
+      }
+    },
+    created() {
+
+    },
+    created() {
+      // this.$store.commit('user', {userid: 'user01'})
+      // axios.get(`/api/cart/${this.account}`)
+      // .then(result => {
+      //   this.cartlist = result.data
+      // })
+    },
+    methods: {
+
+    },
   }
 </script>
 <style>

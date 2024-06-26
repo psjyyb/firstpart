@@ -16,9 +16,9 @@ window.Isotope = Isotope
 $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
-import "bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css"
-import "startbootstrap-resume/dist/css/styles.css"
+// import "bootstrap"
+// import "bootstrap/dist/css/bootstrap.min.css"
+// import "startbootstrap-resume/dist/css/styles.css"
 
 createApp(App).use(store).use(router).mount('#app')
 
