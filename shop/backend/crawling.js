@@ -46,7 +46,11 @@ const mysql = require('mysql2');
 
 // MySQL 연결 설정
 // const connection = mysql.createConnection({
-
+  // host: '3.36.49.13',
+  // user: 'shop',
+  // port: '3306',
+  // password: 'Yedam#2024',
+  // database: 'shopdb'
 
 
 // });

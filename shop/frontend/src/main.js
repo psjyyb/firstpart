@@ -6,6 +6,7 @@ import store from './store'
 // import "bootstrap"
 // import "bootstrap/dist/css/bootstrap.min.css"
 // import "startbootstrap-resume/dist/css/styles.css"
+
 // jQuery와 Isotope 임포트
 
 import $ from 'jquery'
