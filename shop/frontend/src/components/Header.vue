@@ -97,7 +97,7 @@
             <a href="#" class="nav-link">로그인</a>
           </div>
           <div class="support-box text-end d-none d-xl-block">
-            <a href="#" class="nav-link">회원가입</a>
+            <a href="/joinForm" class="nav-link">회원가입</a>
           </div>
 
         </div>

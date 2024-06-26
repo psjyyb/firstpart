@@ -22,3 +22,5 @@ $.fn.isotope = function (options) {
 // import "startbootstrap-resume/dist/css/styles.css"
 
 createApp(App).use(store).use(router).mount('#app')
+
+window.Kakao.init("e440154fb509449508e887c15f543fe1");

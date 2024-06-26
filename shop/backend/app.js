@@ -1,7 +1,10 @@
 const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
+const userRouter =	require("./routes/user.js");
+// const logRouter = require("./routes/logcontrol.js")
 const cartRouter = require('./routes/cart.js')
+
 var path = require('path');
 
 const app = express();
@@ -18,7 +21,14 @@ app.get("/", (req, res) => {
 
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
+app.use("/user",userRouter)
+// app.use("/",logRouter);
 app.use('/cart', cartRouter)
+
+app.use(function(req, res, next) {
+	next(createError(404));
+  });
+
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
