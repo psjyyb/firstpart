@@ -13,7 +13,7 @@
               </thead>
               <tbody>
                   <tr v-for="review in reviews">
-                      <td>{{ review.product_img }}</td>
+                      <td><img width="64"height="64":src="`/api/upload/${review.product_img}`">}</td>
                       <td>{{ review.product_name }}</td>
                       <td>{{ review.product_price }}</td>
                       <td>{{ review.review_date }}</td>

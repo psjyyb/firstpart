@@ -35,9 +35,25 @@ module.exports = {
                       GROUP BY o.order_no order by o.order_no desc limit ?,?`,
     mypageOrderListCount : `select count(*) as cnt 
                             from orders where user_id= ? `,
-    mypageCancelList:`SELECT c.cancel_no,c.cancel_date,c.cancel_state,d.product_no,o.pay_price 
-                        FROM cancel c JOIN order_detail d ON c.order_no = d.order_no JOIN orders o 
-                        ON o.order_no = d.order_no WHERE o.user_id = ? order by o.order_no desc limit ?,?`,
+    mypageCancelList:`SELECT 
+                        c.cancel_no,
+                        c.cancel_date,
+                        c.cancel_state,
+                        d.product_no,
+                        o.pay_price 
+                    FROM 
+                        cancel c 
+                    JOIN 
+                        order_detail d ON c.order_no = d.order_no 
+                    JOIN 
+                        orders o ON o.order_no = d.order_no 
+                    WHERE 
+                        o.user_id = ?
+                    GROUP BY 
+                        c.cancel_no, c.cancel_date, c.cancel_state, d.product_no, o.pay_price 
+                    ORDER BY 
+                        o.order_no DESC 
+                    LIMIT ?,?`,
     mypageCancelCount:`SELECT COUNT(*) as cnt
                          FROM cancel 
                          WHERE order_no IN (SELECT order_no FROM orders WHERE user_id = ? )`,
@@ -54,26 +70,26 @@ module.exports = {
                         from qna where user_id=?`,
     //작성가능리뷰
     mypageYesReviewList: `SELECT d.order_no, d.product_no, p.product_name,
-                         p.product_img, p.product_price,order_date 
-                         FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
-                         JOIN product p ON p.product_no = d.product_no 
-                         LEFT JOIN review r ON r.order_no = d.order_no 
-                         AND r.product_no = d.product_no WHERE o.user_id = ?
-                         AND r.review_no IS NULL order by review_no desc limit ?,?`,
+                            p.product_img, p.product_price,order_date 
+                            FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
+                            JOIN product p ON p.product_no = d.product_no 
+                            LEFT JOIN review r ON r.order_no = d.order_no 
+                            AND r.product_no = d.product_no WHERE o.user_id = ?
+                            AND r.review_no IS NULL order by review_no desc limit ?,?`,
     mypageYesReviewListCount:`SELECT COUNT(*) as ycnt 
                             FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
                             JOIN product p ON p.product_no = d.product_no
-                            LEFT JOIN review r ON r.order_no = d.order_no .
+                            LEFT JOIN review r ON r.order_no = d.order_no 
                             AND r.product_no = d.product_no 
                             WHERE o.user_id = ? AND r.review_no IS NULL`,
     //작성한 리뷰
     mypageNoReviewList: `SELECT d.order_no, d.product_no, p.product_name, p.product_img, p.product_price,review_date
-                        FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
-                        JOIN product p ON p.product_no = d.product_no 
-                        JOIN review r ON r.order_no = d.order_no
-                        AND r.product_no = d.product_no
-                        WHERE o.user_id = ? 
-                        order by review_no desc limit ?,?`,
+                            FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
+                            JOIN product p ON p.product_no = d.product_no 
+                            JOIN review r ON r.order_no = d.order_no
+                            AND r.product_no = d.product_no
+                            WHERE o.user_id = ? 
+                            order by review_no desc limit ?,?`,
     mypageNoReviewListCount:`SELECT COUNT(*) as ncnt 
                             FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
                             JOIN product p ON p.product_no = d.product_no 
@@ -100,6 +116,53 @@ module.exports = {
     mypageCartListCount:`SELECT COUNT(*) as cnt
                          FROM cart c
                          JOIN product p ON c.product_no = p.product_no
-                         WHERE user_id =?`
+                         WHERE user_id =?`,
+
+    mypageOrderInfo:`SELECT DISTINCT
+                        d.order_no,
+                        order_status,
+                        order_date,
+                        delivery_name,
+                        delivery_addr,
+                        delivery_detail_addr,
+                        delivery_phone,
+                        delivery_post,
+                        pay_price,
+                        pay_point
+                    FROM orders o
+                    JOIN order_detail d ON o.order_no = d.order_no
+                    WHERE  o.order_no = ?`,
+    mypageOrderDetailInfo:`select 
+                                order_cnt,
+                                p.product_price,
+                                product_name,
+                                product_img
+                            from order_detail d left join product p
+                            on d.product_no=p.product_no
+                            where d.order_no= ? `,
+    mypageCancelInfo:`SELECT 
+                        c.cancel_no,
+                        c.cancel_state,
+                        c.cancel_date,
+                        c.order_no,
+                        d.order_cnt,
+                        p.product_name,
+                        p.product_price,
+                        p.product_img,
+                        o.pay_price,
+                        o.pay_point,
+                        order_date
+                    FROM 
+                        cancel c 
+                    LEFT JOIN 
+                        orders o ON c.order_no = o.order_no
+                    LEFT JOIN 
+                        order_detail d ON c.order_no = d.order_no
+                    LEFT JOIN 
+                        product p ON d.product_no = p.product_no
+                    WHERE 
+                        c.cancel_no = ?`,
+    mypageWishSelectDelete:`delete from wish where wish_no = ?`,
+    //mypageOrderDelete:``
 
 }
