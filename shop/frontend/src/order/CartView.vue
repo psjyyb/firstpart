@@ -1,55 +1,64 @@
 <template>
   <div class="container">
     <div class="text-start fs-1">장바구니</div>
-    <table class="table">
-      <colgroup>
-        <col width="50">
-        <col width="*">
-        <col width="*">
-        <col width="120">
-        <col width="200">
-        <col width="100">
-      </colgroup>
-      <thead>
-        <tr>
-          <th><input type="checkbox"></th>
-          <th colspan="2">상품</th>
-          <th>수량</th>
-          <th>가격</th>
-          <th><button class="btn btn-outline-danger btn-sm">선택삭제</button></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td>이미지</td>
-          <td>상품명</td>
-          <td>
-            <div class="input-group input-group-sm">
-              <button class="btn btn-outline-secondary">－</button>
-              <input type="number" class="form-control text-center">
-              <button class="btn btn-outline-secondary">＋</button>
-            </div>
-          </td>
-          <td>00,000원</td>
-          <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-end">
-      <ul>
-        <li>총 결제 예정 금액 <span>00,000원</span></li>
-        <li>예상 적립 포인트 <span>0,000점</span></li>
-      </ul>
+    <div v-if="this.cartlist.length > 0">
+      <table class="table">
+        <colgroup>
+          <col width="50">
+          <col width="200">
+          <col width="*">
+          <col width="120">
+          <col width="200">
+          <col width="100">
+          <col width="150">
+        </colgroup>
+        <thead>
+          <tr>
+            <th><input type="checkbox" v-model="isCheckedAll" @change="checkAll"></th>
+            <th colspan="2">상품</th>
+            <th>수량</th>
+            <th>금액</th>
+            <th>포인트</th>
+            <th><button class="btn btn-outline-danger btn-sm" @click="removeCheckedCart">선택삭제</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="cart in cartlist">
+            <td><input type="checkbox" :value="cart.cart_no" v-model="checkedCart"></td>
+            <td><img :src="cart.product_img" alt="상품이미지"></td>
+            <td>{{ cart.product_name }}</td>
+            <td>
+              <div class="input-group input-group-sm">
+                <button class="btn btn-outline-secondary" @click="minusCnt(cart)">－</button>
+                <input type="number" class="form-control text-center" :value="cart.cart_cnt" readonly>
+                <button class="btn btn-outline-secondary" @click="plusCnt(cart)">＋</button>
+              </div>
+            </td>
+            <td>{{ makeComma(cart.product_price * cart.cart_cnt) + '원' }}</td>
+            <td>{{ '+' + makeComma(cart.product_point * cart.cart_cnt) + '점' }}</td>
+            <td><button class="btn btn-outline-danger btn-sm" @click="removeCart(cart.cart_no)">삭제</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-end">
+        <ul>
+          <li>총 결제 예정 금액 <span>{{ makeComma(totalPrice) + '원' }}</span></li>
+          <li>총 예상 적립 포인트 <span>{{ makeComma(totalPoint) + '점' }}</span></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 text-start">
+          <button type="button" class="btn btn-outline-primary" @click="goMain">쇼핑계속하기</button>
+        </div>
+        <div class="col-lg-6 text-end">
+          <button type="button" class="btn btn-primary">선택상품주문</button>&nbsp;
+          <button type="button" class="btn btn-primary">전체상품주문</button>
+        </div>
+      </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6 text-start">
-        <button type="button" class="btn btn-outline-primary">쇼핑계속하기</button>
-      </div>
-      <div class="col-lg-6 text-end">
-        <button type="button" class="btn btn-primary">선택상품주문</button>&nbsp;
-        <button type="button" class="btn btn-primary">전체상품주문</button>
-      </div>
+    <div v-else>
+      <br><div class="fs-4">장바구니가 비어있습니다.</div><br>
+      <button type="button" class="btn btn-outline-primary" @click="goMain">쇼핑계속하기</button>
     </div>
   </div>
 </template>
@@ -62,25 +71,87 @@
     data() {
       return {
         cartlist: [],
+        checkedCart: [],
+        isCheckedAll: false,
       }
     },
     computed: {
+      // 로그인된 회원 아이디
       account() {
-        return this.$store.state.user.userid
+        return this.$store.state.user.userid;
+      },
+      // 총 금액
+      totalPrice() {
+        let result = 0;
+        this.cartlist.forEach((cart) => {
+          if(this.checkedCart.indexOf(cart.cart_no) != -1) {
+            result += cart.product_price * cart.cart_cnt;
+          }
+        })
+        return result;
+      },
+      // 총 포인트
+      totalPoint() {
+        let result = 0;
+        this.cartlist.forEach((cart) => {
+          if(this.checkedCart.indexOf(cart.cart_no) != -1) {
+            result += cart.product_point * cart.cart_cnt;
+          }
+        })
+        return result;
       }
     },
     created() {
-
-    },
-    created() {
-      // this.$store.commit('user', {userid: 'user01'})
-      // axios.get(`/api/cart/${this.account}`)
-      // .then(result => {
-      //   this.cartlist = result.data
-      // })
+      this.$store.commit('user', {userid: 'user01'})
+      this.getCartlist();
     },
     methods: {
-
+      // 장바구니 목록 불러오기
+      getCartlist() {
+        axios.get(`/api/cart/${this.account}`)
+        .then(result => this.cartlist = result.data)
+      },
+      // 전체 선택, 해제
+      checkAll() {
+        if(this.isCheckedAll) {
+          this.cartlist.forEach(cart => this.checkedCart.push(cart.cart_no));
+        } else {
+          this.checkedCart = [];
+        }
+      },
+      // 수량 감소
+      minusCnt(cart) {
+        if(cart.cart_cnt > 1) {
+          cart.cart_cnt--;
+          axios.put(`api/cart/${cart.cart_no}`, {cart_cnt: cart.cart_cnt})
+          .then(result => console.log(result))
+        }
+      },
+      // 수량 증가
+      plusCnt(cart) {
+        cart.cart_cnt++;
+        axios.put(`api/cart/${cart.cart_no}`, {cart_cnt: cart.cart_cnt})
+        .then(result => console.log(result))
+      },
+      // 장바구니 상품 삭제
+      removeCart(no) {
+        axios.delete(`/api/cart/${no}`)
+        .then(result => {
+          this.cartlist = this.cartlist.filter(e => e.cart_no !== no);
+        })
+      },
+      // 장바구니 선택 상품 삭제
+      removeCheckedCart() {
+        if(this.checkedCart.length > 0) {
+          this.checkedCart.forEach(no => {
+            this.removeCart(no);
+          })
+        }
+      },
+      // 메인으로 이동
+      goMain() {
+        this.$router.push('/')
+      }
     },
   }
 </script>

@@ -1,12 +1,9 @@
 const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
-
-
-//const wishRouter = require('./routes/wish.js')
-
 const userRouter =	require("./routes/user.js");
 // const logRouter = require("./routes/logcontrol.js")
+const cartRouter = require('./routes/cart.js')
 
 var path = require('path');
 
@@ -24,13 +21,9 @@ app.get("/", (req, res) => {
 
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
-
-
-//app.use('/wish', wishRouter)
-
-
 app.use("/user",userRouter)
 // app.use("/",logRouter);
+app.use('/cart', cartRouter)
 
 app.use(function(req, res, next) {
 	next(createError(404));
