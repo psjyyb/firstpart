@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import MypageView from '../mypage/MypageFirst.vue'
-import CartView from '../order/CartView.vue'
-import OrderView from '../order/OrderView.vue'
 
+import HomeView from '../views/HomeView.vue'
+import ProductCategory from '../category/ProductCategory.vue'
+import ProductDetail from '../category/ProductDetail.vue'
+import DetailTest from '../category/DetailTest.vue'
+
+//관리자
 import AdminPage from '../views/AdminPage.vue'
 
-import MypageNoReview from '../components/MypageNoReview.vue'
-import MypageYesReview from '../components/MypageYesReview.vue'
+// 마이페이지
+import MypageView from '../mypage/MypageFirst.vue'
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
@@ -47,15 +49,19 @@ const routes = [
     name: 'mypageReviewList',
     component: MypageReviewList
   },
-  {
-    path: '/mypageQnAList',
-    name: 'mypageQnAList',
-    component: MypageQnAList
+{    path: '/test',
+    name: 'test',
+    component: DetailTest
   },
   {
-    path: '/mypageWishList',
-    name: 'mypageWishList',
-    component: MypageWishList
+    path: '/category',
+    name: 'ProductCategory',
+    component: ProductCategory
+  },
+  {
+    path: '/detail',
+    name: 'ProductDetail',
+    component: ProductDetail
   },
   {
     path: '/mypageCancelList',
@@ -66,16 +72,6 @@ const routes = [
     path: '/mypageOrderList',
     name: 'mypageOrderList',
     component: MypageOrderList
-  },
-  {
-    path: '/mypageNoReview',
-    name: 'mypageNoReview',
-    component: MypageNoReview
-  },
-  {
-    path: '/mypageYesReview',
-    name: 'mypageYesReview',
-    component: MypageYesReview
   },
   {
     path: '/mypageSideVar',
@@ -91,17 +87,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-
-    path: '/order',
-    name: 'order',
-    component: OrderView
-  },
-  {
-    path: '/cart',
-    name: 'cart',
-    component: CartView
   },
   {
     path: '/admin',

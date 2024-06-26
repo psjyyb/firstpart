@@ -12,6 +12,7 @@ import Footer from "./components/Footer.vue"
 import AdminHeader from "./components/AdminHeader.vue"
 import AdminFooter from "./components/AdminFooter.vue"
 
+
 export default {
   components: { Header, Footer, AdminHeader, AdminFooter },
   computed: {
@@ -23,6 +24,8 @@ export default {
     }
   }
 };
+
+
 </script>
 
 
@@ -36,6 +39,19 @@ export default {
   padding: 0% !important;
   
 }
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: 300;
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    background: #eceef0;
+    border-radius: 10px;
+  }
 
 nav {
   padding: 30px;
