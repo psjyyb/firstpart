@@ -17,21 +17,16 @@
                   New
               </div>
               <div class="card position-relative">
-                  <a href="single-product.html"><img src="images/item1.jpg" class="img-fluid rounded-4" alt="image"></a>
+                  <a href="single-product.html">
+                    <img src="images/item13.jpg" class="img-fluid rounded-4" alt="image">
+                  </a>
                   <div class="card-body p-0">
                       <a href="single-product.html">
                           <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
                       </a>
 
                       <div class="card-text">
-                          <span class="rating secondary-font">
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                              5.0
-                          </span>
+                         
                           <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
 
                           <div class="d-flex flex-wrap mt-3">
@@ -47,14 +42,9 @@
               </div>
           </div>
           <!-- 상품1개 끝-->
-          <div v-if="isLoading">Loading...</div>
-          <div v-else v-observe-visibility="onVisibilityChanged">Load more...</div>
       </div>
-      <!-- <div class="result" v-for="comment in comments" :key="comment.id">
-    <div>{{ comment.email }}</div>
-    <div>{{ comment.id }}</div> -->
+
   </div>
-  <InfiniteLoading @infinite="load" />
 </template>
 
 
@@ -66,20 +56,32 @@ export default {
 },
     data() {
         return {
+            searchNo: "",
             productList: [],
         };
     },
     created() {
+        this.searchNo = this.$route.query.no;
         this.getProductList();
     },
+    watch: {
+    '$route.query.no': {
+      handler: 'getProductList',
+      immediate: true
+    }
+  },
     methods: {
         async getProductList() {
-            let result = await axios.get(`/api/category`);
-            this.productList = result.data;
-        },
-        goToDetail(no) {
-            this.$router.push({ path: "/detail", query: { no: no } });
-        },
+      if (this.searchNo !== this.$route.query.no) {
+        this.searchNo = this.$route.query.no;
+      }
+      let result = (await axios.get(`/api/category/${this.searchNo}`));
+      this.productList = result.data;
+      
+    },
+    goToDetail(no) {
+      this.$router.push({ path: "/detail", query: { no: no } });
+    },
     },
 }
 </script>
