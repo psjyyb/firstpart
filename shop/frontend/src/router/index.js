@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MypageView from '../mypage/MypageFirst.vue'
 import CartView from '../order/CartView.vue'
-import WishListView from '../order/WishListView.vue'
 import OrderView from '../order/OrderView.vue'
 
 import AdminPage from '../views/AdminPage.vue'
@@ -66,11 +65,6 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: CartView
-  },
-  {
-    path: '/wish',
-    name: 'wish',
-    component: WishListView
   },
   {
     path: '/admin',

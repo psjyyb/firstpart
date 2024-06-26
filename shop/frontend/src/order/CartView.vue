@@ -73,11 +73,11 @@
 
     },
     created() {
-      this.$store.commit('user', {userid: 'user01'})
-      axios.get(`/api/cart/${this.account}`)
-      .then(result => {
-        this.cartlist = result.data
-      })
+      // this.$store.commit('user', {userid: 'user01'})
+      // axios.get(`/api/cart/${this.account}`)
+      // .then(result => {
+      //   this.cartlist = result.data
+      // })
     },
     methods: {
 
