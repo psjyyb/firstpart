@@ -54,6 +54,31 @@ router.get("/WishList/", async (req,res)=>{
     res.send({list,count})
 })
 
+router.get("/YesReviewList/", async (req,res)=>{
+    let page = Number(req.query.page);
+    let pageUnit =Number(req.query.pageUnit);
+  
+    if(!page){page = 1; }
+    if(!pageUnit){ pageUnit = 5; }
+     
+   let offset = (page-1)*pageUnit;
+   let list = await query("mypageYesReviewList",[req.query.id,offset,pageUnit])
+   let count = await query("mypageYesReviewListCount",req.query.id)
+    res.send({list,count})
+})
+router.get("/NoReviewList/", async (req,res)=>{
+    let page = Number(req.query.page);
+    let pageUnit =Number(req.query.pageUnit);
+  
+    if(!page){page = 1; }
+    if(!pageUnit){ pageUnit = 5; }
+     
+   let offset = (page-1)*pageUnit;
+   let list = await query("mypageNoReviewList",[req.query.id,offset,pageUnit])
+   let count = await query("mypageNoReviewListCount",req.query.id)
+    res.send({list,count})
+})
+
 router.get("/:id", async (req,res)=>{
     let userInfo = await query("mypageUserInfo",req.params.id);
     let qnaNoCount = await query("mypageNoQnACount",req.params.id);
