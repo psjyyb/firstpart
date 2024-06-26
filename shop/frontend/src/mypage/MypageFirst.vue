@@ -69,8 +69,8 @@ import axios from 'axios'
     created(){
         axios.get('/api/mypage/'+this.id)
         .then(result=>{console.log(result)
-            this.reviewYesCount=result.data.revieYesCount[0].rcnt,
-            this.reviewNoCount=result.data.revieNoCount[0].rcnt,
+            this.reviewYesCount=result.data.revieYesCount[0].ycnt,
+            this.reviewNoCount=result.data.revieNoCount[0].ncnt,
             this.qnaNoCount=result.data.qnaNoCount[0].ncnt,
             this.qnaYesCount=result.data.qnaYesCount[0].ycnt,
             this.user=result.data.userInfo[0],

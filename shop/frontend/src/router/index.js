@@ -6,6 +6,8 @@ import OrderView from '../order/OrderView.vue'
 
 import AdminPage from '../views/AdminPage.vue'
 
+import MypageNoReview from '../components/MypageNoReview.vue'
+import MypageYesReview from '../components/MypageYesReview.vue'
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
@@ -45,6 +47,16 @@ const routes = [
     path: '/mypageOrderList',
     name: 'mypageOrderList',
     component: MypageOrderList
+  },
+  {
+    path: '/mypageNoReview',
+    name: 'mypageNoReview',
+    component: MypageNoReview
+  },
+  {
+    path: '/mypageYesReview',
+    name: 'mypageYesReview',
+    component: MypageYesReview
   },
   {
     path: '/mypageSideVar',
