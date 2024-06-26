@@ -2,6 +2,23 @@ const express = require('express');
 const router = express.Router();
 const query = require('../mysql/index.js');
 
+router.get("/NoticeInfo/:no", async (req,res)=>{
+    await query("noticeInfo",req.params.no)
+    .then(result=>res.send(result))
+})
+
+router.get("/NoticeList/", async (req,res)=>{
+    let page = Number(req.query.page);
+    let pageUnit =Number(req.query.pageUnit);
+  
+    if(!page){page = 1; }
+    if(!pageUnit){ pageUnit = 5; }
+     
+   let offset = (page-1)*pageUnit;
+   let list = await query("noticeList",[offset,pageUnit])
+   let count = await query("noticeListCount")
+    res.send({list,count})
+})
 router.get("/orderList/", async (req,res)=>{
     let page = Number(req.query.page);
     let pageUnit =Number(req.query.pageUnit);
@@ -51,6 +68,18 @@ router.get("/WishList/", async (req,res)=>{
    let offset = (page-1)*pageUnit;
    let list = await query("mypageWishList",[req.query.id,offset,pageUnit])
    let count = await query("mypageWishListCount",req.query.id)
+    res.send({list,count})
+})
+router.get("/CartList/", async (req,res)=>{
+    let page = Number(req.query.page);
+    let pageUnit =Number(req.query.pageUnit);
+  
+    if(!page){page = 1; }
+    if(!pageUnit){ pageUnit = 5; }
+     
+   let offset = (page-1)*pageUnit;
+   let list = await query("mypageCartList",[req.query.id,offset,pageUnit])
+   let count = await query("mypageCartListCount",req.query.id)
     res.send({list,count})
 })
 

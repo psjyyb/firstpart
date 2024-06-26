@@ -248,7 +248,7 @@
                 </li>
                 <li>
                   <!-- 여기 -->
-                  <a href="#" class="nav-link">공지사항</a>
+                  <a href="noticeList" class="nav-link">공지사항</a>
 
 
                 </li>

@@ -1,5 +1,6 @@
 <template>
     <SideVar/>
+    <div id="padd">
    <div class="notice_mydw">
         <ul>
             <li>주문취소는 주문접수, 결제완료 시점에서 전체취소만 가능하며, 이 외의 경우엔 고객센터(8509-3418)로 문의하시기 바랍니다.</li>
@@ -60,6 +61,7 @@
             </ol>
         </div>
     </div>
+</div>
 </template>
 <script>
     import pageCalcMixin from '../mixin.js'

@@ -80,4 +80,26 @@ module.exports = {
                             JOIN review r ON r.order_no = d.order_no 
                             AND r.product_no = d.product_no 
                             WHERE o.user_id = ?`,
+    noticeList : `select notice_no,notice_title,notice_date 
+                  from notice order by notice_no desc limit ?,?`,
+    noticeListCount : `select count(*) as cnt from notice`,
+    noticeInfo: `select
+                        notice_no,
+                        notice_title,
+                        notice_date,
+                        notice_content,
+                        notice_picture 
+               from notice 
+               where notice_no= ? `,
+    mypageCartList: `SELECT cart_no, product_name, product_price, product_img,cart_cnt
+                    FROM cart c
+                    JOIN product p ON c.product_no = p.product_no
+                    WHERE user_id = ?
+                    ORDER BY p.product_no DESC
+                    LIMIT ?,?;`,
+    mypageCartListCount:`SELECT COUNT(*) as cnt
+                         FROM cart c
+                         JOIN product p ON c.product_no = p.product_no
+                         WHERE user_id =?`
+
 }
