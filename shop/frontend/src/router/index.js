@@ -14,6 +14,10 @@ import MypageCancelList from '../mypage/MypageCancelList.vue'
 import MypageWishList from '../mypage/MypageWishList.vue'
 import MypageQnAList from '../mypage/MypageQnAList.vue'
 import MypageReviewList from '../mypage/MypageReviewList.vue'
+import NoticeList from '../mypage/NoticeList.vue'
+import NoticeInfo from '../mypage/NoticeInfo.vue'
+import MypageCartList from '../mypage/MypageCartList.vue'
+
 
 import joinForm from '../user/joinForm.vue'
 
@@ -22,6 +26,21 @@ const routes = [
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
+  },
+  {
+    path: '/noticeInfo',
+    name: 'noticeInfo',
+    component: NoticeInfo
+  },
+  {
+    path: '/noticeList',
+    name: 'noticeList',
+    component: NoticeList
+  },
+  {
+    path: '/mypageCartList',
+    name: 'mypageCartList',
+    component: MypageCartList
   },
   {
     path: '/mypageReviewList',

@@ -1,44 +1,39 @@
 <template>
-    <SideVar/>
-    <div id="padd">
-      <h3>♡Q&A리스트♡</h3>
-
-    <div>
+     <div>
+        <div class="notice_mydw">
+            <ul>
+                <li class="last_child">보다 유익한 쇼핑을 위해 나의 다양한 소식을 빠르게 전달해드립니다.</li>
+            </ul>
+        </div>
         <table class="table table-success table-striped-columns">
             <thead>
                 <tr>
-                    <th>번호</th>
+                    <th>남바</th>
                     <th>제목</th>
                     <th>작성일</th>
-                    <th>답변상태</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="QnA in QnAs">
-                    <td>{{QnA.qna_no}}</td>
-                    <td>{{QnA.qna_title}}</td>
-                    <td>{{QnA.qna_date}}</td>
-                    <td v-if="QnA.qna_reply==null">답변미완료</td>
-                    <td v-else>답변완료</td>
+                <tr v-for="notice in notices">
+                    <td>{{notice.notice_no}}</td>
+                    <td @click="noticeInfo(notice.notice_no)">{{notice.notice_title}}</td>
+                    <td>{{notice.notice_date}}</td>
                 </tr>
             </tbody>
         </table>
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>
-    </div>
 </template>
 <script>
     import pageCalcMixin from '../mixin.js'
-    import SideVar from '../components/SideVar.vue'
     import PagingComponent from '../components/PagingComponent.vue'
     import axios from 'axios'
     export default{
     mixins:[pageCalcMixin],
-    components: {SideVar,PagingComponent },
+    components: {PagingComponent },
     data(){
      return {
-        id:9999,
-        QnAs:{},
+        notices:{},
         pageUnit:5,
         page:{}
      }; 
@@ -49,11 +44,16 @@
     methods:{
         async goPage(page){
         let pageUnit =this.pageUnit;
-        let result = await axios.get(`/api/mypage/QnAList/?pageUnit=${pageUnit}&page=${page}&id=${this.id}`);
-        this.QnAs = result.data.list;
-        console.log('QnAs',result)
+        let result = await axios.get(`/api/mypage/NoticeList/?pageUnit=${pageUnit}&page=${page}`);
+        this.notices = result.data.list;
+        console.log('notices',result.data)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+    },
+    noticeInfo(no){
+        this.$router.push({
+                name: 'noticeInfo', query: {no: no}
+            });
     }
     }
     }

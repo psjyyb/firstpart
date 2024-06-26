@@ -1,7 +1,12 @@
 <template>
     <!-- <Header /> -->
+
+     <SideVar></SideVar>
+    <div id="padd">
+
     <SideVar></SideVar>
     <div>
+
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
@@ -84,4 +89,8 @@ import axios from 'axios'
     }
     }
 </script>
-<style></style>
+<style>
+#padd{
+    padding-left: 14.3%;
+}
+</style>
