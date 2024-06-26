@@ -14,18 +14,19 @@
         <table class="table table-success table-striped-columns">
             <thead>
                 <tr>
-                    <th>주문날짜</th>
                     <th>주문번호</th>
                     <th>취소일자</th>
+                    <th>주문가격</th>
                     <th>취소상태</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr v-for="cancel in cancels">
+                    <td>{{cancel.cancel_no}}</td>
+                    <td>{{cancel.cancel_date}}</td>
+                    <td>{{ cancel.pay_price }}</td>
+                    <td v-if="cancel.cancel_state==1">취소요청</td>
+                    <td v-else>취소완료</td>
                 </tr>
             </tbody>
         </table>
@@ -50,7 +51,6 @@
             </ol>
         </div>
     </div>
-   
 </template>
 <script>
     import pageCalcMixin from '../mixin.js'
@@ -61,11 +61,25 @@
     mixins:[pageCalcMixin],
     components: {SideVar,PagingComponent },
     data(){
-     return {}; 
+     return {
+        id:9999,
+        cancels:{},
+        pageUnit:5,
+        page:{}
+     }; 
     },
     created(){
+        this.goPage(1);
     },
     methods:{
+        async goPage(page){
+        let pageUnit =this.pageUnit;
+        let result = await axios.get(`/api/mypage/cancelList/?pageUnit=${pageUnit}&page=${page}&id=${this.id}`);
+        this.cancels = result.data.list;
+        console.log('cancels',result)
+        this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
+        console.log(this.page)
+    }
     }
     }
 </script>

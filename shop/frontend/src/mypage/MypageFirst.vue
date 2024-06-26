@@ -1,6 +1,10 @@
 <template>
     <!-- <Header /> -->
+<<<<<<< HEAD
     <SideVar/>
+=======
+     <SideVar></SideVar>
+>>>>>>> master
     <div>
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
@@ -16,46 +20,38 @@
             <div class="con last">
                 <h3>리뷰</h3>
                 <ul>
-                    <li>작성가능 리뷰 <span><b><a href="#" title="작성해주실 상품평">{{ reviewYesCount }}</a></b>건</span></li>
-                    <li>작성한 리뷰 <span><b><a href="#" title="작성하신 상품평">{{ reviewNoCount }}</a></b>건</span></li>
+                    <li>작성한 리뷰 <span><b><a href="#" title="작성해주실 상품평">{{ reviewYesCount }}</a></b>건</span></li>
+                    <li>작성가능한 리뷰 <span><b><a href="#" title="작성하신 상품평">{{ reviewNoCount }}</a></b>건</span></li>
                 </ul>
             </div>
         </div>
         <hr />
         <div class="b_order_list item">
-                                <h3><img src="https://img.dongwonmall.com/dwmall/web/images/content/mydw/tit02_mydw_main.gif" alt="최근 주문내역"></h3>
-                                <div class="tbl_list_mydw c_black">
-                                    <table border="1" summary="주문일, 주문내역, 주문상태, 주문관리 표">
-                                        <caption>최근 주문내역</caption>
-                                        <colgroup>
-                                        <col width="30%">
-			                            <col width="30%">
-			                            <col width="*">
-			                            <col width="30%">
-			                            <col width="30%">
-                                        </colgroup>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" abbr="주문일">주문일</th>
-                                                <th scope="col" abbr="상품명" colspan="2">주문내역</th>
-                                                <th scope="col" abbr="주문상태">주문상태</th>
-                                                <th scope="col" abbr="주문상품갯수">주문관리</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="last"  v-if="lastOrder=[]">
-													<td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
-												</tr>
-                                                <tr v-else>
-                                                    <td colspan="4">{{ lastOrder.orderDate }}</td>
-                                                    <td colspan="4">{{ lastOrder.productName }}</td>
-                                                    <td colspan="4">{{ lastOrder.orderStatus }}</td>
-                                                    <td colspan="4">{{ lastOrder.prodcnt }}</td>
-                                                </tr>
-                                        	</tbody>
-		                            </table>
-                                </div>
-                            </div>
+            <h3><img src="https://img.dongwonmall.com/dwmall/web/images/content/mydw/tit02_mydw_main.gif" alt="최근 주문내역"></h3>
+            <div class="tbl_list_mydw c_black">
+                <table class="table table-success table-striped-columns">
+                    <thead>
+                        <tr>
+                            <th>주문일</th>
+                            <th>주문내역</th>
+                            <th>주문상태</th>
+                            <th>주문관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="last"  v-if="lastOrder=[]">
+                                <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
+                            </tr>
+                            <tr v-else>
+                                <td colspan="4">{{ lastOrder.orderDate }}</td>
+                                <td colspan="4">{{ lastOrder.productName }}</td>
+                                <td colspan="4">{{ lastOrder.orderStatus }}</td>
+                                <td colspan="4">{{ lastOrder.prodcnt }}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <!-- <Footer /> -->
 </template>

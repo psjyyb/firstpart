@@ -22,4 +22,7 @@ $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
 
+
 createApp(App).use(store).use(router).mount('#app')
+
+window.Kakao.init("e440154fb509449508e887c15f543fe1");
