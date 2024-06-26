@@ -11,9 +11,9 @@ export default {
             console.log(firstPage, lastPage, startIdx, endIdx);
             return {firstPage, lastPage, startIdx, endIdx };
         },
-        // 금액 정규표현식
+        // 00,000 정규표현식
         makeComma(val) {
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",") + '원';
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         }
     }
 }

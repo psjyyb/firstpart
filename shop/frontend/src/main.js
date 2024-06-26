@@ -16,6 +16,7 @@ window.Isotope = Isotope
 $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
+
 // import "bootstrap"
 // import "bootstrap/dist/css/bootstrap.min.css"
 // import "startbootstrap-resume/dist/css/styles.css"
