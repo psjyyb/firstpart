@@ -2,7 +2,6 @@ const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
 
-
 const userRouter =	require("./routes/user.js");
 // const logRouter = require("./routes/logcontrol.js")
 
@@ -23,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
+
 
 
 app.use("/user",userRouter)
