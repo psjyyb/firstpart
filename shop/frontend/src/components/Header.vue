@@ -72,7 +72,7 @@
 
         <div class="col-sm-4 col-lg-3 text-center text-sm-start">
           <div class="main-logo">
-            <a href="index.html">
+            <a href="/">
               <img src="images/logo.png" alt="logo" class="img-fluid">
             </a>
           </div>
@@ -94,15 +94,11 @@
         <div
           class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
           <div class="support-box text-end d-none d-xl-block">
-            <span class="fs-6 secondary-font text-muted">Phone</span>
-            <h5 class="mb-0">+980-34984089</h5>
+            <a href="#" class="nav-link">로그인</a>
           </div>
           <div class="support-box text-end d-none d-xl-block">
-            <span class="fs-6 secondary-font text-muted">Email</span>
-            <h5 class="mb-0">waggy@gmail.com</h5>
+            <a href="#" class="nav-link">회원가입</a>
           </div>
-
-
 
         </div>
       </div>
@@ -160,19 +156,17 @@
           </div>
 
           <div class="offcanvas-body justify-content-between">
-            <select class="filter-categories border-0 mb-0 me-5">
+            <!-- <select class="filter-categories border-0 mb-0 me-5">
               <option>Shop by Category</option>
               <option>Clothes</option>
               <option>Food</option>
               <option>Food</option>
               <option>Toy</option>
-            </select>
+            </select> -->
 
             <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
-              <li class="nav-item">
-                <a href="index.html" class="nav-link active">Home</a>
-              </li>
-              <li class="nav-item dropdown">
+              
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
                   aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu" aria-labelledby="pages">
@@ -205,28 +199,35 @@
                   <li><a href="styles.html" class="dropdown-item">Styles<span
                         class="badge bg-success text-dark ms-2">PRO</span></a></li>
                 </ul>
+              </li> -->
+              <li class="nav-item">
+                <a href="shop.html" class="nav-link">사료</a>
               </li>
               <li class="nav-item">
-                <a href="shop.html" class="nav-link">Shop</a>
+                <a href="blog.html" class="nav-link">간식</a>
               </li>
               <li class="nav-item">
-                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">건강관리</a>
               </li>
               <li class="nav-item">
-                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">배변용품</a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">Others</a>
+                <a href="#" class="nav-link">장난감</a>
               </li>
               <li class="nav-item">
-                <a href="https://templatesjungle.gumroad.com/l/waggy-pet-shop-ecommerce-html-website-template" class="nav-link fw-bold text-dark" target="_blank">GET PRO</a>
+                <a href="#" class="nav-link">미용/목욕</a>
               </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">리빙</a>
+              </li>
+              
             </ul>
 
             <div class="d-none d-lg-flex align-items-end">
               <ul class="d-flex justify-content-end list-unstyled m-0">
                 <li>
-                  <a href="account.html" class="mx-3">
+                  <a href="/mypage" class="mx-3">
                     <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
                   </a>
                 </li>
@@ -244,6 +245,12 @@
                       03
                     </span>
                   </a>
+                </li>
+                <li>
+                  <!-- 여기 -->
+                  <a href="#" class="nav-link">공지사항</a>
+
+
                 </li>
               </ul>
 

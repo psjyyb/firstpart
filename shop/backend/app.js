@@ -15,7 +15,10 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
-app.use("/mypage",mypageRouter)
+
+app.use("/mypage/",mypageRouter)
+//app.use('/api/upload', express.static('d:/upload'));
+
 app.use('/wish', wishRouter)
 
 app.listen(port, () => {

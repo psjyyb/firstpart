@@ -5,11 +5,50 @@ import CartView from '../order/CartView.vue'
 import WishListView from '../order/WishListView.vue'
 import OrderView from '../order/OrderView.vue'
 
+import AdminPage from '../views/AdminPage.vue'
+
+import MypageSideVar from '../components/SideVar.vue'
+import MypageOrderList from '../mypage/MypageOrderList.vue'
+import MypageCancelList from '../mypage/MypageCancelList.vue'
+import MypageWishList from '../mypage/MypageWishList.vue'
+import MypageQnAList from '../mypage/MypageQnAList.vue'
+import MypageReviewList from '../mypage/MypageReviewList.vue'
+
 
 const routes = [
   {
-    path: '/mypageView',
-    name: 'mypageView',
+    path: '/mypageReviewList',
+    name: 'mypageReviewList',
+    component: MypageReviewList
+  },
+  {
+    path: '/mypageQnAList',
+    name: 'mypageQnAList',
+    component: MypageQnAList
+  },
+  {
+    path: '/mypageWishList',
+    name: 'mypageWishList',
+    component: MypageWishList
+  },
+  {
+    path: '/mypageCancelList',
+    name: 'mypageCancelList',
+    component: MypageCancelList
+  },
+  {
+    path: '/mypageOrderList',
+    name: 'mypageOrderList',
+    component: MypageOrderList
+  },
+  {
+    path: '/mypageSideVar',
+    name: 'mypageSideVar',
+    component: MypageSideVar
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
     component: MypageView
   },
   {
@@ -18,6 +57,7 @@ const routes = [
     component: HomeView
   },
   {
+
     path: '/order',
     name: 'order',
     component: OrderView
@@ -32,7 +72,12 @@ const routes = [
     name: 'wish',
     component: WishListView
   },
-
+  {
+    path: '/admin',
+    name: 'AdminPage',
+    component: AdminPage,
+    meta: { isAdmin: true }
+  },
 ]
 
 const router = createRouter({
