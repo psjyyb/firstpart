@@ -14,7 +14,6 @@ import MypageCancelList from '../mypage/MypageCancelList.vue'
 import MypageWishList from '../mypage/MypageWishList.vue'
 import MypageQnAList from '../mypage/MypageQnAList.vue'
 import MypageReviewList from '../mypage/MypageReviewList.vue'
-import MypageLayout from '../mypageLayout/MypageLayout.vue'
 
 import joinForm from '../user/joinForm.vue'
 
@@ -24,7 +23,51 @@ const routes = [
     name: 'joinForm',
     component: joinForm
   },
-
+  {
+    path: '/mypageReviewList',
+    name: 'mypageReviewList',
+    component: MypageReviewList
+  },
+  {
+    path: '/mypageQnAList',
+    name: 'mypageQnAList',
+    component: MypageQnAList
+  },
+  {
+    path: '/mypageWishList',
+    name: 'mypageWishList',
+    component: MypageWishList
+  },
+  {
+    path: '/mypageCancelList',
+    name: 'mypageCancelList',
+    component: MypageCancelList
+  },
+  {
+    path: '/mypageOrderList',
+    name: 'mypageOrderList',
+    component: MypageOrderList
+  },
+  {
+    path: '/mypageNoReview',
+    name: 'mypageNoReview',
+    component: MypageNoReview
+  },
+  {
+    path: '/mypageYesReview',
+    name: 'mypageYesReview',
+    component: MypageYesReview
+  },
+  {
+    path: '/mypageSideVar',
+    name: 'mypageSideVar',
+    component: MypageSideVar
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MypageView
+  },
   {
     path: '/',
     name: 'home',
@@ -47,57 +90,7 @@ const routes = [
     component: AdminPage,
     meta: { isAdmin: true }
   },
-  {
-  path:'/mypageLayout',
-  component:MypageLayout,
-  children:[
-    {
-      path: '/mypageReviewList',
-      name: 'mypageReviewList',
-      component: MypageReviewList
-    },
-    {
-      path: '/mypageQnAList',
-      name: 'mypageQnAList',
-      component: MypageQnAList
-    },
-    {
-      path: '/mypageWishList',
-      name: 'mypageWishList',
-      component: MypageWishList
-    },
-    {
-      path: '/mypageCancelList',
-      name: 'mypageCancelList',
-      component: MypageCancelList
-    },
-    {
-      path: '/mypageOrderList',
-      name: 'mypageOrderList',
-      component: MypageOrderList
-    },
-    {
-      path: '/mypageNoReview',
-      name: 'mypageNoReview',
-      component: MypageNoReview
-    },
-    {
-      path: '/mypageYesReview',
-      name: 'mypageYesReview',
-      component: MypageYesReview
-    },
-    {
-      path: '/mypageSideVar',
-      name: 'mypageSideVar',
-      component: MypageSideVar
-    },
-    {
-      path: '/mypage',
-      name: 'mypage',
-      component: MypageView
-    },
-  ]
-  }
+  
 ]
 
 const router = createRouter({
