@@ -3,7 +3,6 @@
 
      <SideVar></SideVar>
     <div id="padd">
-
     <SideVar></SideVar>
     <div>
 
@@ -52,6 +51,7 @@
                         </tbody>
                 </table>
             </div>
+        </div>
         </div>
     </div>
 </template>
