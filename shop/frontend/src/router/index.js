@@ -19,6 +19,8 @@ import MypageReviewList from '../mypage/MypageReviewList.vue'
 import NoticeList from '../mypage/NoticeList.vue'
 import NoticeInfo from '../mypage/NoticeInfo.vue'
 import MypageCartList from '../mypage/MypageCartList.vue'
+import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
+import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
 
 
 import joinForm from '../user/joinForm.vue'
@@ -38,6 +40,16 @@ const routes = [
     path: '/noticeList',
     name: 'noticeList',
     component: NoticeList
+  },
+  {
+    path: '/mypageCancelInfo',
+    name: 'mypageCancelInfo',
+    component: MypageCancelInfo
+  },
+  {
+    path: '/mypageOrderInfo',
+    name: 'mypageOrderInfo',
+    component: MypageOrderInfo
   },
   {
     path: '/mypageCartList',

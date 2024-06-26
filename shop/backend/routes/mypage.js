@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const query = require('../mysql/index.js');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) { //파일이 저장 될 위치 지정
+      cb(null, 'd:/upload'); 
+    },
+    filename: function (req, file, cb) {
+      const originalname = Buffer.from(file.originalname, 'latin1').toString('utf8'); // 파일 utf-8로 변환
+      cb(null, Date.now() + '-' + originalname);
+    }
+  });
+const upload = multer({ storage: storage });
+
 
 router.get("/NoticeInfo/:no", async (req,res)=>{
     await query("noticeInfo",req.params.no)
@@ -30,6 +42,17 @@ router.get("/orderList/", async (req,res)=>{
    let list = await query("mypageOrderList",[req.query.id,offset,pageUnit])
    let count = await query("mypageOrderListCount",req.query.id)
     res.send({list,count})
+})
+
+router.get("/OrderInfo/", async (req,res) =>{
+    let order = await query("mypageOrderInfo",req.query.no);
+    let orderDetail = await query("mypageOrderDetailInfo",req.query.no);
+    res.send({order,orderDetail})
+})
+router.get("/CancelInfo/", async (req,res) =>{
+    await query("mypageCancelInfo",req.query.no)
+    .then(result=>res.send(result))
+    
 })
 
 router.get("/cancelList/", async (req,res)=>{ // 경로 수정: "/cancelList/"로 변경
@@ -116,6 +139,15 @@ router.get("/:id", async (req,res)=>{
     let revieNoCount = await query("mypageNoReviewCount",req.params.id)
     let lastOrder = await query("mypageLastOrder",req.params.id)
     res.send({userInfo,qnaNoCount,qnaYesCount,revieYesCount,revieNoCount,lastOrder}) 
+})
+
+router.delete("/wishDelete/:no", async (req,res)=>{
+    await query("mypageWishSelectDelete",req.params.no)
+    .then(result=>res.send(result))
+})
+router.delete("/orderDelete/:no", async (req,res)=>{
+    await query("mypageOrderDelete",req.params.no)
+    .then(result=>res.send(result))
 })
 
 module.exports = router;

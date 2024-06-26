@@ -26,6 +26,7 @@ app.use("/mypage/",mypageRouter)
 
 
 
+app.use('/upload', express.static('d:/upload'));
 app.use("/user",userRouter)
 // app.use("/",logRouter);
 app.use('/cart', cartRouter)

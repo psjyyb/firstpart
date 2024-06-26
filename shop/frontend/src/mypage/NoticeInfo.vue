@@ -6,7 +6,7 @@
                 <div class="flex-grow-1">
                     <h3 class="mb-0">{{notice.notice_title}}</h3>
                     <div class="subheading mb-3">{{notice.notice_content}}</div>
-                    <div>{{notice.notice_picture}}</div>
+                    <div><img :src="`/api/upload/${notice.notice_picture}`"></div>
                 </div>
                 <div class="flex-shrink-0"><span class="text-primary">{{notice.notice_date}}</span></div>
             </div>
@@ -28,7 +28,7 @@
     },
     methods:{
         goList(){
-            this.$router.push('/noticeList')
+            this.$router.push('/noticeList');
         }
     }
     }
