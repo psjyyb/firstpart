@@ -7,14 +7,14 @@
         <h2 class="display-3 fw-normal">Category Best</h2>
         <div class="mb-4 mb-md-0">
           <p class="m-0">
-            <button class="filter-button me-4  active" data-filter="*">ALL</button>
-            <button class="filter-button me-4 " data-filter=".cat">사료</button>
-            <button class="filter-button me-4 " data-filter=".dog">간식</button>
-            <button class="filter-button me-4 " data-filter=".bird">건강관리</button>
-            <button class="filter-button me-4 " data-filter=".poo">배변용품</button>
-            <button class="filter-button me-4 " data-filter=".toy">장난감</button>
-            <button class="filter-button me-4 " data-filter=".bath">미용/목욕</button>
-            <button class="filter-button me-4 " data-filter=".living">리빙</button>
+            <button class="filter-button me-4  active" data-filter="*" @click="allProduct">ALL</button>
+            <button class="filter-button me-4 " data-filter=".cat" @click="food">사료</button>
+            <button class="filter-button me-4 " data-filter=".dog" @click="treat">간식</button>
+            <button class="filter-button me-4 " data-filter=".bird" @click="health">건강관리</button>
+            <button class="filter-button me-4 " data-filter=".poo" @click="poo">배변용품</button>
+            <button class="filter-button me-4 " data-filter=".toy" @click="toy">장난감</button>
+            <button class="filter-button me-4 " data-filter=".bath" @click="bath">미용/목욕</button>
+            <button class="filter-button me-4 " data-filter=".living" @click="livin">리빙</button>
           </p>
         </div>
       </div>
@@ -127,9 +127,7 @@
                     <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
                   </a>
                 </div>
-
               </div>
-
             </div>
           </div>
         </div>
@@ -402,8 +400,35 @@ export default {
           isotope.arrange({ filter: filterValue });
         });
       });
-    }
+    },
+    allProduct(){
+
+    },
+    food(){
+
+    },
+    treat(){
+
+    },
+    health(){
+
+    },
+    poo(){
+
+    },
+    toy(){
+
+    },
+    bath(){
+
+    },
+    livin(){
+
+    },
+
   }
 };
+
+
 </script>
 <style></style>

@@ -65,26 +65,39 @@
     },
   };
   </script>
-  <style scoped>
-  .login-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-  }
-  
-  .login-box {
-      background: #fff;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-  }
-  
-  .login-wrapper {
-      text-align: center;
-  }
-  
-  #custom-login-btn img {
-      cursor: pointer;
-  }
-  </style>
+ <style scoped>
+ .login-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 20px;
+ }
+ 
+ .login-wrapper {
+   margin-bottom: 20px;
+ }
+ 
+ .login-button-container {
+   text-align: center;
+ }
+ 
+ #custom-login-btn {
+   display: inline-block;
+   cursor: pointer;
+   transition: transform 0.3s ease;
+ }
+ 
+ #custom-login-btn img {
+   border-radius: 10px;
+   transition: box-shadow 0.3s ease;
+ }
+ 
+ #custom-login-btn:hover {
+   transform: scale(1.05);
+ }
+ 
+ #custom-login-btn img:hover {
+   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+ }
+ </style>

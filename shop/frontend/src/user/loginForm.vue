@@ -1,115 +1,116 @@
 <template>
-    <div class="container">
-        <div v-if="account">
-            {{ account.userid }}
-            <button type="button" @click="logoutHandler">로그아웃</button>
-        </div>
-        <div v-else>
-            <label for="user_id">아이디</label>
-            <input v-model="form.user_id">
-            <br>
-            <label for="user_pw">비밀번호 </label>
-            <input v-model="form.user_pw" type="password">
-            <br>
-            <button type="button" @click="loginHandler">로그인</button>
-        </div>
+    <div class="auth-container">
+        <h2>LOGIN</h2>
+      <div v-if="account" class="user-info">
+        <p>{{ account.user_id }}</p>
+        <button class="btn" @click="logoutHandler">로그아웃</button>
+      </div>
+      <div v-else class="login-form">
+        <input class="input" type="text" placeholder="ID" v-model="form.user_id" />
+        <input class="input" type="password" placeholder="PASSWORD" v-model="form.user_pw" />
+        <button class="btn" @click="loginHandler">로그인</button>
+      </div>
+         <!-- 카카오 로그인 컴포넌트 -->
+         <kakaoLogin />
     </div>
-</template>
-
-<script>
+  </template>
+  
+  <script>
+import kakaoLogin from '@/components/kakaoLogin.vue'
 import axios from 'axios';
-
-export default {
+  export default {
+    components:{
+        kakaoLogin
+    },
     data() {
-        return {
-            form: { user_id: '', user_pw: '' },
+      return {
+        form: {
+          user_id: '',
+          user_pw: ''
         }
+      };
     },
     computed: {
-        account() {
-            return this.$store.state.user.userid
-        }
+      account() {
+        return this.$store.state.user.user_id;
+      }
     },
     created() {
-        axios.get("/api/account")
-            .then(result => {
-                this.$store.commit('user', result.data);
-            }).catch((err) => { console.log(err) });
+      axios.get("/api/user/account")
+        .then(result => {
+          this.$store.commit('user', result.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     methods: {
-        loginHandler() {
-            axios.post("/api/login", this.form)
-                .then((result) => {
-                    if (result.data.success) {
-                        this.$store.commit('user', result.data.user);
-                        alert('로그인 성공');
-                    } else {
-                        alert('로그인 실패: ' + result.data.message);
-                    }
-                })
-                .catch((err) => {
-                    console.error('로그인 실패:', err);
-                    alert('로그인 실패');
-                })
-        },
-        logoutHandler() {
-            axios.post("/api/logout")
-                .then(() => {
-                    this.$store.commit('user', {});
-                    alert('로그아웃');
-                })
-                .catch((err) => {
-                    console.error('로그아웃 실패:', err);
-                    alert('로그아웃 실패');
-                });
-        },
-    },
-}
-</script>
-
-<style scoped>
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-}
-
-label {
-    display: inline-block;
-    width: 100px;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-input {
-    margin-bottom: 12px;
-    width: calc(100% - 100px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.btn {
-    margin-top: 16px;
-    padding: 10px 15px;
-    background-color: #5bc0de;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #31b0d5;
-}
-
-form {
+      loginHandler() {
+        axios.post("/api/user/login", this.form)
+          .then(result => {
+            this.$store.commit('user', result.data);
+            console.log("성공");
+            alert('로그인 성공');
+          })
+          .catch(err => {
+            console.log(err);
+            alert('로그인 실패');
+          });
+      },
+      logoutHandler() {
+        axios.post("/api/user/logout")
+          .then(() => {
+            this.$store.commit('user', {});
+            alert('로그아웃');
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    }
+  };
+  </script>
+  
+  <style scoped>
+  .auth-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-}
-</style>
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .user-info {
+    text-align: center;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+  }
+  
+  .input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  </style>
+  
