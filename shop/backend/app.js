@@ -8,9 +8,11 @@ const fileStore = require('session-file-store')(session);
 const userRouter =	require("./routes/user.js");
 const cartRouter = require('./routes/cart.js')
 
-var path = require('path');
 const categoryRouter = require('./routes/category.js')
+const productRouter = require('./routes/product.js')
 
+
+var path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -49,6 +51,12 @@ app.use('/cart', cartRouter)
 
 
 app.use("/category",categoryRouter)
+
+
+app.use("/detail",productRouter)
+
+
+
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
 });

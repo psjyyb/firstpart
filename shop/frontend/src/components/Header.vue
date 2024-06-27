@@ -156,72 +156,14 @@
           </div>
 
           <div class="offcanvas-body justify-content-between">
-            <!-- <select class="filter-categories border-0 mb-0 me-5">
-              <option>Shop by Category</option>
-              <option>Clothes</option>
-              <option>Food</option>
-              <option>Food</option>
-              <option>Toy</option>
-            </select> -->
 
             <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
               
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
-                  aria-expanded="false">Pages</a>
-                <ul class="dropdown-menu" aria-labelledby="pages">
-                  <li><a href="about.html" class="dropdown-item">About Us<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="shop.html" class="dropdown-item">Shop<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="single-product.html" class="dropdown-item">Single Product<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="cart.html" class="dropdown-item">Cart<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="wishlist.html" class="dropdown-item">Wishlist<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="checkout.html" class="dropdown-item">Checkout<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="blog.html" class="dropdown-item">Blog<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="single-post.html" class="dropdown-item">Single Post<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="contact.html" class="dropdown-item">Contact<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="faqs.html" class="dropdown-item">FAQs<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="account.html" class="dropdown-item">Account<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="thank-you.html" class="dropdown-item">Thankyou<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="error.html" class="dropdown-item">Error 404<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                  <li><a href="styles.html" class="dropdown-item">Styles<span
-                        class="badge bg-success text-dark ms-2">PRO</span></a></li>
-                </ul>
-              </li> -->
-              <li class="nav-item">
-                <a href="shop.html" class="nav-link">사료</a>
+              <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no)">
+                <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
               </li>
-              <li class="nav-item">
-                <a href="blog.html" class="nav-link">간식</a>
-              </li>
-              <li class="nav-item">
-                <a href="contact.html" class="nav-link">건강관리</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">배변용품</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">장난감</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">미용/목욕</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">리빙</a>
-              </li>
-              
+
+
             </ul>
 
             <div class="d-none d-lg-flex align-items-end">
@@ -238,8 +180,7 @@
                 </li>
 
                 <li class="">
-                  <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                    aria-controls="offcanvasCart">
+                  <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                     <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                     <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
                       03
@@ -268,12 +209,25 @@
   </header>
 </template>
 <script>
+import axios from "axios";
+
     export default{
     data(){
-    return {};
+    return {
+      categoryList:[],
+    };
     },
-    created () {},
-    methods :{}
+    created () {
+      this.getCategoryList();
+    },
+    methods :{
+      async getCategoryList() {
+            let result = await axios.get(`/api/category`);
+            this.categoryList = result.data;
+        },
+      goToCategory(no) {
+            this.$router.push({ path: "/category", query: { no: no } });
+        },
+    }
         }
 </script>
-<style></style>

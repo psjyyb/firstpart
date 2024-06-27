@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProductCategory from '../category/ProductCategory.vue'
 import ProductDetail from '../category/ProductDetail.vue'
-import DetailTest from '../category/DetailTest.vue'
-
+import CartView from '../order/CartView.vue'
+import OrderView from '../order/OrderView.vue'
 //관리자
 import AdminPage from '../views/AdminPage.vue'
 
@@ -94,10 +94,6 @@ const routes = [
     name: 'mypageReviewList',
     component: MypageReviewList
   },
-{    path: '/test',
-    name: 'test',
-    component: DetailTest
-  },
   {
     path: '/category',
     name: 'ProductCategory',
@@ -132,6 +128,17 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+
+    path: '/order',
+    name: 'order',
+    component: OrderView
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView
   },
   {
     path: '/admin',
