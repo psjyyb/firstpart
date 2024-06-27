@@ -252,6 +252,11 @@
 
 
                 </li>
+                <li>
+                  <button type ="button"  @click="adminpage">
+                    <iconify-icon icon="mdi-account-convert" class="fs-4"></iconify-icon>
+                  </button>
+                </li>
               </ul>
 
             </div>
@@ -268,12 +273,26 @@
   </header>
 </template>
 <script>
-    export default{
+   export default{
     data(){
     return {};
     },
     created () {},
-    methods :{}
+    props:["isAdmin"],
+    methods :{
+
+      adminpage(){
+        this.$emit("change",true)
+      }
+
+
+    }
         }
 </script>
-<style></style>
+<style>
+button{
+  border: none;
+  background-color: white;
+}
+
+</style>

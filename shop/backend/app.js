@@ -2,7 +2,12 @@ const express = require("express");
 const port = 3000;
 const mypageRouter = require('./routes/mypage.js')
 
-
+//admin
+const adminmemberRouter = require('./routes/adminmember.js')
+const adminnoticeRouter = require('./routes/adminnotice.js')
+const adminorderRouter = require('./routes/adminorder.js')
+const adminproductRouter = require('./routes/adminproduct.js')
+const adminqaRouter = require('./routes/adminqa.js')
 //const wishRouter = require('./routes/wish.js')
 
 const userRouter =	require("./routes/user.js");
@@ -32,6 +37,13 @@ app.use("/mypage/",mypageRouter)
 app.use("/user",userRouter)
 // app.use("/",logRouter);
 
+//admin
+app.use("/adminmember",adminmemberRouter)
+app.use("/adminnotice",adminnoticeRouter)
+app.use("/adminorder",adminorderRouter)
+app.use("/adminproduct",adminproductRouter)
+app.use("/adminqa",adminqaRouter)
+//
 app.use(function(req, res, next) {
 	next(createError(404));
   });

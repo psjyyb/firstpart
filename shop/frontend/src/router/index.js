@@ -15,6 +15,13 @@ import MypageWishList from '../mypage/MypageWishList.vue'
 import MypageQnAList from '../mypage/MypageQnAList.vue'
 import MypageReviewList from '../mypage/MypageReviewList.vue'
 
+import AdminProductPage from '../views/AdminProductPage.vue'
+import AdminMemberPage from '../views/AdminMemberPage.vue'
+import AdminOrderPage from '../views/AdminOrderPage.vue'
+import AdminNoticePage from '../views/AdminNoticePage.vue'
+import AdminQaPage from '../views/AdminQaPage.vue'
+
+
 import joinForm from '../user/joinForm.vue'
 
 const routes = [
@@ -89,6 +96,31 @@ const routes = [
     name: 'AdminPage',
     component: AdminPage,
     meta: { isAdmin: true }
+  },
+  {
+    path: '/adminproduct',
+    name: 'AdminProductPage',
+    component: AdminProductPage
+  },
+  {
+    path: '/adminmember',
+    name: 'AdminMemberPage',
+    component: AdminMemberPage
+  },
+  {
+    path: '/adminorder',
+    name: 'AdminOrderPage',
+    component: AdminOrderPage
+  },
+  {
+    path: '/adminnotice',
+    name: 'AdminNoticePage',
+    component: AdminNoticePage
+  },
+  {
+    path: '/adminqa',
+    name: 'AdminQaPage',
+    component: AdminQaPage
   },
 ]
 

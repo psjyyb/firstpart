@@ -19,7 +19,7 @@
         </nav>
 </template>
 <style scoped>
-@import "startbootstrap-resume/dist/css/styles.css";
+/* @import "startbootstrap-resume/dist/css/styles.css";
 @import "bootstrap";
-@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap/dist/css/bootstrap.min.css"; */
 </style>
