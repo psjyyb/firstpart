@@ -19,18 +19,29 @@
       @click ="goToDetail(board.no )" 	   >
       <td	>{{board.no }}</td	>
      </tr	> -->
-     <tr v-for="order in orders">
+     <tr :key="i" v-for="(order,i) in orders">
                     <td>{{ order.order_detail_No }}</td>
                     <td>{{ order.product_img }}</td>
                     <td>{{ order.product_name }}</td>            
                     <td>{{ order.order_cnt }}</td>
                     <td>{{ order.product_price }}</td>
-                    <td>{{order.order_cnt*order.product_price  }}</td>
+                    <td>{{ order.order_cnt*order.product_price  }}</td>
+                    <td>
+                        <select v-model="order.order_status" @change="change_order_status(i,order.order_status)">
+                          <option value="1">결제완료</option>
+                          <option value="2">상품준비중</option>
+                          <option value="3">배송중</option>
+                          <option value="4">배송완료</option>
+                          <option value="5">구매확정</option>
+                        </select>
+
+                    </td>
+                    <!-- 
                     <td v-if="order.order_status==1">결제완료</td>
                     <td v-else-if="order.order_status==2">상품준비중</td>
                     <td v-else-if="order.order_status==3">배송중</td>
                     <td v-else-if="order.order_status==4">배송완료</td>
-                    <td v-else-if="order.order_status==5">구매확정</td>                                   
+                    <td v-else-if="order.order_status==5">구매확정</td>                                    -->
                 </tr>
     </tbody	>
    </table	>
@@ -48,6 +59,7 @@ export	default {
   data ()	{
    return {
     orders:{},
+    
     pageUnit:5,
     page:{}
    };
@@ -75,6 +87,18 @@ export	default {
   //  getDateFormat(date )	{
   //   return this.$dateFormat(date );
     },
+    
+    async change_order_status(i,order_status){
+        console.log(this.orders[i]);
+        console.log(order_status);
+        let orderstate={no:this.orders[i].order_detail_No,state:order_status}
+        console.log(orderstate);
+      
+        let result = (await axios.put(`/api/adminorder/orderstate/`,orderstate)).data;
+
+      }
+
+    ,
   },
 };
 </script	>

@@ -34,4 +34,11 @@ module .exports =	{
    `,
    AdminqnaListCount:`select count(*) as cnt 
    from qna`,
+   AdminstateUpdate:`UPDATE orders
+   SET order_status =	?	
+   WHERE	order_no	=	(SELECT order_no
+   FROM order_detail
+   WHERE order_detail_No= ?)
+   `
+,
 };

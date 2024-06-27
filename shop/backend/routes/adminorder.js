@@ -16,5 +16,11 @@ router.get("/orderList/",async(req,res )=> {
     res.send({list,count})
 });
 
+router.put("/orderstate/",	async (req ,	res )	=> {
+    
+    let result =	await query("AdminstateUpdate",	[req.body.state,req.body.no]);
+    res.send(result);
+});
+
 
 module.exports =router ;
