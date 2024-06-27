@@ -21,7 +21,7 @@
                 <tr v-for="cart in carts">
                     <!-- <td><input type="checkbox" v-model="c.selected" @change="AllChecked"></td> -->
                     <td>{{cart.cart_no}}</td>
-                    <td>{{cart.product_img}}</td>
+                    <td><img width="64"height="64":src="`/api/upload/${cart.product_img}`"></td>
                     <td>{{cart.product_name}}</td>
                     <td>{{cart.product_price}}</td>
                     <td>{{cart.cart_cnt}}</td>
