@@ -26,8 +26,8 @@
                     <td>{{cancel.cancel_no}}</td>
                     <td>{{cancel.cancel_date}}</td>
                     <td>{{ cancel.pay_price }}</td>
-                    <td v-if="cancel.cancel_state==1">취소요청</td>
-                    <td v-else>취소완료</td>
+                    <td v-if="cancel.cancel_state==1">취소요청<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
+                    <td v-else>취소완료<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
                 </tr>
             </tbody>
         </table>
@@ -81,6 +81,11 @@
         console.log('cancels',result)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+    },
+    goInfo(no){
+        this.$router.push({
+                name: 'mypageCancelInfo', query: {no: no}
+            });
     }
     }
     }
