@@ -4,8 +4,6 @@ import HomeView from '../views/HomeView.vue'
 import ProductCategory from '../category/ProductCategory.vue'
 import ProductDetail from '../category/ProductDetail.vue'
 import ProductSearch from '../category/ProductSearch.vue'
-import CartView from '../order/CartView.vue'
-import OrderView from '../order/OrderView.vue'
 //관리자
 import AdminPage from '../views/AdminPage.vue'
 

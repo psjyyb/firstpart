@@ -19,7 +19,6 @@ function query(alias, values ){// DB에 쿼리문을 보내는 부분
             reject({err});
         }else{
         resolve(result);
-        
         }
     }))
 }
@@ -61,35 +60,32 @@ function query(alias, values ){// DB에 쿼리문을 보내는 부분
 
 
 
-const mysql2 = require('mysql2/promise');
-const { DBHostType, dbConfig } = require('./sql.js');
+// const mysql2 = require('mysql2/promise');
+// const { DBHostType, dbConfig } = require('./sql.js');
 
-const transaction = async (dbHost) => {
-  const pool = mysql2.createPool(dbConfig(dbHost));
-  const conn = await pool.getConnection();
-  await conn.beginTransaction();
+// const transaction = async (dbHost) => {
+//   const pool = mysql2.createPool(dbConfig(dbHost));
+//   const conn = await pool.getConnection();
+//   await conn.beginTransaction();
   
-  const UPDATE_TEST_QUERY = 
-    `UPDATE test
-     SET t1 = 123
-     WHERE t2 = 'test'`;
+//   const UPDATE_TEST_QUERY = ``;
   
-  // 에러가 발생하는 쿼리
-  const UPDATE_TEST_QUERY2 = '';
+//   // 에러가 발생하는 쿼리
+//   const UPDATE_TEST_QUERY2 = '';
 
-  if (conn) {
-    try {
-      await conn.query(UPDATE_TEST_QUERY);
-      await conn.query(UPDATE_TEST_QUERY2); // 에러발생
-      await conn.commit();
-    } catch (err) {
-      console.error(`Transaction error: ${err.message}`);
-      await conn.rollback();
-    } finally {
-      conn.release();
-    }
-  }
-};
+//   if (conn) {
+//     try {
+//       await conn.query(UPDATE_TEST_QUERY);
+//       await conn.query(UPDATE_TEST_QUERY2); // 에러발생
+//       await conn.commit();
+//     } catch (err) {
+//       console.error(`Transaction error: ${err.message}`);
+//       await conn.rollback();
+//     } finally {
+//       conn.release();
+//     }
+//   }
+// };
 
-module.exports = transaction;
+// module.exports = transaction;
 module.exports =query;

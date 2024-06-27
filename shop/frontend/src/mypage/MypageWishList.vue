@@ -3,7 +3,7 @@
     <div id="padd">
     <div class="wish-title st-wish-title">
         <h3 class="sr-only">♥찜한 상품♥</h3>
-    <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span>
+    <!-- <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span> -->
     </div>
   <div>
         <table class="table table-success table-striped-columns">

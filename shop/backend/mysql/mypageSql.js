@@ -173,6 +173,29 @@ module.exports = {
                                 order_no
                             from product p join order_detail d
                             on p.product_no=d.product_no
-                            where d.product_no= ?`
+                            where d.product_no= ?`,
+    mypageReviewInsert:`insert into review(
+                                            order_no,
+                                            review_content,
+                                            review_score,
+                                            product_no,
+                                            user_id
+                                            )
+                                            values (?,?,?,?,?)`,
+    // mypageReviewNo:`select 
+    //                     review_no
+    //                 from review where order_no= ? 
+    //                 and review_content= ? 
+    //                 and review_score= ? 
+    //                 and product_no = ? 
+    //                 and user_id= ?`,
+    mypageReviewImg:`insert into addFile(
+                                        add_name,
+                                        table_class,
+                                        table_no,
+                                        turn,
+                                        temName
+                                        )
+                     values(?,?,?,?,?)`
 
 }
