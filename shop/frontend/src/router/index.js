@@ -30,6 +30,10 @@ import AdminOrderPage from '../views/AdminOrderPage.vue'
 import AdminNoticePage from '../views/AdminNoticePage.vue'
 import AdminQaPage from '../views/AdminQaPage.vue'
 
+// 주문결제
+import CartView from '../order/CartView.vue'
+import OrderView from '../order/OrderView.vue'
+
 
 import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
@@ -152,6 +156,16 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: CartView
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: OrderView
   },
   {
     path: '/admin',

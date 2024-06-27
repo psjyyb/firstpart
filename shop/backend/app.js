@@ -14,6 +14,7 @@ const fileStore = require('session-file-store')(session);
 
 const userRouter =	require("./routes/user.js");
 const cartRouter = require('./routes/cart.js')
+const orderRouter = require('./routes/order.js')
 
 const categoryRouter = require('./routes/category.js')
 // const productRouter = require('./routes/product.js')
@@ -51,6 +52,7 @@ app.use("/mypage/",mypageRouter)
 app.use('/upload', express.static('d:/upload'));
 app.use('/user',userRouter)
 app.use('/cart', cartRouter)
+app.use('/order', orderRouter)
 
 // app.use(function(req, res, next) {
 // 	next(createError(404));
