@@ -22,6 +22,10 @@ import MypageCartList from '../mypage/MypageCartList.vue'
 import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
 import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
 
+// 주문결제
+import CartView from '../order/CartView.vue'
+import OrderView from '../order/OrderView.vue'
+
 
 import joinForm from '../user/joinForm.vue'
 
@@ -109,6 +113,16 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: OrderView
   },
   {
     path: '/admin',

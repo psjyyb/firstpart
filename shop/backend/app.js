@@ -5,6 +5,7 @@ const mypageRouter = require('./routes/mypage.js')
 const userRouter =	require("./routes/user.js");
 // const logRouter = require("./routes/logcontrol.js")
 const cartRouter = require('./routes/cart.js')
+const orderRouter = require('./routes/order.js')
 
 var path = require('path');
 const categoryRouter = require('./routes/category.js')
@@ -30,6 +31,7 @@ app.use('/upload', express.static('d:/upload'));
 app.use("/user",userRouter)
 // app.use("/",logRouter);
 app.use('/cart', cartRouter)
+app.use('/order', orderRouter)
 
 // app.use(function(req, res, next) {
 // 	next(createError(404));
