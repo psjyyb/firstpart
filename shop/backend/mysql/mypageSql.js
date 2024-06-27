@@ -70,7 +70,7 @@ module.exports = {
                         from qna where user_id=?`,
     //작성가능리뷰
     mypageYesReviewList: `SELECT d.order_no, d.product_no, p.product_name,
-                            p.product_img, p.product_price,order_date 
+                            p.product_img, p.product_price,order_date
                             FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
                             JOIN product p ON p.product_no = d.product_no 
                             LEFT JOIN review r ON r.order_no = d.order_no 
@@ -83,7 +83,7 @@ module.exports = {
                             AND r.product_no = d.product_no 
                             WHERE o.user_id = ? AND r.review_no IS NULL`,
     //작성한 리뷰
-    mypageNoReviewList: `SELECT d.order_no, d.product_no, p.product_name, p.product_img, p.product_price,review_date
+    mypageNoReviewList: `SELECT d.order_no, d.product_no, p.product_name, p.product_img, p.product_price,review_date,review_score
                             FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
                             JOIN product p ON p.product_no = d.product_no 
                             JOIN review r ON r.order_no = d.order_no
@@ -164,5 +164,15 @@ module.exports = {
                         c.cancel_no = ?`,
     mypageWishSelectDelete:`delete from wish where wish_no = ?`,
     //mypageOrderDelete:``
+    
+    mypageReviewInsertInfo:`select
+                                product_name,
+                                p.product_price,
+                                product_img,
+                                order_cnt,
+                                order_no
+                            from product p join order_detail d
+                            on p.product_no=d.product_no
+                            where d.product_no= ?`
 
 }
