@@ -187,56 +187,32 @@
     </div>
   </header>
 </template>
-<script>
-   export default{
-import axios from "axios";
 
-    export default{
+<script>
+import axios from "axios";
+export default{
     data(){
     return {
       categoryList:[],
-      // keyword : ''
       keyword: this.$route.query.keyword
     };
     },
-    created () {},
-    props:["isAdmin"],
-    methods :{
-
-      adminpage(){
-        this.$emit("change",true)
-      }
-
-
-    }
-        }
-</script>
-<style>
-button{
-  border: none;
-  background-color: white;
-}
-
-</style>
     created () {
       this.getCategoryList();
     },
-    watch: {
-      '$route.query.keyword': {
-        handler: 'searchProductList',
-        immediate: true
-      }
-    },
+    props:["isAdmin"],
     methods :{
+      adminpage(){
+        this.$emit("change",true)
+      },
       async getCategoryList() {
-            let result = await axios.get(`/api/category`);
-            this.categoryList = result.data;
-        },
+        let result = await axios.get(`/api/category`);
+        this.categoryList = result.data;
+      },
       goToCategory(no) {
             this.$router.push({ path: "/category", query: { no: no } });
         },
       nameSearch(keyword){
-        // this.$router.push({ path: "/search", query : { name : name }})
         if (keyword !== ''){ 
           this.$router.push({ path: "/search", query: { keyword : keyword } });
           console.log('"',keyword,'"' + ' 검색')
@@ -244,7 +220,24 @@ button{
           alert('검색어를 입력해주세요!')  
       }
     },
-  }
+    watch: {
+      '$route.query.keyword': {
+        handler: 'searchProductList',
+        immediate: true
+      }
+    },
+    }
+        }
+</script>
+
+<style>
+button{
+  border: none;
+  background-color: white;
 }
 
-</script>
+</style>
+
+
+
+
