@@ -16,7 +16,7 @@ const userRouter =	require("./routes/user.js");
 const cartRouter = require('./routes/cart.js')
 
 const categoryRouter = require('./routes/category.js')
-const productRouter = require('./routes/product.js')
+// const productRouter = require('./routes/product.js')
 
 
 var path = require('path');
@@ -58,9 +58,7 @@ app.use('/cart', cartRouter)
 
 
 app.use("/category",categoryRouter)
-
-
-app.use("/detail",productRouter)
+// app.use("/detail",productRouter)
 
 //admin
 app.use("/adminmember",adminmemberRouter)

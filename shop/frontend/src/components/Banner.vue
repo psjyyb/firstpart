@@ -15,7 +15,7 @@
                 <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
                     pets</span>
                 </h2>
-                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                <a href="/category?no=5" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
                   <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                     <use xlink:href="#arrow-right"></use>
@@ -34,7 +34,7 @@
                 <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
                     pets</span>
                 </h2>
-                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                <a href="/category?no=1" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
                   <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                     <use xlink:href="#arrow-right"></use>
@@ -53,7 +53,7 @@
                 <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
                     pets</span>
                 </h2>
-                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                <a href="/category?no=7" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
                   <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                     <use xlink:href="#arrow-right"></use>
@@ -63,7 +63,6 @@
             </div>
           </div>
         </div>
-
         <div class="swiper-pagination mb-5 swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
           <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
             aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0"
@@ -73,7 +72,6 @@
       </div>
     </div>
   </section>
-
 </template>
 <script>
 
