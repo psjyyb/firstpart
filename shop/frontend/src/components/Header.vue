@@ -94,7 +94,7 @@
         <div
           class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
           <div class="support-box text-end d-none d-xl-block">
-            <a href="#" class="nav-link">로그인</a>
+            <a href="/loginForm" class="nav-link">로그인</a>
           </div>
           <div class="support-box text-end d-none d-xl-block">
             <a href="/joinForm" class="nav-link">회원가입</a>

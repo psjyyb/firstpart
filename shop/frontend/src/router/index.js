@@ -24,8 +24,31 @@ import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
 
 
 import joinForm from '../user/joinForm.vue'
-
+import loginForm from '../user/loginForm.vue'
+import userCheck from '../user/userCheck.vue'
+import FindId from '@/user/FindId.vue'
+import FindPw from '@/user/FindPw.vue'
 const routes = [
+  {
+    path: '/FindId',
+    name: 'FindId',
+    component: FindId
+  },
+  {
+    path: '/FindPw',
+    name: 'FindPw',
+    component: FindPw
+  },
+  {
+    path: '/userCheck',
+    name: 'userCheck',
+    component: userCheck
+  },
+  {
+    path: '/loginForm',
+    name: 'loginForm',
+    component: loginForm
+  },
   {
     path: '/joinForm',
     name: 'joinForm',
