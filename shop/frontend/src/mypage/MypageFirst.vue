@@ -1,7 +1,12 @@
 <template>
     <!-- <Header /> -->
+
      <SideVar></SideVar>
+    <div id="padd">
+    <SideVar></SideVar>
+    <SideVar/>
     <div>
+
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
@@ -9,15 +14,15 @@
             <div class="con">
                 <h3>상품 Q&amp;A</h3>
                 <ul>
-                    <li>답변 처리중인 질문 <span><b><a href="#">{{ qnaNoCount }}</a></b>건</span></li>
-                    <li>답변 완료된 상담 <span><b><a href="#" title="답변 완료된 상담">{{ qnaYesCount }}</a></b>건</span></li>
+                    <li>답변 처리중인 질문 <span><b><a href="/mypageQnAList">{{ qnaNoCount }}</a></b>건</span></li>
+                    <li>답변 완료된 상담 <span><b><a href="/mypageQnAList" title="답변 완료된 상담">{{ qnaYesCount }}</a></b>건</span></li>
                 </ul>
             </div>
             <div class="con last">
                 <h3>리뷰</h3>
                 <ul>
-                    <li>작성한 리뷰 <span><b><a href="#" title="작성해주실 상품평">{{ reviewYesCount }}</a></b>건</span></li>
-                    <li>작성가능한 리뷰 <span><b><a href="#" title="작성하신 상품평">{{ reviewNoCount }}</a></b>건</span></li>
+                    <li>작성한 리뷰 <span><b><a href="/mypageReviewList" title="작성해주실 상품평">{{ reviewYesCount }}</a></b>건</span></li>
+                    <li>작성가능한 리뷰 <span><b><a href="/mypageReviewList" title="작성하신 상품평">{{ reviewNoCount }}</a></b>건</span></li>
                 </ul>
             </div>
         </div>
@@ -48,13 +53,19 @@
                 </table>
             </div>
         </div>
+        </div>
     </div>
+    <!-- <Footer /> -->
 </template>
 <script>
+
+import Header from "@/components/Header.vue"
+import Footer from "@/components/Footer.vue"
 import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{
-        components: { SideVar },
+        components: { Header, Footer,SideVar },
+
     data(){
      return {
         id:9999,
@@ -83,4 +94,8 @@ import axios from 'axios'
     }
     }
 </script>
-<style></style>
+<style>
+#padd{
+    padding-left: 14.3%;
+}
+</style>

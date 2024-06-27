@@ -1,10 +1,12 @@
 <template>
     <SideVar/>
+    <div id="padd">
     <div>
         <yesReview/>
     </div>
     <div>
         <noReview/>
+    </div>
     </div>
 </template>
 <script>

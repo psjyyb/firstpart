@@ -1,19 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import HomeView from '../views/HomeView.vue'
-import MypageView from '../mypage/MypageFirst.vue'
+import ProductCategory from '../category/ProductCategory.vue'
+import ProductDetail from '../category/ProductDetail.vue'
 import CartView from '../order/CartView.vue'
 import OrderView from '../order/OrderView.vue'
-
+//관리자
 import AdminPage from '../views/AdminPage.vue'
 
-import MypageNoReview from '../components/MypageNoReview.vue'
-import MypageYesReview from '../components/MypageYesReview.vue'
+// 마이페이지
+import MypageView from '../mypage/MypageFirst.vue'
 import MypageSideVar from '../components/SideVar.vue'
 import MypageOrderList from '../mypage/MypageOrderList.vue'
 import MypageCancelList from '../mypage/MypageCancelList.vue'
 import MypageWishList from '../mypage/MypageWishList.vue'
 import MypageQnAList from '../mypage/MypageQnAList.vue'
 import MypageReviewList from '../mypage/MypageReviewList.vue'
+import NoticeList from '../mypage/NoticeList.vue'
+import NoticeInfo from '../mypage/NoticeInfo.vue'
+import MypageCartList from '../mypage/MypageCartList.vue'
+import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
+import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
+
 
 import AdminProductPage from '../views/AdminProductPage.vue'
 import AdminMemberPage from '../views/AdminMemberPage.vue'
@@ -23,17 +31,40 @@ import AdminQaPage from '../views/AdminQaPage.vue'
 
 
 import joinForm from '../user/joinForm.vue'
-
+import loginForm from '../user/loginForm.vue'
+import userCheck from '../user/userCheck.vue'
+import FindId from '@/user/FindId.vue'
+import FindPw from '@/user/FindPw.vue'
 const routes = [
+  {
+    path: '/FindId',
+    name: 'FindId',
+    component: FindId
+  },
+  {
+    path: '/FindPw',
+    name: 'FindPw',
+    component: FindPw
+  },
+  {
+    path: '/userCheck',
+    name: 'userCheck',
+    component: userCheck
+  },
+  {
+    path: '/loginForm',
+    name: 'loginForm',
+    component: loginForm
+  },
   {
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
   },
   {
-    path: '/mypageReviewList',
-    name: 'mypageReviewList',
-    component: MypageReviewList
+    path: '/mypageWishList',
+    name: 'mypageWishList',
+    component: MypageWishList
   },
   {
     path: '/mypageQnAList',
@@ -41,9 +72,44 @@ const routes = [
     component: MypageQnAList
   },
   {
-    path: '/mypageWishList',
-    name: 'mypageWishList',
-    component: MypageWishList
+    path: '/noticeInfo',
+    name: 'noticeInfo',
+    component: NoticeInfo
+  },
+  {
+    path: '/noticeList',
+    name: 'noticeList',
+    component: NoticeList
+  },
+  {
+    path: '/mypageCancelInfo',
+    name: 'mypageCancelInfo',
+    component: MypageCancelInfo
+  },
+  {
+    path: '/mypageOrderInfo',
+    name: 'mypageOrderInfo',
+    component: MypageOrderInfo
+  },
+  {
+    path: '/mypageCartList',
+    name: 'mypageCartList',
+    component: MypageCartList
+  },
+  {
+    path: '/mypageReviewList',
+    name: 'mypageReviewList',
+    component: MypageReviewList
+  },
+  {
+    path: '/category',
+    name: 'ProductCategory',
+    component: ProductCategory
+  },
+  {
+    path: '/detail',
+    name: 'ProductDetail',
+    component: ProductDetail
   },
   {
     path: '/mypageCancelList',
@@ -54,16 +120,6 @@ const routes = [
     path: '/mypageOrderList',
     name: 'mypageOrderList',
     component: MypageOrderList
-  },
-  {
-    path: '/mypageNoReview',
-    name: 'mypageNoReview',
-    component: MypageNoReview
-  },
-  {
-    path: '/mypageYesReview',
-    name: 'mypageYesReview',
-    component: MypageYesReview
   },
   {
     path: '/mypageSideVar',
@@ -122,6 +178,7 @@ const routes = [
     name: 'AdminQaPage',
     component: AdminQaPage
   },
+  
 ]
 
 const router = createRouter({

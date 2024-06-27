@@ -4,49 +4,61 @@
             <label for="user_id">아이디</label>
             <input type="text" id="user_id" v-model="userInfo.user_id" required />
             <br>
-            <label for="user_pw">비밀번호 </label>
+            <label for="user_pw">비밀번호</label>
             <input type="password" id="user_pw" v-model="userInfo.user_pw" />
             <br>
+            <label for="user_pw2">비밀번호 확인</label>
+            <input type="password" id="user_pw2" v-model="userInfo.user_pw2" />
             <br>
-            <label for="user_pw2" @click="">비밀번호확인 </label>
-            <input type="password" id="user_pw2" />
-            <br>
-
-            <label for="user_name">이름 </label>
+            <label for="user_name">이름</label>
             <input type="text" id="user_name" v-model="userInfo.user_name" />
             <br>
             <!-- 우편번호 검색 컴포넌트 -->
             <DaumMap @address-selected="updateAddress" />
-
-            <label for="user_detail_addr">상세주소 </label>
+            <br>
+            <label for="user_detail_addr">상세주소</label>
             <input type="text" id="user_detail_addr" v-model="userInfo.user_detail_addr" />
             <br>
-            <label for="user_phone">전화번호 </label>
+            <label for="user_phone">전화번호</label>
             <input type="text" id="user_phone" v-model="userInfo.user_phone" />
             <br>
-            <label for="user_email">이메일 </label>
+            <label for="user_email">이메일</label>
             <input type="text" id="user_email" v-model="userInfo.user_email" />
             <br>
-            <button type="button" class="btn	btn-xs	btn-info" @click="joinUser()">
+            <button type="button" class="btn btn-xs btn-info" @click="joinUser()">
                 회원 가입
             </button>
             <!-- 카카오 로그인 컴포넌트 -->
-            <KakaoLogin />
+            <kakaoLogin /> 
+            <FindUsers />
         </form>
     </div>
 </template>
+
 <script>
 import DaumMap from '@/components/DaumMap.vue'
-import KakaoLogin from '@/components/kakaoLogin.vue'
+import kakaoLogin from '@/components/kakaoLogin.vue'
+import FindUsers from '@/components/FindUsers.vue'
 import axios from "axios";
+
 export default {
     components: {
-        DaumMap, KakaoLogin
+        DaumMap, kakaoLogin,FindUsers
     },
     data() {
         return {
             searchNo: "",
-            userInfo: [],
+            userInfo: {
+                user_id: '',
+                user_pw: '',
+                user_pw2: '',
+                user_name: '',
+                user_post: '',
+                user_address: '',
+                user_detail_addr: '',
+                user_phone: '',
+                user_email: ''
+            },
         };
     },
     computed: {},
@@ -56,7 +68,6 @@ export default {
             this.getuserInfo();
         }
     },
-
     methods: {
         updateAddress(data) {
             this.userInfo.user_post = data.postcode;
@@ -64,7 +75,7 @@ export default {
         },
         confirmPassword() {
             // 비밀번호 확인 메서드
-            if (this.userInfo.user_pw !== this.confirmPassword) {
+            if (this.userInfo.user_pw !== this.userInfo.user_pw2) {
                 alert('비밀번호가 일치하지 않습니다.');
                 return false;
             }
@@ -75,19 +86,22 @@ export default {
             this.userInfo = result.data[0];
         },
         async joinUser() {
-            const url = "/api/user";
+            if (!this.confirmPassword()) {
+                return;
+            }
+            const url = "/api/user/insert";
             let param = {
                 user_id: this.userInfo.user_id,
                 user_pw: this.userInfo.user_pw,
                 user_name: this.userInfo.user_name,
-                user_post: this.userInfo.user_post,
+                user_post: this.userInfo.user_post || 0,  // 기본값을 0으로 설정
                 user_address: this.userInfo.user_address,
                 user_detail_addr: this.userInfo.user_detail_addr,
                 user_phone: this.userInfo.user_phone,
-                user_post: this.userInfo.user_post,
                 user_email: this.userInfo.user_email
             };
 
+            console.log(param);  // 추가된 콘솔 로그
             const result = (await axios.post(url, param)).data;
             alert("회원가입에 성공하셨습니다");
         }

@@ -1,5 +1,6 @@
 <template>
     <SideVar/>
+    <div id="padd">
    <div class="notice_mydw">
         <ul>
             <li>주문취소는 주문접수, 결제완료 시점에서 전체취소만 가능하며, 이 외의 경우엔 고객센터(8509-3418)로 문의하시기 바랍니다.</li>
@@ -25,9 +26,9 @@
             </thead>
             <tbody>
                 <tr v-for="order in orders">
-                    <td>{{ order.product_images }}</td>
+                    <td><img width="64"height="64":src="`/api/upload/${order.product_images}`"></td>
                     <td>{{ order.order_date }}</td>
-                    <td>{{ order.product_names }}</td>
+                    <td @click="orderInfo(order.order_no)">{{ order.product_names }}</td>
                     <td v-if="order.order_status==1">결제완료</td>
                     <td v-else-if="order.order_status==2">상품준비중</td>
                     <td v-else-if="order.order_status==3">배송중</td>
@@ -35,7 +36,7 @@
                     <td v-else-if="order.order_status==5">구매확정</td>
                     <td v-else>배송지연</td>
                     <td>{{ order.product_count }}</td>
-                    <td><button>주문취소</button></td>
+                    <td><button type="button" class="btn btn-warning" v-if="order.order_status==1" @click="orderDel(order_no)">주문취소</button></td>
                 </tr>
             </tbody>
         </table>
@@ -60,6 +61,7 @@
             </ol>
         </div>
     </div>
+</div>
 </template>
 <script>
     import pageCalcMixin from '../mixin.js'
@@ -87,9 +89,20 @@
         let pageUnit =this.pageUnit;
         let result = await axios.get(`/api/mypage/orderList/?pageUnit=${pageUnit}&page=${page}&id=${this.id}`);
         this.orders = result.data.list;
-        console.log('orders',result.data.count[0].cnt)
+        console.log('orders',result.data)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+    },
+    orderInfo(no){
+        this.$router.push({
+                name: 'mypageOrderInfo', query: {no: no}
+            });
+    },
+    async orderDel(no){
+        // await axios.delete(`/api/mypage/orderDelete/`+no)
+        // .then(this.goPage(1))
+        // 삭제가 아니라 주문을 취소하게 되면 주문 테이블에서는 삭제가 되고
+        // 취소테이블에 해당 주문번호로 추가되어야한다//트랜잭션
     }
     }
     }

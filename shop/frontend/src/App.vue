@@ -13,6 +13,7 @@ import AdminHeader from "./components/AdminHeader.vue"
 import AdminFooter from "./components/AdminFooter.vue"
 import { useRouter, useRoute } from 'vue-router'
 
+
 export default {
   components: { Header, Footer, AdminHeader, AdminFooter },
   data(){
@@ -38,6 +39,8 @@ export default {
     }
   }
 };
+
+
 </script>
 
 
@@ -48,8 +51,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding: 0% !important;
   
 }
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: 300;
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    background: #eceef0;
+    border-radius: 10px;
+  }
 
 nav {
   padding: 30px;

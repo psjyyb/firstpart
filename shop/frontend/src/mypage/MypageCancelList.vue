@@ -1,5 +1,6 @@
 <template>
     <SideVar/>
+    <div id="padd">
     <div class="notice_mydw">
         <ul>
             <li>주문취소는 주문접수, 결제완료 시점에서 전체취소만 가능하며, 이 외의 경우(부분취소, 발송준비/발송완료 시점)엔 <b>고객센터(8509-3418)</b>로 문의하시기 바랍니다.</li>
@@ -25,8 +26,8 @@
                     <td>{{cancel.cancel_no}}</td>
                     <td>{{cancel.cancel_date}}</td>
                     <td>{{ cancel.pay_price }}</td>
-                    <td v-if="cancel.cancel_state==1">취소요청</td>
-                    <td v-else>취소완료</td>
+                    <td v-if="cancel.cancel_state==1">취소요청<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
+                    <td v-else>취소완료<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
                 </tr>
             </tbody>
         </table>
@@ -51,6 +52,7 @@
             </ol>
         </div>
     </div>
+</div>
 </template>
 <script>
     import pageCalcMixin from '../mixin.js'
@@ -79,8 +81,15 @@
         console.log('cancels',result)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+    },
+    goInfo(no){
+        this.$router.push({
+                name: 'mypageCancelInfo', query: {no: no}
+            });
     }
     }
     }
 </script>
-<style></style>
+<style>
+
+</style>
