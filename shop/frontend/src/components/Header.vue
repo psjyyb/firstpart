@@ -188,13 +188,10 @@
   </header>
 </template>
 <script>
-<<<<<<< HEAD
-   export default{
-=======
+
 import axios from "axios";
 
     export default{
->>>>>>> master
     data(){
     return {
       categoryList:[],
