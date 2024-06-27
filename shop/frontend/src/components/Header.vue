@@ -193,7 +193,7 @@ import axios from "axios";
 
     export default{
     data(){
-    return {
+      return {
       categoryList:[],
       // keyword : ''
       keyword: this.$route.query.keyword
@@ -207,7 +207,6 @@ import axios from "axios";
         this.$emit("change",true)
       }
 
-
     }
         }
 </script>
@@ -218,6 +217,7 @@ button{
 }
 
 </style>
+
     created () {
       this.getCategoryList();
     },

@@ -15,7 +15,7 @@
  	 </header>
  	</div>
 </template>
-<script	>
+<script>
 export	default {	 	
 			 name:	'Header'
 			,
@@ -25,19 +25,10 @@ export	default {
 adminpage(){
   this.$emit("change",false)
 }
-
-
 }
-			
-			
 			}
 
-
-
 </script>
-
-  
-</script	>
 
   <style scoped>
   /* 관리자 헤더 스타일 */
