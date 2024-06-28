@@ -151,7 +151,6 @@ const routes = [
     component: HomeView
   },
   {
-
     path: '/order',
     name: 'order',
     component: OrderView
