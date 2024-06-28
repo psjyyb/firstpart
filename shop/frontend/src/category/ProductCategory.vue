@@ -50,10 +50,8 @@
           </div>
           <!-- 상품1개 끝-->
       </div>
-
   </div>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -63,7 +61,6 @@ export default {
     components: {
   },
   data() {
-    
     return {
       searchNo: "",
       productList: [],
@@ -78,7 +75,7 @@ export default {
     '$route.query.no': {
       handler: 'getProductList',
       immediate: true
-    }
+    },
   },
   methods: {
     async getProductList() {

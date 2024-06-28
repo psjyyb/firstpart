@@ -151,14 +151,14 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/cart',
-    name: 'cart',
-    component: CartView
-  },
-  {
     path: '/order',
     name: 'order',
     component: OrderView
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: CartView
   },
   {
     path: '/admin',
