@@ -1,13 +1,10 @@
 <template>
     <div class="container">
         <div>Search result</div>
-
         <div class="offcanvas-body justify-content-between">
        상품갯수 :  {{ productCnt }}
-
       </div>
       <div class="offcanvas-body justify-content-between">
-        <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
         <b-breadcrumb>
             <b-breadcrumb-item @click="newItem">신상품순</b-breadcrumb-item>
             <b-breadcrumb-item @click="nameItem">상품 이름순</b-breadcrumb-item>
@@ -45,6 +42,7 @@
                   </div>
               </div>
           </div>
+
         </div>
     </div>
 </template>
@@ -55,8 +53,9 @@ import Swal from 'sweetalert2'
 export default{
     data(){
         return {
+            keyword : {},
             productList: [],
-            keyword : {}
+            productCnt : 0,
         };
     },
     created () {
@@ -72,13 +71,16 @@ export default{
     methods :{
         async searchProductList(){
             let result = await axios.get(`/api/category/search/${this.keyword}`);
-            this.productList = result.data;
+            this.productList = result.data.products;
+            this.productCnt = result.data.total;
+        },
+        goToDetail(no) {
+            this.$router.push({ path: "/detail", query: { no: no } });
         },
         newItem(){
         (this.productList).sort((a,b)=>{
             return b.product_no-a.product_no});
         },
-        //재고,입고로 계산처리 
         hotItem(){
             (this.productList).sort((a,b)=>{
                 return b.product_no-a.product_no});
@@ -99,7 +101,6 @@ export default{
                 return a.product_price-b.product_price});
         },
         wishGo(){
-        // this.$swal('Hello Vue world!!!');
         Swal.fire({
         position: "center",
         icon: "success",

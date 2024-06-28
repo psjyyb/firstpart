@@ -115,11 +115,15 @@ CSS STRUCTURE:
   --light-primary-color: #eef1f3;
 }
 
-/* Fonts */
+/* Fonts 폰트*/ 
 :root {
   --body-font: 'Chilanka', cursive;
-  --heading-font: 'Chilanka', cursive;
+  --heading-font: 'Chilanka', cursive;  
   --secondary-font: 'Montserrat', sans-serif;
+}
+.card-title{
+  font-family: "Gamja Flower", sans-serif;
+
 }
 
 
