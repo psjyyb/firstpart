@@ -97,10 +97,22 @@ module.exports = {
                             AND r.product_no = d.product_no 
                             WHERE o.user_id = ? AND r.review_no IS NULL`,
     //작성한 리뷰
-    mypageNoReviewList: `SELECT d.order_no, d.product_no, p.product_name, p.product_img, p.product_price,review_date,review_score,review_no
-                            FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
-                            JOIN product p ON p.product_no = d.product_no 
-                            JOIN review r ON r.order_no = d.order_no
+    mypageNoReviewList: `SELECT 
+                                d.order_no,
+                                d.product_no,
+                                p.product_name,
+                                p.product_img,
+                                p.product_price,
+                                review_date,
+                                review_score,
+                                review_no,
+                                review_content
+                            FROM orders o JOIN order_detail d
+                            ON o.order_no = d.order_no 
+                            JOIN product p 
+                            ON p.product_no = d.product_no 
+                            JOIN review r
+                            ON r.order_no = d.order_no
                             AND r.product_no = d.product_no
                             WHERE o.user_id = ? 
                             order by review_no desc limit ?,?`,

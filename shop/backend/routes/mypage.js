@@ -228,7 +228,30 @@ router.delete("/QnADelete/:no", async (req,res)=>{
     .catch(err=>console.log(err))
 })
 
+router.get("/reviewImg/:no", async (req,res)=>{
+    console.log('여기는.,.?')
+    await query("mypageSelectImg",req.params.no)
+    .then(result=>res.send(result))
+    .catch(err=>console.log(err))
+})
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
