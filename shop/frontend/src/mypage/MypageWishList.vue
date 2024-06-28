@@ -22,7 +22,7 @@
                     <td>
                         <p class="mb-0 mt-4"><input type="checkbox" v-model="wish.selected" @change="AllChecked"></p>
                     </td>
-                    <td><img :src="`/api/upload/${wish.product_img}`"></td>
+                    <td><img width="64"height="64":src="`/api/upload/${wish.product_img}`"></td>
                     <td>{{wish.product_name}}</td>
                     <td>{{wish.product_price}}</td>
                 </tr>

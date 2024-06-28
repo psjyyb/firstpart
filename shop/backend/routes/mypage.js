@@ -150,4 +150,15 @@ router.delete("/orderDelete/:no", async (req,res)=>{
     .then(result=>res.send(result))
 })
 
+router.get("/ReviewInsertInfo/:no",async (req,res)=>{
+    await query("mypageReviewInsertInfo",req.params.no)
+    .then(result=>res.send(result))
+})
+
+router.post("/ReviewInsert/",upload.array("files"), async (req, res) => {
+    let data = { ...req.body };
+    console.log(data)
+    console.log(req.files)
+
+});
 module.exports = router;

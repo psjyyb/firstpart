@@ -10,12 +10,14 @@ module.exports =	{
 	 //...wishSql, 
 }
 const cartSql = require('./cartSql.js')
+const orderSql = require('./orderSql.js')
 
-module.exports =	{
- ...cartSql,
- 	 ...mypageSql,
-	  ...productSql,
-	  ...userSql,
- }
+module.exports = {
+  ...cartSql,
+ 	...mypageSql,
+	...productSql,
+	...userSql,
+	...orderSql,
+}
 
 

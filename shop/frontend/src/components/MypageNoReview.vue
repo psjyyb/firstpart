@@ -1,10 +1,12 @@
 <template>
     <div>
       <h4>작성한 리뷰</h4>
+      
           <table class="table table-success table-striped-columns">
               <thead>
                   <tr>
                      <th>이미지</th>
+                     <th>별점</th>
                      <th>상품명</th>
                      <th>상품가격</th>
                      <th>작성일</th>
@@ -13,11 +15,12 @@
               </thead>
               <tbody>
                   <tr v-for="review in reviews">
-                      <td><img width="64"height="64":src="`/api/upload/${review.product_img}`">}</td>
+                      <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
+                      <td><div><template v-for="star in review.review_score">★</template></div></td>
                       <td>{{ review.product_name }}</td>
                       <td>{{ review.product_price }}</td>
                       <td>{{ review.review_date }}</td>
-                      <td><button>리뷰삭제</button></td>
+                      <td><button type="button" class="btn btn-danger">리뷰삭제</button></td>
                   </tr>
               </tbody>
           </table>
@@ -47,7 +50,7 @@
           let pageUnit =this.pageUnit;
           let result = await axios.get(`/api/mypage/NoReviewList/?pageUnit=${pageUnit}&page=${page}&id=${this.id}`);
           this.reviews = result.data.list;
-          console.log('reviews',result.data)
+          console.log('reviewssss',result.data)
           this.page =this.pageCalc(page,result.data.count[0].ncnt,5,pageUnit);
           console.log(this.page)
       }

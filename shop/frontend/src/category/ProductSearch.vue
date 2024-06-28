@@ -55,8 +55,9 @@ import Swal from 'sweetalert2'
 export default{
     data(){
         return {
+            keyword : {},
             productList: [],
-            keyword : {}
+            productCnt : 0,
         };
     },
     created () {
@@ -72,7 +73,11 @@ export default{
     methods :{
         async searchProductList(){
             let result = await axios.get(`/api/category/search/${this.keyword}`);
-            this.productList = result.data;
+            this.productList = result.data.products;
+            this.productCnt = result.data.total;
+        },
+        goToDetail(no) {
+            this.$router.push({ path: "/detail", query: { no: no } });
         },
         newItem(){
         (this.productList).sort((a,b)=>{
