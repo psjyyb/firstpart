@@ -345,8 +345,8 @@ export default{
           objectType: 'feed',
           content: {
             title: this.productInfo.product_name,
-            // description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
-            imageUrl: 'this.productInfo.product_img',
+            description: `${this.productInfo.product_price} 원`,
+            imageUrl: `http://localhost:8080/images/item13.jpg`,
             link: {
               mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
               webUrl: `http://localhost:8080/detail?no=${this.searchNo}`,

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve ",
     "build": "vue-cli-service build"
   },
   "dependencies": {
@@ -16,6 +16,8 @@
     "jarallax": "^2.2.1",
     "jquery": "^3.7.1",
     "lightbox": "^0.5.0",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "path": "^0.12.7",
     "startbootstrap-resume": "^7.0.6",
     "swiper": "^11.1.4",
