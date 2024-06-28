@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       const originalname = Buffer.from(file.originalname, 'latin1').toString('utf8'); // 파일 utf-8로 변환
+      //const temName=(file.originalname, 'latin1').toString('utf8'); // 파일 utf-8로 변환
       cb(null, Date.now() + '-' + originalname);
     }
   });
@@ -146,8 +147,18 @@ router.delete("/wishDelete/:no", async (req,res)=>{
     .then(result=>res.send(result))
 })
 router.delete("/orderDelete/:no", async (req,res)=>{
+    console.log('1번들어옴')
+    console.log(req.params.no)
     await query("mypageOrderDelete",req.params.no)
-    .then(result=>res.send(result))
+    .then(result=>console.log('2번들어옴'))
+    .catch(err=>console.log(err))
+   
+})
+router.post("/cancelInsert/",async (req,res)=>{
+    console.log(req.query.no,req.query.id)
+    await query("mypageCancelInsert",[req.query.no,req.query.id])
+    .then(result=>{console.log('3번들어옴'),res.send(result)})
+    .catch(err=>console.log(err))
 })
 
 router.get("/ReviewInsertInfo/:no",async (req,res)=>{
@@ -166,12 +177,57 @@ router.post("/ReviewInsert/",upload.array("files"), async (req, res) => {
         for(let i=1; i<req.files.length+1; i++){
             query("mypageReviewImg",[req.files[i-1].filename,review,result.insertId,i,req.files[i-1].originalname])
             .then(result=>res.send(result))
-            .catch(err=>{console.log(err),console.log(req.files[i].filename,review,result.data.insertId,i,req.files[i].originalname)})
+            .catch(err=>{console.log(err)})
         }
         
     })
     .catch(err=>console.log(err))
 });
+
+router.delete("/ReviewDelete/:no",async (req,res)=>{
+    await query("mypageReviewDelete",req.params.no)
+    .then(result=>res.send(result))
+    .catch(err=>console.log(err))
+    await query("mypageQnAImgDelete",req.params.no)
+    .then(result=>res.send(result))
+    .catch(err=>console.log(err))
+})
+
+router.get("/QnAInfo/:no", async (req,res)=>{
+   let info = await query("mypageQnAInfo",req.params.no)
+   let img = await query("mypageSelectImg",req.params.no)
+    res.send({info,img})
+    
+})
+
+router.post("/QnAInsert/",upload.array("files"), async (req, res) => {
+    let data = { ...req.body };
+    console.log(data)
+    console.log(req.files)
+    console.log(req.files.length)
+    //const originalname = Buffer.from(req.files.originalname, 'latin1').toString('utf8');
+    let qna = 'qna';
+    await query("mypageQnAinsert",[data.title,data.content,data.userId])
+    .then(result=>{console.log(result)
+        for(let i=1; i<req.files.length+1; i++){
+            query("mypageReviewImg",[req.files[i-1].filename,qna,result.insertId,i,req.files[i-1].originalname])
+            .then(result=>{console.log(result)})
+            .catch(err=>{console.log(err)})
+        }
+        
+    })
+    .catch(err=>console.log(err))
+});
+
+router.delete("/QnADelete/:no", async (req,res)=>{
+    await query("mypageQnADelete",req.params.no)
+    .then(result=>console.log(result))
+    .catch(err=>console.log(err))
+    await query("mypageQnAImgDelete",req.params.no)
+    .then(result=>console.log(result))
+    .catch(err=>console.log(err))
+})
+
 module.exports = router;
 
 

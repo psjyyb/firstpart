@@ -9,7 +9,7 @@ export default {
                 endIdx = lastPage;
             }
             console.log(firstPage, lastPage, startIdx, endIdx);
-            return {firstPage, lastPage, startIdx, endIdx };
+            return {currentPage,firstPage, lastPage, startIdx, endIdx };
         },
         // 00,000 정규표현식
         makeComma(val) {
