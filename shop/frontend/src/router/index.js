@@ -29,6 +29,7 @@ import AdminOrderPage from '../views/AdminOrderPage.vue'
 import AdminNoticePage from '../views/AdminNoticePage.vue'
 import AdminQaPage from '../views/AdminQaPage.vue'
 
+import ProductInsert from '../views/ProductInsert.vue'
 
 import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
@@ -177,6 +178,11 @@ const routes = [
     path: '/adminqa',
     name: 'AdminQaPage',
     component: AdminQaPage
+  },
+  {
+    path: '/insertproduct',
+    name: 'ProductInsert',
+    component: ProductInsert
   },
   
 ]

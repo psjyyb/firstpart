@@ -214,13 +214,7 @@
   </header>
 </template>
 <script>
-<<<<<<< HEAD
    export default{
-=======
-import axios from "axios";
-
-    export default{
->>>>>>> master
     data(){
     return {
       categoryList:[],
@@ -245,17 +239,4 @@ button{
 }
 
 </style>
-    created () {
-      this.getCategoryList();
-    },
-    methods :{
-      async getCategoryList() {
-            let result = await axios.get(`/api/category`);
-            this.categoryList = result.data;
-        },
-      goToCategory(no) {
-            this.$router.push({ path: "/category", query: { no: no } });
-        },
-    }
-        }
-</script>
+   

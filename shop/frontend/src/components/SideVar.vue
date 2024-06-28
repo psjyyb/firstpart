@@ -29,7 +29,7 @@
 /* @import "startbootstrap-resume/dist/css/styles.css";
 @import "bootstrap";
 @import "bootstrap/dist/css/bootstrap.min.css"; */
-</style>
+
 @charset "UTF-8";
 /*!
 * Start Bootstrap - Resume v7.0.6 (https://startbootstrap.com/theme/resume)

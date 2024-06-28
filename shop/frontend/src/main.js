@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import vuetify from './plugins/vuetify'
 // jQuery와 Isotope 임포트
 // import InfiniteLoading from "v3-infinite-loading";
 // import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
@@ -11,7 +11,7 @@ import store from './store'
 import $ from 'jquery'
 import Isotope from 'isotope-layout'
 
-
+import mixins from "./mixin.js";
 // app.component('infinite-loading', InfiniteLoading)
 
 // import InfiniteLoading from 'vue-infinite-loading';
@@ -28,6 +28,6 @@ $.fn.isotope = function (options) {
 }
 
 // component('InfiniteLoading', InfiniteLoading)
-createApp(App).use(store).use(router).mount('#app')
+createApp(App).use(store).use(router).use(vuetify).use(mixins).mount('#app')
 
 window.Kakao.init("e440154fb509449508e887c15f543fe1");

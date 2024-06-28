@@ -37,9 +37,5 @@ adminpage(){
 </script>
 
   
-</script	>
 
-  <style scoped>
-  /* 관리자 헤더 스타일 */
-  </style>
   

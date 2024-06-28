@@ -1,4 +1,4 @@
-module .exports =	{
+module.exports =	{
    AdminproductList:`select p.product_no,p.product_name,p.product_price,p.product_img,p.product_mfd,p.product_exp,c.category_name,p.storage_cnt,p.stock_cnt,p.product_point
    from product p 
    LEFT JOIN category c ON p.category_no = c.category_no
@@ -12,15 +12,13 @@ module .exports =	{
    limit ?,?`,
    AdminuserListCount:`select count(*) as cnt 
    from user`,
-   AdminuserOrderList:`select d.order_detail_No , p.product_img,p.product_name,  d.order_cnt,d.product_price,o.order_status
-   from order_detail d 
-   LEFT JOIN product p ON d.product_no = p.product_no 
-   LEFT JOIN orders o ON d.order_no = o.order_no
-   order by d.order_detail_No desc 
+   AdminuserOrderList:`select order_no,order_date,user_id,pay_price,order_status
+   from orders
+   order by order_no desc 
    limit ?,?`
    ,
    AdminuserOrderListCount:`select count(*) as cnt 
-   from order_detail`,
+   from orders`,
    AdminnoticeList:`select notice_no,notice_title,notice_date 
    from notice
    order by notice_no desc 
@@ -36,9 +34,7 @@ module .exports =	{
    from qna`,
    AdminstateUpdate:`UPDATE orders
    SET order_status =	?	
-   WHERE	order_no	=	(SELECT order_no
-   FROM order_detail
-   WHERE order_detail_No= ?)
+   WHERE	order_no	=	 ?
    `
 ,
 };
