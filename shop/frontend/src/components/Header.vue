@@ -1,74 +1,7 @@
 <template>
-
-
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
-    <div class="offcanvas-header justify-content-center">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
-          <span class="badge bg-primary rounded-circle pt-2">3</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Grey Hoodie</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$12</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Dog Food</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Soft Toy</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span class="fw-bold">Total (USD)</span>
-            <strong>$20</strong>
-          </li>
-        </ul>
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch"
-    aria-labelledby="Search">
-    <div class="offcanvas-header justify-content-center">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-
-      <div class="order-md-last">
-        <h4 class="text-primary text-uppercase mb-3">
-          Search
-        </h4>
-        <div class="search-bar border rounded-2 border-dark-subtle">
-          <form id="search-form" class="text-center d-flex align-items-center" action="" method="">
-            <input type="text" class="form-control border-0 bg-transparent" placeholder="Search Here" />
-            <iconify-icon icon="tabler:search" class="fs-4 me-3"></iconify-icon>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-    <header>
+  <header>
     <div class="container py-2">
-      <div class="row py-4 pb-0 pb-sm-4 align-items-center ">
+      <div class="row py-4 pb-0 pb-sm-4 align-items-center">
 
         <div class="col-sm-4 col-lg-3 text-center text-sm-start">
           <div class="main-logo">
@@ -91,15 +24,17 @@
           </div>
         </div>
 
-        <div
-          class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
-          <div class="support-box text-end d-none d-xl-block">
-            <a href="/loginForm" class="nav-link">로그인</a>
+        <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
+          <div class="d-none d-xl-block">
+            <!-- 로그인 상태에 따라 로그아웃 또는 로그인 링크를 표시 -->
+            <div class="support-box text-end">
+      <a v-if="isLoggedIn" @click="handleLogout" class="nav-link">로그아웃</a>
+      <router-link v-else to="/loginForm" class="nav-link">로그인</router-link>
+    </div>
           </div>
           <div class="support-box text-end d-none d-xl-block">
             <a href="/joinForm" class="nav-link">회원가입</a>
           </div>
-
         </div>
       </div>
     </div>
@@ -158,12 +93,9 @@
           <div class="offcanvas-body justify-content-between">
 
             <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
-              
               <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no)">
                 <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
               </li>
-
-
             </ul>
 
             <div class="d-none d-lg-flex align-items-end">
@@ -180,21 +112,18 @@
                 </li>
 
                 <li class="">
-                  <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                  <a href="/cart" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                     <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                     <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
                       03
                     </span>
                   </a>
                 </li>
-                <li>
-                  <!-- 여기 -->
+                <li v-if="isLoggedIn">
+                  <!-- 로그인 상태에 따라 공지사항 또는 다른 메뉴 표시 -->
                   <a href="noticeList" class="nav-link">공지사항</a>
-
-
                 </li>
               </ul>
-
             </div>
 
           </div>
@@ -202,32 +131,51 @@
         </div>
 
       </nav>
-
-
-
     </div>
   </header>
 </template>
+
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import axios from "axios";
 
-    export default{
-    data(){
+export default {
+  data() {
     return {
-      categoryList:[],
+      categoryList: [],
     };
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+
+  },
+  methods: {
+    ...mapActions(['logoutUser']),
+    async handleLogout() {
+      try {
+        await this.logoutUser();
+        alert('로그아웃되었습니다.');
+        this.$router.push({ name: 'home' });
+      } catch (error) {
+        console.error('로그아웃 오류:', error);
+        alert('로그아웃 중 오류가 발생했습니다.');
+      }
     },
-    created () {
-      this.getCategoryList();
+  
+    async getCategoryList() {
+      try {
+        let result = await axios.get(`/api/category`);
+        this.categoryList = result.data;
+      } catch (error) {
+        console.error("Error fetching category list:", error);
+      }
     },
-    methods :{
-      async getCategoryList() {
-            let result = await axios.get(`/api/category`);
-            this.categoryList = result.data;
-        },
-      goToCategory(no) {
-            this.$router.push({ path: "/category", query: { no: no } });
-        },
-    }
-        }
+    goToCategory(no) {
+      this.$router.push({ path: "/category", query: { no: no } });
+    },
+  },
+  created() {
+    this.getCategoryList();
+  },
+};
 </script>

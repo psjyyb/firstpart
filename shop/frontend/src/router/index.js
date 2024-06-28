@@ -27,7 +27,8 @@ import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
 import userCheck from '../user/userCheck.vue'
 import FindId from '@/user/FindId.vue'
-import FindPw from '@/user/FindPw.vue'
+import FindPw  from '@/user/FindPw.vue'
+
 const routes = [
   {
     path: '/FindId',
