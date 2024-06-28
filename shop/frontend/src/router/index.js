@@ -163,7 +163,6 @@ const routes = [
     component: HomeView
   },
   {
-
     path: '/order',
     name: 'order',
     component: OrderView
@@ -172,16 +171,6 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: CartView
-  },
-  {
-    path: '/cart',
-    name: 'cart',
-    component: CartView
-  },
-  {
-    path: '/order',
-    name: 'order',
-    component: OrderView
   },
   {
     path: '/admin',

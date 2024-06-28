@@ -161,12 +161,16 @@
       },
       // 선택 상품 주문
       order() {
-        this.$router.push({
-          name: 'order', 
-          state: {
-            cartNo: this.checkedCart.toString()
-          }
-        })
+        if(this.checkedCart.length == 0) {
+          alert('주문할 상품을 선택해주세요')
+        } else {
+          this.$router.push({
+            name: 'order', 
+            state: {
+              cartNo: this.checkedCart.toString()
+            }
+          })
+        }
       },
       // 전체 상품 주문
       orderAll() {
