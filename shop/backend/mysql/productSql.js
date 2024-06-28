@@ -7,7 +7,7 @@ module.exports = {
                         ORDER BY (storage_cnt - stock_cnt) DESC
                         LIMIT 8`,
     getCategory : `SELECT category_no,category_name 
-                        FROM category;`,
+                        FROM category`,
     categoryProduct : `SELECT product_no,product_name,product_price,product_img 
                         FROM product 
                         WHERE category_no =?`,
@@ -21,7 +21,16 @@ module.exports = {
                     WHERE product_name LIKE '%' ? '%' `,
     SearchCnt : `SELECT count(*) as count 
                     FROM product 
-                    WHERE product_name LIKE '%' '테' '%'`,
+                    WHERE product_name LIKE '%' ? '%'`,
+    categoryBest : `SELECT product_no,product_name,product_price,product_img 
+                    FROM product 
+                    WHERE category_no = ? 
+                    ORDER BY (storage_cnt - stock_cnt) DESC
+                    LIMIT 8`,
+    MainAllBest : `SELECT product_no,product_name,product_price,product_img 
+                    FROM product  
+                    ORDER BY (storage_cnt - stock_cnt) DESC
+                    LIMIT 8`,
     
 }
 

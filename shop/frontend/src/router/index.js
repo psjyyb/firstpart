@@ -162,16 +162,6 @@ const routes = [
     component: CartView
   },
   {
-    path: '/cart',
-    name: 'cart',
-    component: CartView
-  },
-  {
-    path: '/order',
-    name: 'order',
-    component: OrderView
-  },
-  {
     path: '/admin',
     name: 'AdminPage',
     component: AdminPage,

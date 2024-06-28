@@ -194,7 +194,9 @@ export default{
     data(){
       return {
       categoryList:[],
-      keyword: this.$route.query.keyword
+      // bestAll : [],
+      // bestCategory : [],
+      keyword: this.$route.query.keyword,
     };
     },
     created () {
@@ -207,8 +209,9 @@ export default{
       },
       async getCategoryList() {
         let result = await axios.get(`/api/category`);
-        this.categoryList = result.data;
-      },
+        this.categoryList = result.data.resultCategory;
+        // this.bestAll = result.data.best8;
+            },
       goToCategory(no) {
             this.$router.push({ path: "/category", query: { no: no } });
         },
@@ -227,7 +230,7 @@ export default{
       }
     },
     }
-        }
+}
 </script>
 
 <style>

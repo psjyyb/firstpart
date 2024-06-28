@@ -15,18 +15,11 @@
 	</div>
 </template>
 <script>
-export	default {	 	
-			 name:	'Header'
-			,
-			props:["isAdmin"],
-			methods :{
-<script>
 export default {
 	name: 'Header'
 	,
 	props: ["isAdmin"],
 	methods: {
-
 		adminpage() {
 			this.$emit("change", false)
 		}
