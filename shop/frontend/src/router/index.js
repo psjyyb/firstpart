@@ -4,8 +4,6 @@ import HomeView from '../views/HomeView.vue'
 import ProductCategory from '../category/ProductCategory.vue'
 import ProductDetail from '../category/ProductDetail.vue'
 import ProductSearch from '../category/ProductSearch.vue'
-import CartView from '../order/CartView.vue'
-import OrderView from '../order/OrderView.vue'
 //관리자
 import AdminPage from '../views/AdminPage.vue'
 
@@ -22,6 +20,7 @@ import NoticeInfo from '../mypage/NoticeInfo.vue'
 import MypageCartList from '../mypage/MypageCartList.vue'
 import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
 import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
+import MypageReviewInsert from '../mypage/MypageReviewInsert.vue'
 
 
 import AdminProductPage from '../views/AdminProductPage.vue'
@@ -65,6 +64,11 @@ const routes = [
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
+  },
+  {
+    path: '/mypageReviewInsert',
+    name: 'mypageReviewInsert',
+    component: MypageReviewInsert
   },
   {
     path: '/mypageWishList',

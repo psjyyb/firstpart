@@ -3,7 +3,7 @@
     <div id="padd">
     <div class="wish-title st-wish-title">
         <h3 class="sr-only">♥찜한 상품♥</h3>
-    <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span>
+    <!-- <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span> -->
     </div>
   <div>
         <table class="table table-success table-striped-columns">
@@ -22,7 +22,7 @@
                     <td>
                         <p class="mb-0 mt-4"><input type="checkbox" v-model="wish.selected" @change="AllChecked"></p>
                     </td>
-                    <td><img :src="`/api/upload/${wish.product_img}`"></td>
+                    <td><img width="64"height="64":src="`/api/upload/${wish.product_img}`"></td>
                     <td>{{wish.product_name}}</td>
                     <td>{{wish.product_price}}</td>
                 </tr>
