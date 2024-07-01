@@ -8,11 +8,11 @@
 			</tr>			
 			<tr>
 				<th><label for="product_name">상품이름</label></th>
-				<td><input type ="text"id ="product_name"v-model ="productInfo.product_name "/></td>
+				<td><input type ="text"id ="product_name"v-model ="product_name "/></td>
 			</tr>
             <tr>
 				<th><label for="category_no">카테고리</label></th>
-				<td> <select v-model="productInfo.category_no">
+				<td> <select v-model="category_no">
                           <option value="1">사료</option>
                           <option value="2">간식</option>
                           <option value="3">건강관리</option>
@@ -25,19 +25,19 @@
 			</tr>
 			<tr>
 				<th><label for="product_price">가격</label></th>
-				<td><input type ="number"id ="product_price"v-model ="productInfo.product_price "/></td>
+				<td><input type ="number"id ="product_price"v-model ="product_price "/></td>
 			</tr>
             <tr>
 				<th><label for="storage_cnt">수량</label></th>
-				<td><input type ="number"id ="storage_cnt"v-model ="productInfo.storage_cnt "/></td>
+				<td><input type ="number"id ="storage_cnt"v-model ="storage_cnt "/></td>
 			</tr>
             <tr>
                 <th><label for="product_mfd">제조일자</label></th>
-                <td><input type ="date"id ="product_mfd" v-model ="productInfo.product_mfd "/></td>
+                <td><input type ="date"id ="product_mfd" v-model ="product_mfd "/></td>
             </tr>
 			<tr>
 				<th><label for="product_exp">유통기한</label></th>
-				<td><input type ="date"id ="product_exp" v-model ="productInfo.product_exp "/></td>
+				<td><input type ="date"id ="product_exp" v-model ="product_exp "/></td>
 			</tr>
     
 			<tr>
@@ -61,7 +61,7 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="insertproduct()"> 상품등록 </button	>
+                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="insertproduct"> 상품등록 </button	>
 				</th>
 			</tr>
 		</table>
@@ -70,12 +70,12 @@
 </template	>
 <script	>
 import axios from "axios";
+
 export	default {
     data ()	{
      return {
         p_product_img: '',
-        p_product_detail_img: '',
-        productInfo: {
+        p_product_detail_img: '',    
         product_name:"",
         category_no:"",
  	    product_price:"",
@@ -84,7 +84,7 @@ export	default {
         product_exp:"",
  	   product_img:"",
  	   product_detail_img:"",
- 	  },
+ 	  
      };
     },
     computed: {
@@ -98,20 +98,27 @@ export	default {
  	},
  	methods: {
         async insertproduct()	{
-
-            let file = new FormData();
-
-            file.append("product_img",this.product_img)
-
-         await axios.post('api/adminproduct/productImg', file,{ headers:{'Content-Type':'multipart/form-data'}})
- 	//    if(result .insertId >0 )	{
- 	//     alert("정상적으로	등록되었습니다.");
- 	//     this .$router .push({path:"/adminproduct" });
- 	//    }	else {
- 	//     alert("정상적으로	저장되지	않았습니다.");
- 	   
-
-    //     }
+            console.log(this.productInfo);
+            let data = new FormData();
+            data.append("product_name",this.product_name)
+            data.append("product_price",this.product_price)
+            data.append("product_mfd",this.product_mfd)
+            data.append("product_exp",this.product_exp)
+            data.append("category_no",this.category_no)
+            data.append("storage_cnt",this.storage_cnt)
+            data.append("product_img",this.product_img)
+            data.append("product_detail_img",this.product_detail_img)
+            const result= (await axios.post('api/adminproduct/insertproduct', data,{ headers:{'Content-Type':'multipart/form-data'}})).data;
+         
+            console.log(result .insertId);
+         if(result .insertId >0 )	{
+ 	    alert("정상적으로	등록되었습니다.");
+ 	    //this.boardInfo.no	=	result.insertId;
+ 	    this.$router.push('/adminproduct');
+ 	   }	else {
+ 	    alert("정상적으로	저장되지	않았습니다.");
+ 	   }
+        //  this.$emit("changeRouter","/adminproduct");
     },
     change_product_img(file)	{
         const fileData = (data) => {
@@ -139,3 +146,11 @@ export	default {
  	},
 };
 </script>
+
+<style scoped >
+.container {
+    display: flex;
+    justify-content: center;
+ }
+  
+</style	>

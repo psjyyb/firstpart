@@ -32,7 +32,7 @@
                     <td>{{ user.user_phone }}</td>
                     <td>{{ user.user_email }}</td>
                     <td>{{ user.user_point }}</td>
-                    <td></td>
+                    <td><button class="btn btn-outline-danger btn-sm" @click="removeUser(user.user_id)">삭제</button></td>
                 </tr>
     </tbody	>
    </table	>
@@ -77,6 +77,18 @@ export	default {
   //  getDateFormat(date )	{
   //   return this.$dateFormat(date );
     },
+
+    async removeUser(user_id) {
+      let result =	(await axios .delete(`/api/adminmember/${user_id }`)).data
+ 	   .affectedRows ;
+ 	  if (result ==	1 )	{
+ 	   alert("정상적으로	삭제되었습니다.");
+ 	  }	else {
+ 	   alert("정상적으로	삭제되지	않았습니다.");
+ 	  }
+
+     this.goPage(this.page);
+      },
   },
 };
 </script	>

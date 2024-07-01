@@ -62,6 +62,8 @@ app.use('/user', (req, res, next) => {
   // 여기에 crypto 모듈을 사용하는 코드 추가
   next();
 }, userRouter);
+app.use('/upload', express.static('upload/productImg'));
+app.use('/user',userRouter)
 app.use('/cart', cartRouter)
 app.use('/order', orderRouter)
 
@@ -77,6 +79,7 @@ app.use("/adminnotice",adminnoticeRouter)
 app.use("/adminorder",adminorderRouter)
 app.use("/adminproduct",adminproductRouter)
 app.use("/adminqa",adminqaRouter)
+app.use('/adminupload', express.static('d:/upload'));
 //
 app.use(function(req, res, next) {
 	next(createError(404));

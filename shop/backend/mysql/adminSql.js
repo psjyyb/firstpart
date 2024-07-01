@@ -35,6 +35,20 @@ module.exports =	{
    AdminstateUpdate:`UPDATE orders
    SET order_status =	?	
    WHERE	order_no	=	 ?
-   `
-,
+   `,
+   AdminproductInsert:`insert into product
+   (product_name,product_price,product_img,product_detail_img, product_mfd,product_exp,category_no,storage_cnt,stock_cnt,product_point )
+   values(?,?,?,?,?,?,?,?,?,?)
+   `,
+   ProductstockOut : `UPDATE product 
+   SET stock_cnt = stock_cnt - ?
+   WHERE product_no = ?
+   `,
+   ProductstockIn : `UPDATE product 
+   SET stock_cnt = stock_cnt + ? , storage_cnt = storage_cnt +?
+   WHERE product_no = ?
+   `,
+   AdminuserDelete : `DELETE user
+   WHERE user_id = ? 
+   `,
 };
