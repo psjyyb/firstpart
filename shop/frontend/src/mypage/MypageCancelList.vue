@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th>주문번호</th>
+                    <th>취소번호</th>
                     <th>취소일자</th>
                     <th>주문가격</th>
                     <th>취소상태</th>
@@ -23,6 +24,7 @@
             </thead>
             <tbody>
                 <tr v-for="cancel in cancels">
+                    <td>{{cancel.order_no}}</td>
                     <td>{{cancel.cancel_no}}</td>
                     <td>{{cancel.cancel_date}}</td>
                     <td>{{ cancel.pay_price }}</td>
