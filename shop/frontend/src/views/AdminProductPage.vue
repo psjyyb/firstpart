@@ -10,9 +10,9 @@
       <th	>상품 등록일자 </th	>
       <th	>상품 유통기한 </th	>
       <th	>카테고리 </th	>
+        <th	>적립포인트</th	>
       <th	>입고량 </th	>
       <th	>재고</th	>
-      <th	>적립포인트</th	>
      </tr	>
     </thead	>
     <tbody	>
@@ -30,13 +30,20 @@
                     <td>{{ product.product_mfd }}</td>
                     <td>{{ product.product_exp }}</td>
                     <td>{{ product.category_name }}</td>
-                    <td>{{ product.storage_cnt }}</td>
-                    <td>{{ product.stock_cnt }}</td>
                     <td>{{ product.product_point }}</td>
+                    <td>{{ product.storage_cnt }}</td>
+                    <td>
+                      <!-- <div class="input-group input-group-sm">
+                      <button class="btn btn-outline-secondary" @click="minusCnt(cart)">－</button>
+                      <input type="number" class="form-control text-center" :value="product.stock_cnt">
+                      <button class="btn btn-outline-secondary" @click="plusCnt(cart)">＋</button>
+                       </div> -->
+                    </td>
                 </tr>
     </tbody	>
    </table	>
    <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
+   <router-link to ="/insertproduct"	class="nav-link">상품 등록</router-link	>
   </div	>
 </template	>
 <script	>
@@ -77,10 +84,15 @@ export	default {
   //  getDateFormat(date )	{
   //   return this.$dateFormat(date );
     },
+
+
+
+    
   },
 };
 </script	>
 <style scoped >
 table	* {
   text-align:	center ; }
+  
 </style	>

@@ -31,6 +31,8 @@ export default {
   
 
 
-<style scoped>
+<style >
 /* 관리자 헤더 스타일 */
 </style>
+
+

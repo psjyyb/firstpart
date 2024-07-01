@@ -188,9 +188,14 @@
   </header>
 </template>
 
+
 <script>
 import axios from "axios";
 export default{
+
+
+  
+
     data(){
       return {
       categoryList:[],
@@ -240,7 +245,4 @@ button{
 }
 
 </style>
-
-
-
 
