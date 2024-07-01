@@ -1,4 +1,12 @@
+import { mapState } from 'vuex';
+
 export default {
+    computed: {
+        ...mapState(['user']),
+           account() {
+               return this.user.user_id;
+              }
+         },
     methods: {
         pageCalc(currentPage, total, pageSize = 10, pageUnit) {
             let firstPage = 1;

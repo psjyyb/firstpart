@@ -11,8 +11,9 @@ const adminqaRouter = require('./routes/adminqa.js')
 //const wishRouter = require('./routes/wish.js')
 const session = require('express-session'); 
 const fileStore = require('session-file-store')(session);
-
+const crypto = require('crypto'); // crypto 모듈 추가
 const userRouter =	require("./routes/user.js");
+
 const cartRouter = require('./routes/cart.js')
 const orderRouter = require('./routes/order.js')
 
@@ -56,7 +57,10 @@ app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
 
 app.use('/upload', express.static('d:/upload'));
-app.use('/user',userRouter)
+app.use('/user', (req, res, next) => {
+  // 여기에 crypto 모듈을 사용하는 코드 추가
+  next();
+}, userRouter);
 app.use('/cart', cartRouter)
 app.use('/order', orderRouter)
 
