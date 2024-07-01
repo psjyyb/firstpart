@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
 
-app.use('/upload', express.static('d:/upload'));
+app.use('/upload', express.static('upload/productImg'));
 app.use('/user',userRouter)
 app.use('/cart', cartRouter)
 
@@ -69,6 +69,7 @@ app.use("/adminnotice",adminnoticeRouter)
 app.use("/adminorder",adminorderRouter)
 app.use("/adminproduct",adminproductRouter)
 app.use("/adminqa",adminqaRouter)
+app.use('/adminupload', express.static('d:/upload'));
 //
 app.use(function(req, res, next) {
 	next(createError(404));

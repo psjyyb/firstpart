@@ -82,8 +82,20 @@ router.post("/insertproduct",product_img_upload.fields([{ name: 'product_img' },
     moveFile(req.files.product_img[0].filename,product_img);
     moveFile(req.files.product_detail_img[0].filename,product_detail_img);
     console.log(req.body) 
+    let result =	await query("AdminproductInsert",[req.body.product_name,req.body.product_price,req.files.product_img[0].filename,req.files.product_detail_img[0].filename,req.body.product_mfd,req.body.product_exp,req.body.category_no,req.body.storage_cnt,req.body.storage_cnt,300])
+    res.send(result);
+});
 
+router.put("/outproductstock/:product_no",	async (req ,	res )	=> {
+    
+    let result =	await query("ProductstockOut",	[req.body.out,	req.params.product_no]);
+    res.send(result);
+});
 
+router.put("/inproductstock/:product_no",	async (req ,	res )	=> {
+    
+    let result =	await query("ProductstockIn",	[req.body.in, req.body.in,	req.params.product_no]);
+    res.send(result);
 });
 
 module.exports =router ;

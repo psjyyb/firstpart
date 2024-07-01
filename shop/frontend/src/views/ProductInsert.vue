@@ -61,7 +61,7 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="insertproduct()"> 상품등록 </button	>
+                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="insertproduct"> 상품등록 </button	>
 				</th>
 			</tr>
 		</table>
@@ -70,6 +70,7 @@
 </template	>
 <script	>
 import axios from "axios";
+
 export	default {
     data ()	{
      return {
@@ -107,15 +108,17 @@ export	default {
             data.append("storage_cnt",this.storage_cnt)
             data.append("product_img",this.product_img)
             data.append("product_detail_img",this.product_detail_img)
-         await axios.post('api/adminproduct/insertproduct', data,{ headers:{'Content-Type':'multipart/form-data'}})
- 	//    if(result .insertId >0 )	{
- 	//     alert("정상적으로	등록되었습니다.");
- 	//     this .$router .push({path:"/adminproduct" });
- 	//    }	else {
- 	//     alert("정상적으로	저장되지	않았습니다.");
- 	   
-
-    //     }
+            const result= (await axios.post('api/adminproduct/insertproduct', data,{ headers:{'Content-Type':'multipart/form-data'}})).data;
+         
+            console.log(result .insertId);
+         if(result .insertId >0 )	{
+ 	    alert("정상적으로	등록되었습니다.");
+ 	    //this.boardInfo.no	=	result.insertId;
+ 	    this.$router.push('/adminproduct');
+ 	   }	else {
+ 	    alert("정상적으로	저장되지	않았습니다.");
+ 	   }
+        //  this.$emit("changeRouter","/adminproduct");
     },
     change_product_img(file)	{
         const fileData = (data) => {
@@ -143,3 +146,11 @@ export	default {
  	},
 };
 </script>
+
+<style scoped >
+.container {
+    display: flex;
+    justify-content: center;
+ }
+  
+</style	>
