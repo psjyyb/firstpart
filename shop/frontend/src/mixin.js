@@ -1,4 +1,12 @@
+import { mapState } from 'vuex';
+
 export default {
+    computed: {
+        ...mapState(['user']),
+           account() {
+               return this.user.user_id;
+              }
+         },
     methods: {
         pageCalc(currentPage, total, pageSize = 10, pageUnit) {
             let firstPage = 1;
@@ -9,11 +17,15 @@ export default {
                 endIdx = lastPage;
             }
             console.log(firstPage, lastPage, startIdx, endIdx);
-            return {firstPage, lastPage, startIdx, endIdx };
+            return {currentPage,firstPage, lastPage, startIdx, endIdx };
         },
         // 00,000 정규표현식
         makeComma(val) {
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+          if(val) {
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          } else {
+            return 0;
+          }
         },
         
         $currencyFormat(value, format = "#,###") {

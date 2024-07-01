@@ -17,7 +17,9 @@
       <textarea rows="8" cols="70" v-model="review.content"></textarea>
       <h4>사진첨부</h4>
       <input multiple @change="upload" ref="imageFile" type="file" id="file" accept="image/*">
-      <button @click="editReview">등록</button>
+      <hr />
+      <button type="button" class="btn btn-success" @click="editReview">등록</button>
+      <button type="button" class="btn btn-warning" @click="canBtn">취소</button>
     </div>
   </div>
 </template>
@@ -70,6 +72,11 @@ export default {
       console.log('zkzkzkzkdnsnsn',this.cnt);
      await axios.post('/api/mypage/ReviewInsert/', data,
       { headers:{'Content-Type':'multipart/form-data'}})
+      .then(this.$router.push('/mypageReviewList'),alert('리뷰 등록완료!'))
+      .catch(err=>console.log(err))
+    },
+    canBtn(){
+        this.$router.push('/mypageReviewList');
     }
   }
 };

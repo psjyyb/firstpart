@@ -21,6 +21,8 @@ import MypageCartList from '../mypage/MypageCartList.vue'
 import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
 import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
 import MypageReviewInsert from '../mypage/MypageReviewInsert.vue'
+import MypageQnAInfo from '../mypage/MypageQnAInfo.vue'
+import MypageQnAInsert from '../mypage/MypageQnAInsert.vue'
 
 
 import AdminProductPage from '../views/AdminProductPage.vue'
@@ -42,7 +44,8 @@ import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
 import userCheck from '../user/userCheck.vue'
 import FindId from '@/user/FindId.vue'
-import FindPw from '@/user/FindPw.vue'
+import FindPw  from '@/user/FindPw.vue'
+
 const routes = [
   {
     path: '/FindId',
@@ -68,6 +71,16 @@ const routes = [
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
+  },
+  {
+    path: '/mypageQnAInsert',
+    name: 'mypageQnAInsert',
+    component: MypageQnAInsert
+  },
+  {
+    path: '/mypageQnAInfo',
+    name: 'mypageQnAInfo',
+    component: MypageQnAInfo
   },
   {
     path: '/mypageReviewInsert',
@@ -155,7 +168,6 @@ const routes = [
     component: HomeView
   },
   {
-
     path: '/order',
     name: 'order',
     component: OrderView
