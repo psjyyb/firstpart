@@ -24,6 +24,9 @@ import mixins from "./mixin.js";
 
 // import InfiniteLoading from 'vue-infinite-loading';
 
+// import InfiniteLoading from 'v3-infinite-loading'
+// import 'v3-infinite-loading/lib/style.css';
+import InfiniteScroll from 'vue-infinite-scroll';
 
 // jQuery와 Isotope를 글로벌로 설정
 window.$ = $
@@ -36,7 +39,7 @@ $.fn.isotope = function (options) {
 }
 
 
-createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).mount('#app')
+createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
 
 // component('InfiniteLoading', InfiniteLoading)
 createApp(App).use(store).use(router).use(vuetify).use(mixins).mount('#app')

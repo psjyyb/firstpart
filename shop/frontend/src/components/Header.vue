@@ -109,8 +109,6 @@ export default{
     data(){
       return {
       categoryList:[],
-      // bestAll : [],
-      // bestCategory : [],
       keyword: this.$route.query.keyword,
     };
     },

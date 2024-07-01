@@ -19,12 +19,16 @@ router.get("/best/:no", async (req, res) => {
 
 
 router.get("/:no", async (req, res) => {
-      let categoryProducts = await query("categoryProduct", req.params.no);
-      let productTotal = await query("productCnt", req.params.no);
+      const { no } = req.params.no;
+      const { page = 1, perPage = 12 } = req.query; // 기본값 설정
+      let categoryProducts = await query("categoryProduct", no, (page - 1) * perPage, perPage);
+      let productTotal = await query("productCnt", no);
       res.json({
-          products: categoryProducts,
-          //첫 번째 배열 요소의 count 속성
-          total: productTotal[0].count 
+        products: categoryProducts,
+        total: productTotal[0].count,
+        page, // 현재 페이지 번호 추가
+        perPage, // 한 페이지당 상품 개수 추가
+        hasNextPage: categoryProducts.length === perPage, // 마지막 페이지 여부 추가
       });
 });
 
