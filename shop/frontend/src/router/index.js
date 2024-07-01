@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProductCategory from '../category/ProductCategory.vue'
 import ProductDetail from '../category/ProductDetail.vue'
-import CartView from '../order/CartView.vue'
-import OrderView from '../order/OrderView.vue'
+import ProductSearch from '../category/ProductSearch.vue'
 //관리자
 import AdminPage from '../views/AdminPage.vue'
 
@@ -21,6 +20,18 @@ import NoticeInfo from '../mypage/NoticeInfo.vue'
 import MypageCartList from '../mypage/MypageCartList.vue'
 import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
 import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
+import MypageReviewInsert from '../mypage/MypageReviewInsert.vue'
+
+
+import AdminProductPage from '../views/AdminProductPage.vue'
+import AdminMemberPage from '../views/AdminMemberPage.vue'
+import AdminOrderPage from '../views/AdminOrderPage.vue'
+import AdminNoticePage from '../views/AdminNoticePage.vue'
+import AdminQaPage from '../views/AdminQaPage.vue'
+
+// 주문결제
+import CartView from '../order/CartView.vue'
+import OrderView from '../order/OrderView.vue'
 
 
 import joinForm from '../user/joinForm.vue'
@@ -54,6 +65,11 @@ const routes = [
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
+  },
+  {
+    path: '/mypageReviewInsert',
+    name: 'mypageReviewInsert',
+    component: MypageReviewInsert
   },
   {
     path: '/mypageWishList',
@@ -106,6 +122,11 @@ const routes = [
     component: ProductDetail
   },
   {
+    path: '/search',
+    name: 'ProductSearch',
+    component: ProductSearch
+  },
+  {
     path: '/mypageCancelList',
     name: 'mypageCancelList',
     component: MypageCancelList
@@ -131,7 +152,6 @@ const routes = [
     component: HomeView
   },
   {
-
     path: '/order',
     name: 'order',
     component: OrderView
@@ -146,6 +166,31 @@ const routes = [
     name: 'AdminPage',
     component: AdminPage,
     meta: { isAdmin: true }
+  },
+  {
+    path: '/adminproduct',
+    name: 'AdminProductPage',
+    component: AdminProductPage
+  },
+  {
+    path: '/adminmember',
+    name: 'AdminMemberPage',
+    component: AdminMemberPage
+  },
+  {
+    path: '/adminorder',
+    name: 'AdminOrderPage',
+    component: AdminOrderPage
+  },
+  {
+    path: '/adminnotice',
+    name: 'AdminNoticePage',
+    component: AdminNoticePage
+  },
+  {
+    path: '/adminqa',
+    name: 'AdminQaPage',
+    component: AdminQaPage
   },
   
 ]

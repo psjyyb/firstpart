@@ -123,6 +123,12 @@
                         >
                           배송
                         </button>
+                        
+                        <button 
+                        class="nav-link text-body"
+                        @click="shareMessage">
+                          카카오 공유
+                        </button>
                       </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -134,11 +140,11 @@
                         aria-labelledby="nav-home-tab"
                       >
                         <!-- {{ productDetail.product_description }} -->
-                        <br /><br />[color] <br />
+                        <br /><br />제조일 <br />
                         <!-- {{
                           productDetail.product_color
                         }} -->
-                        <br /><br />[Fabric] <br />
+                        <br /><br />유통기한 <br />
                         <!-- {{ productDetail.product_fabric}} -->
                         <br /><br />[Model] <br />
                         <!-- {{
@@ -167,8 +173,7 @@
                         - 영업일 기준 3-7일 정도의 배송기간이 소요되며, 입고
                         지연 발생 시 개별적 연락 도와드리고 있습니다.
                         <br /><br />
-                        - 배송비 3,000원 (실구매금액 100,000원 이상 구매 시 무료
-                        배송) <br /><br />
+                        
                         - 도서산간 및 제주지역은 별도의 추가 운임비가 발생할 수
                         있습니다. <br /><br />
                         - 다폼목 주문시 합배송을 원칙으로 합니다. <br />
@@ -207,11 +212,16 @@
                       >
                     </div>
                   </div>
+                  <div class="col-auto">
+                    <label class="col-form-label">포인트 : {{ productInfo.product_point }}</label>
+                  </div>
                 </div>
               </div>
               <div class="row pt-3 pb-3">
                 <div class="col-6">
-                  <h3>총 상품 금액</h3>
+                  <h3>
+                  <i class="bi bi-currency-dollar"></i>
+                    총 상품 금액</h3>
                 </div>
                 <div class="col-6" style="text-align: right">
                   <h3>{{ getCurrencyFormat(totalPrice) }} 원</h3>
@@ -219,27 +229,32 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="col-12 d-grid p-1">
-                  <button
-                    type="button"
-                    class="btn btn-lg btn-outline-dark"
-                    @click="addCart"
-                  >
-                    ADD CART
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-lg btn-outline-dark"
-                    @click="addCart"
-                  >
-                    WISH LIST
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-lg btn-outline-dark"
-                    @click="addCart"
-                  >
-                    BUY NOW
-                  </button>
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-dark"
+                      @click="cartGo"
+                    >
+                    <i class="bi-basket3"></i>
+                      ADD CART
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-dark"
+                      @click="wishGo"
+                    >
+                    <i class="bi-suit-heart" ></i>
+                      WISH LIST
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-dark"
+                      
+                    >
+                    <i class="bi-cart3"></i>
+                      BUY NOW
+                    </button>
                 </div>
               </div>
             </div>
@@ -267,6 +282,7 @@
 <script>
 import axios from "axios";
 import PageMixin from '../mixin.js';
+import Swal from 'sweetalert2'
 
 export default{
   mixins : [PageMixin],
@@ -286,7 +302,7 @@ export default{
   },
   methods :{
     async proInfo() {
-    this.productInfo = (await axios.get(`/api/detail/${this.searchNo}`)).data[0];
+      this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
     },
     getCurrencyFormat(value) {
       // 가격의 ,을 새겨주는 $currencyFormat 호출
@@ -299,7 +315,67 @@ export default{
       this.total = total;
       this.totalPrice = this.productInfo.product_price * this.total; // totalPrice는 제품 가격 * 수량
     },
-  }
-      }
+    wishGo(){
+        // this.$swal('Hello Vue world!!!');
+        Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Wish completed",
+        showConfirmButton: false,
+        timer: 1500
+        });
+    },
+    cartGo(){
+      Swal.fire({
+        title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
+        icon: "success",
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText: `
+        <a href="/cart">
+          <i class="fa fa-thumbs-up"></i> 장바구니로 이동
+        </a>
+        `,
+    });
+    },
+    shareMessage() {
+        if (!window.Kakao) return;
+        
+        window.Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: this.productInfo.product_name,
+            description: `${this.productInfo.product_price} 원`,
+            imageUrl: `http://localhost:8080/images/item13.jpg`,
+            link: {
+              mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+              webUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+            },
+          },
+          social: {
+            likeCount: 286,
+            commentCount: 45,
+            sharedCount: 845,
+          },
+          buttons: [
+            {
+              title: '웹으로 보기',
+              link: {
+                mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+                webUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+              },
+            },
+            {
+              title: '앱으로 보기',
+              link: {
+                mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+                webUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
+              },
+            },
+          ],
+        });
+      },
+}
+}
 </script>
 <style></style>

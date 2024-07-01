@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <component :is="headerComponent" />
+    <component :is="headerComponent" :isAdmin="isAdmin" @change="change"/>
     <router-view></router-view>
-    <component :is="footerComponent" />
+    <Footer/>
   </div>
 </template>
 
@@ -11,16 +11,31 @@ import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
 import AdminHeader from "./components/AdminHeader.vue"
 import AdminFooter from "./components/AdminFooter.vue"
+import { useRouter, useRoute } from 'vue-router'
 
 
 export default {
   components: { Header, Footer, AdminHeader, AdminFooter },
+  data(){
+    return{
+      isAdmin:false
+    };
+  },
   computed: {
     headerComponent() {
-      return this.$route.meta.isAdmin ? 'AdminHeader' : 'Header';
-    },
-    footerComponent() {
-      return this.$route.meta.isAdmin ? 'AdminFooter' : 'Footer';
+      return this.isAdmin ? 'AdminHeader' : 'Header';
+    }
+  },
+  methods:{
+    change(value){
+      const router = useRouter();
+      this.isAdmin=value;
+      if(this.isAdmin){
+      this.$router.push('/admin');
+      }
+      else{
+        this.$router.push('/');
+      }
     }
   }
 };

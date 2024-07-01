@@ -21,7 +21,11 @@ export default {
         },
         // 00,000 정규표현식
         makeComma(val) {
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+          if(val) {
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          } else {
+            return 0;
+          }
         },
         
         $currencyFormat(value, format = "#,###") {

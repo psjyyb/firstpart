@@ -17,7 +17,7 @@
                     <td>{{ review.product_name }}</td>
                     <td>{{ review.product_price }}</td>
                     <td>{{ review.order_date }}</td>
-                    <td><button>리뷰쓰기</button></td>
+                    <td><button type="button" class="btn btn-info" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
             </tbody>
         </table>
@@ -50,6 +50,12 @@
         console.log('yyreviews',result.data)
         this.page =this.pageCalc(page,result.data.count[0].ycnt,5,pageUnit);
         console.log(this.page)
+    },
+    addReview(no){
+        
+        this.$router.push({
+                name: 'mypageReviewInsert', query: {no: no}
+            });
     }
     }
     }

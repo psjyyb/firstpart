@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="text-start fs-1">장바구니</div>
+    <div class="fs-2">장바구니</div>
     <div v-if="this.cartlist.length > 0">
-      <table class="table">
+      <table class="table align-middle">
         <colgroup>
           <col width="50">
-          <col width="200">
+          <col width="150">
           <col width="*">
           <col width="120">
           <col width="200">
@@ -25,8 +25,9 @@
         <tbody>
           <tr v-for="cart in cartlist">
             <td><input type="checkbox" :value="cart.cart_no" v-model="checkedCart"></td>
-            <td><img :src="cart.product_img" alt="상품이미지"></td>
-            <td>{{ cart.product_name }}</td>
+            <!-- <td><img :src="cart.product_img"></td> -->
+            <td><img src="../assets/insta4.jpg" width="100px"></td>
+            <td class="text-start">{{ cart.product_name }}</td>
             <td>
               <div class="input-group input-group-sm">
                 <button class="btn btn-outline-secondary" @click="minusCnt(cart)">－</button>
@@ -34,16 +35,16 @@
                 <button class="btn btn-outline-secondary" @click="plusCnt(cart)">＋</button>
               </div>
             </td>
-            <td>{{ makeComma(cart.product_price * cart.cart_cnt) + '원' }}</td>
-            <td>{{ '+' + makeComma(cart.product_point * cart.cart_cnt) + '점' }}</td>
+            <td>{{ makeComma(cart.product_price * cart.cart_cnt) }}원</td>
+            <td>+{{ makeComma(cart.product_point * cart.cart_cnt) }}점</td>
             <td><button class="btn btn-outline-danger btn-sm" @click="removeCart(cart.cart_no)">삭제</button></td>
           </tr>
         </tbody>
       </table>
       <div class="text-end">
         <ul>
-          <li>총 결제 예정 금액 <span>{{ makeComma(totalPrice) + '원' }}</span></li>
-          <li>총 예상 적립 포인트 <span>{{ makeComma(totalPoint) + '점' }}</span></li>
+          <li>총 예상 결제 금액 <span>{{ makeComma(totalPrice) }}원</span></li>
+          <li>총 예상 적립 포인트 <span>{{ makeComma(totalPoint) }}점</span></li>
         </ul>
       </div>
       <div class="row">
@@ -51,8 +52,8 @@
           <button type="button" class="btn btn-outline-primary" @click="goMain">쇼핑계속하기</button>
         </div>
         <div class="col-lg-6 text-end">
-          <button type="button" class="btn btn-primary">선택상품주문</button>&nbsp;
-          <button type="button" class="btn btn-primary">전체상품주문</button>
+          <button type="button" class="btn btn-primary" @click="order">선택상품주문</button>&nbsp;
+          <button type="button" class="btn btn-primary" @click="orderAll">전체상품주문</button>
         </div>
       </div>
     </div>
@@ -99,6 +100,12 @@
           }
         })
         return result;
+      },
+      // 전체 장바구니 번호
+      allCart() {
+        let result = [];
+        this.cartlist.forEach(cart => result.push(cart.cart_no));
+        return result;
       }
     },
     created() {
@@ -114,7 +121,7 @@
       // 전체 선택, 해제
       checkAll() {
         if(this.isCheckedAll) {
-          this.cartlist.forEach(cart => this.checkedCart.push(cart.cart_no));
+          this.checkedCart = this.allCart;
         } else {
           this.checkedCart = [];
         }
@@ -151,6 +158,24 @@
       // 메인으로 이동
       goMain() {
         this.$router.push('/')
+      },
+      // 선택 상품 주문
+      order() {
+        if(this.checkedCart.length == 0) {
+          alert('주문할 상품을 선택해주세요')
+        } else {
+          this.$router.push({
+            name: 'order', 
+            state: {
+              cartNo: this.checkedCart.toString()
+            }
+          })
+        }
+      },
+      // 전체 상품 주문
+      orderAll() {
+        this.checkedCart = this.allCart;
+        this.order();
       }
     },
   }
