@@ -3,9 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-
 import BootstrapVue3 from 'bootstrap-vue-3';
-
 
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
@@ -26,10 +24,6 @@ $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
 
-
-// component('InfiniteLoading', InfiniteLoading)
-
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).mount('#app')
-
 
 window.Kakao.init("e440154fb509449508e887c15f543fe1");

@@ -14,7 +14,6 @@
         <router-link to="/FindPw" class="link">비밀번호 찾기</router-link>
       </div>
     </div>
-    <!-- 카카오 로그인 컴포넌트 -->
     <kakaoLogin v-if="!isLoggedIn" />
   </div>
 </template>
@@ -22,7 +21,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import kakaoLogin from '@/components/kakaoLogin.vue';
-import axios from 'axios'; 
+import axios from 'axios';
 
 export default {
   components: {
@@ -43,40 +42,34 @@ export default {
     },
   },
   methods: {
-  ...mapActions(['loginUser', 'logoutUser']),
-  loginHandler() {
-    axios
-      .post('/api/user/login', this.form)
-      .then(result => {
-        this.loginUser(result.data); // Vuex store에 사용자 정보 저장
+    ...mapActions(['loginUser', 'logoutUser']),
+    async loginHandler() {
+      try {
+        const result = await axios.post('/api/user/login', this.form);
+        this.loginUser(result.data);
         alert('로그인 성공');
-        this.$router.push({ name: 'HomePage' });
-      })
-      .catch(err => {
+        this.$router.push({ name: 'home' });
+      } catch (err) {
         console.error('로그인 실패:', err);
         if (err.response && err.response.status === 401) {
           alert('아이디 또는 비밀번호가 일치하지 않습니다.');
         } else {
           alert('로그인 실패');
         }
-      });
-  },
-  logoutHandler() {
-    axios
-      .post('/api/user/logout')
-      .then(() => {
-        this.logoutUser(); // Vuex store에서 사용자 정보 제거
+      }
+    },
+    async logoutHandler() {
+      try {
+        await axios.post('/api/user/logout');
+        this.logoutUser();
         alert('로그아웃');
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('로그아웃 실패:', err);
-      });
+      }
+    },
   },
-}
-}
+};
 </script>
-
-
 
 <style scoped>
 .auth-container {

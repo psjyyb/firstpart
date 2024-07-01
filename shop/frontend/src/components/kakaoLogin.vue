@@ -65,39 +65,73 @@
     },
   };
   </script>
- <style scoped>
- .login-container {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   padding: 20px;
- }
- 
- .login-wrapper {
-   margin-bottom: 20px;
- }
- 
- .login-button-container {
-   text-align: center;
- }
- 
- #custom-login-btn {
-   display: inline-block;
-   cursor: pointer;
-   transition: transform 0.3s ease;
- }
- 
- #custom-login-btn img {
-   border-radius: 10px;
-   transition: box-shadow 0.3s ease;
- }
- 
- #custom-login-btn:hover {
-   transform: scale(1.05);
- }
- 
- #custom-login-btn img:hover {
-   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
- }
- </style>
+<style scoped>
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-wrapper {
+  margin-bottom: 20px;
+}
+
+#custom-login-btn {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#custom-login-btn img {
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+#custom-login-btn:hover {
+  transform: scale(1.05);
+}
+
+#custom-login-btn img:hover {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-info {
+  padding: 10px 20px;
+  background-color: #5bc0de;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-info:hover {
+  background-color: #31b0d5;
+}
+
+.btn-secondary {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.success {
+  color: green;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+</style>

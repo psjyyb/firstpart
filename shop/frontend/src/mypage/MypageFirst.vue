@@ -6,7 +6,6 @@
     <SideVar></SideVar>
     <SideVar/>
     <div>
-
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
@@ -58,7 +57,7 @@
     <!-- <Footer /> -->
 </template>
 <script>
-
+import { mapGetters } from "vuex";
 import Header from "@/components/Header.vue"
 import Footer from "@/components/Footer.vue"
 import SideVar from '../components/SideVar.vue'
@@ -76,6 +75,12 @@ import axios from 'axios'
         reviewNoCount:0,
         lastOrder:{}
      }; 
+    },
+    computed: {
+        ...mapGetters(["getUserInfo"]),
+        user() {
+            return this.getUserInfo;
+        },
     },
     created(){
         axios.get('/api/mypage/'+this.id)
