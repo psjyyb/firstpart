@@ -18,19 +18,35 @@ router.get("/best/:no", async (req, res) => {
 });
 
 
+// router.get("/:no", async (req, res) => {
+//       const { no } = req.params.no;
+//       const { page = 1, perPage = 12 } = req.query; // 기본값 설정
+//       let categoryProducts = await query("categoryProduct", no, (page - 1) * perPage, perPage);
+//       let productTotal = await query("productCnt", no);
+//       res.json({
+//         products: categoryProducts,
+//         total: productTotal[0].count,
+//         page, // 현재 페이지 번호 추가
+//         perPage, // 한 페이지당 상품 개수 추가
+//         hasNextPage: categoryProducts.length === perPage, // 마지막 페이지 여부 추가
+//       });
+// });
+
 router.get("/:no", async (req, res) => {
-      const { no } = req.params.no;
-      const { page = 1, perPage = 12 } = req.query; // 기본값 설정
-      let categoryProducts = await query("categoryProduct", no, (page - 1) * perPage, perPage);
-      let productTotal = await query("productCnt", no);
-      res.json({
-        products: categoryProducts,
-        total: productTotal[0].count,
-        page, // 현재 페이지 번호 추가
-        perPage, // 한 페이지당 상품 개수 추가
-        hasNextPage: categoryProducts.length === perPage, // 마지막 페이지 여부 추가
-      });
+  const { no } = req.params;
+  const { page = 1, perPage = 12 } = req.query;
+
+  const categoryProducts = await ("categoryProduct",no, page, perPage);
+  const productTotal = await query("productCnt", no); // 쿼리 이름으로 참조
+  res.json({
+    products: categoryProducts,
+    total: productTotal[0].count,
+    page,
+    perPage,
+    hasNextPage: categoryProducts.length === perPage,
+  });
 });
+
 
 router.get("/detail/:no", async (req, res) => {
   let result = await query("productDetail", req.params.no);

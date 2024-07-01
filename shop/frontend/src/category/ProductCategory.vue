@@ -104,35 +104,40 @@ export default {
 
     },
 
-    async loadInitialProducts() {
-      this.busy = true;
-      try {
-        this.isLoading = true;
-        const response = await axios.get(`/api/category/${this.searchNo}`, {
-          params: {
-            page: this.page,
-            perPage: this.initialDisplayCount,
-          }
-        });
-        this.productList = response.data.products;
-        this.displayedProducts = this.productList.slice(0, this.initialDisplayCount); // Display initial products
-        this.productCnt = response.data.total;
-        console.log('productCnt',this.productCnt)
-        this.hasMoreProducts = response.data.hasNextPage;
+    async loadMoreProducts() {
+  if (this.busy || this.noMoreProducts) return;
+  this.busy = true;
 
-
-        if (this.productList.length >= this.productCnt) {
-          this.noMoreProducts = true;
-        }
-        this.page++;
-        this.isLoading = false;
-
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.busy = false;
+  try {
+    const response = await axios.get(`/api/category/${this.searchNo}`, {
+      params: {
+        page: this.page,
+        perPage: 12,
       }
-    },
+    });
+
+    if (response.data.products.length) {
+      this.displayedProducts.push(...response.data.products);
+      this.productList.push(...response.data.products);
+      this.productCnt = response.data.total;
+      console.log('productCnt2',this.productCnt)
+      if (this.productList.length >= this.productCnt) {
+        this.noMoreProducts = true;
+      }
+      this.initialDisplayCount += response.data.products.length;
+      this.page += response.data.products.length; // 페이지 번호 업데이트
+    } else {
+      this.noMoreProducts = true;
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    this.busy = false;
+  }
+},
+
+
+
     async handleScroll() {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 50 && !this.isLoading) {
@@ -142,35 +147,37 @@ export default {
     },
 
     async loadMoreProducts() {
-      if (this.busy || this.noMoreProducts) return;
-      this.busy = true;
+  if (this.busy || this.noMoreProducts) return;
+  this.busy = true;
 
-      try {
-        const response = await axios.get(`/api/category/${this.searchNo}`, {
-          params: {
-            page: this.page,
-            perPage: 12,
-          }
-        });
-
-        if (response.data.products.length) {
-          this.displayedProducts.push(...response.data.products);
-          this.productCnt = response.data.total;
-          console.log('productCnt2',this.productCnt)
-          if (this.productList.length >= this.productCnt) {
-            this.noMoreProducts = true;
-          }
-          this.initialDisplayCount += response.data.products.length;
-          this.page++;
-        } else {
-          this.noMoreProducts = true;
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.busy = false;
+  try {
+    const response = await axios.get(`/api/category/${this.searchNo}`, {
+      params: {
+        page: this.page,
+        perPage: 12,
       }
-    },
+    });
+
+    if (response.data.products.length) {
+      this.displayedProducts.push(...response.data.products);
+      this.productList.push(...response.data.products); // 추가된 코드
+      this.productCnt = response.data.total;
+      console.log('productCnt2',this.productCnt)
+      if (this.productList.length >= this.productCnt) {
+        this.noMoreProducts = true;
+      }
+      this.initialDisplayCount += response.data.products.length;
+      this.page++;
+    } else {
+      this.noMoreProducts = true;
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    this.busy = false;
+  }
+},
+
 
 
     goToDetail(no) {
