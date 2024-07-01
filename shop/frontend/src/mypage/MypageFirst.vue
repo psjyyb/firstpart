@@ -6,6 +6,7 @@
     <SideVar></SideVar>
     <SideVar/>
     <div>
+
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
