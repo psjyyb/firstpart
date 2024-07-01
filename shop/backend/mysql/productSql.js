@@ -10,7 +10,8 @@ module.exports = {
                         FROM category`,
     categoryProduct : `SELECT product_no,product_name,product_price,product_img 
                         FROM product 
-                        WHERE category_no =?`,
+                        WHERE category_no =?
+                        LIMIT ?, ?`,
     productCnt : `SELECT count(*) as count 
                         FROM product WHERE category_no=?`,
     productDetail : `SELECT product_no,product_name,product_price,product_img,product_detail_img,product_point

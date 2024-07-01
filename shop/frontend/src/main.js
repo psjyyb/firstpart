@@ -14,6 +14,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import $ from 'jquery'
 import Isotope from 'isotope-layout'
 
+// import InfiniteLoading from 'v3-infinite-loading'
+// import 'v3-infinite-loading/lib/style.css';
+import InfiniteScroll from 'vue-infinite-scroll';
+
 // jQuery와 Isotope를 글로벌로 설정
 window.$ = $
 window.jQuery = $
@@ -24,6 +28,6 @@ $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
 
-createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).mount('#app')
+createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
 
 window.Kakao.init("e440154fb509449508e887c15f543fe1");
