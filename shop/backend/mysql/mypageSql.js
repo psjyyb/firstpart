@@ -28,35 +28,49 @@ module.exports = {
                         group by o.order_date,o.order_status,p.product_name 
                         order by order_date`,
 
-    mypageOrderList : `SELECT o.order_no,o.user_id,o.order_date,o.order_status,IFNULL(COUNT(d.product_no), 0) AS product_count
-                      ,GROUP_CONCAT(p.product_name SEPARATOR ', ') AS product_names,GROUP_CONCAT(p.product_img SEPARATOR ', ') AS product_images 
-                      FROM orders o LEFT JOIN order_detail d ON o.order_no = d.order_no 
-                      LEFT JOIN product p ON p.product_no = d.product_no WHERE o.user_id = ?
-                      GROUP BY o.order_no order by o.order_no desc limit ?,?`,
+    mypageOrderList : `SELECT
+                            o.order_no,
+                            o.user_id,
+                            o.order_date,
+                            o.order_status,
+                            COUNT(d.product_no) AS product_count,
+                            SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT p.product_name ORDER BY d.product_no ASC SEPARATOR ', '), ',', 1) AS product_name,
+                            SUBSTRING_INDEX(GROUP_CONCAT(DISTINCT p.product_img ORDER BY d.product_no ASC SEPARATOR ', '), ',', 1) AS product_image
+                        FROM
+                            orders o
+                        LEFT JOIN
+                            order_detail d ON o.order_no = d.order_no
+                        LEFT JOIN
+                            product p ON p.product_no = d.product_no
+                        WHERE
+                            o.user_id = ?
+                        GROUP BY
+                            o.order_no, o.user_id, o.order_date, o.order_status
+                        ORDER BY
+                            o.order_no DESC
+                        LIMIT ?, ?`,
     mypageOrderListCount : `select count(*) as cnt 
                             from orders where user_id= ? `,
-    mypageCancelList:`SELECT 
+    mypageCancelList:` SELECT 
                         c.cancel_no,
                         c.cancel_date,
                         c.cancel_state,
                         d.product_no,
-                        o.pay_price 
+                        c.order_no
                     FROM 
                         cancel c 
-                    JOIN 
+                    left JOIN 
                         order_detail d ON c.order_no = d.order_no 
-                    JOIN 
-                        orders o ON o.order_no = d.order_no 
                     WHERE 
-                        o.user_id = ?
+                        c.user_id = ?
                     GROUP BY 
-                        c.cancel_no, c.cancel_date, c.cancel_state, d.product_no, o.pay_price 
+                        c.cancel_no, c.cancel_date, c.cancel_state, d.product_no
                     ORDER BY 
-                        o.order_no DESC 
+                        c.order_no DESC 
                     LIMIT ?,?`,
-    mypageCancelCount:`SELECT COUNT(*) as cnt
-                         FROM cancel 
-                         WHERE order_no IN (SELECT order_no FROM orders WHERE user_id = ? )`,
+    mypageCancelCount:`select count(*) as cnt
+                        from cancel 
+                        where user_id=?`,
 
     mypageWishList:`select wish_no,product_name,product_price,product_img 
                     from wish w join product p on w.product_no=p.product_no 
@@ -83,10 +97,22 @@ module.exports = {
                             AND r.product_no = d.product_no 
                             WHERE o.user_id = ? AND r.review_no IS NULL`,
     //작성한 리뷰
-    mypageNoReviewList: `SELECT d.order_no, d.product_no, p.product_name, p.product_img, p.product_price,review_date,review_score
-                            FROM orders o JOIN order_detail d ON o.order_no = d.order_no 
-                            JOIN product p ON p.product_no = d.product_no 
-                            JOIN review r ON r.order_no = d.order_no
+    mypageNoReviewList: `SELECT 
+                                d.order_no,
+                                d.product_no,
+                                p.product_name,
+                                p.product_img,
+                                p.product_price,
+                                review_date,
+                                review_score,
+                                review_no,
+                                review_content
+                            FROM orders o JOIN order_detail d
+                            ON o.order_no = d.order_no 
+                            JOIN product p 
+                            ON p.product_no = d.product_no 
+                            JOIN review r
+                            ON r.order_no = d.order_no
                             AND r.product_no = d.product_no
                             WHERE o.user_id = ? 
                             order by review_no desc limit ?,?`,
@@ -162,9 +188,13 @@ module.exports = {
                         product p ON d.product_no = p.product_no
                     WHERE 
                         c.cancel_no = ?`,
-    mypageWishSelectDelete:`delete from wish where wish_no = ?`,
-    //mypageOrderDelete:``
-    
+    mypageWishSelectDelete:`delete from wish 
+                            where wish_no = ?`,
+    mypageOrderDelete:`delete from orders 
+                        where order_no = ?`,
+    mypageCancelInsert:`insert into cancel(order_no,user_id)
+                        values(?,?)`,
+
     mypageReviewInsertInfo:`select
                                 product_name,
                                 p.product_price,
@@ -196,6 +226,37 @@ module.exports = {
                                         turn,
                                         temName
                                         )
-                     values(?,?,?,?,?)`
+                     values(?,?,?,?,?)`,
+    mypageReviewDelete:`delete from review where review_no = ?`,
+    mypageReviewImgDelete:`delete from addFile where table_no= ?`,
+    mypageQnAInfo:`select 
+                        qna_title,
+                        qna_content,
+                        qna_date,
+                        qna_reply,
+                        product_no,
+                        qna_no
+                    from qna 
+                    where qna_no=?`,
+    
+    mypageQnAinsert:`insert into qna(
+                                    qna_title,
+                                    qna_content,
+                                    user_id)
+                     values(?,?,?)`,
+    mypageQnADelete:`delete from qna 
+                     where qna_no=?`,
+    mypageQnAImgDelete:`DELETE FROM addFile
+                        WHERE add_no IN (
+                        SELECT add_no FROM (
+                                SELECT add_no FROM addFile WHERE table_no = ?
+                                    ) AS subquery
+                            )`,
+    mypageSelectImg:`select 
+                        add_name,
+                        temName
+                    from addFile 
+                    where table_no= ?
+                    order by turn`
 
 }

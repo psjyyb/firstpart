@@ -26,9 +26,9 @@
             </thead>
             <tbody>
                 <tr v-for="order in orders">
-                    <td><img width="64"height="64":src="`/api/upload/${order.product_images}`"></td>
+                    <td><img width="64"height="64":src="`/api/upload/${order.product_image}`"></td>
                     <td>{{ order.order_date }}</td>
-                    <td @click="orderInfo(order.order_no)">{{ order.product_names }}</td>
+                    <td @click="orderInfo(order.order_no)">{{ order.product_name }}</td>
                     <td v-if="order.order_status==1">결제완료</td>
                     <td v-else-if="order.order_status==2">상품준비중</td>
                     <td v-else-if="order.order_status==3">배송중</td>
@@ -36,7 +36,7 @@
                     <td v-else-if="order.order_status==5">구매확정</td>
                     <td v-else>배송지연</td>
                     <td>{{ order.product_count }}</td>
-                    <td><button type="button" class="btn btn-warning" v-if="order.order_status==1" @click="orderDel(order_no)">주문취소</button></td>
+                    <td><button type="button" class="btn btn-warning" v-if="order.order_status==1" @click="orderDel(order.order_no)">주문취소</button></td>
                 </tr>
             </tbody>
         </table>
@@ -99,8 +99,14 @@
             });
     },
     async orderDel(no){
-        // await axios.delete(`/api/mypage/orderDelete/`+no)
-        // .then(this.goPage(1))
+        console.log(no);
+        await axios.delete(`/api/mypage/orderDelete/`+no)
+        .then( await axios.post(`/api/mypage/cancelInsert/?no=${no}&id=${this.id}`)
+            .then(result=>console.log(result))
+            .catch(err=>console.log(err))
+            )
+        .catch(err=>console.log(err))
+        .then(this.goPage(1))
         // 삭제가 아니라 주문을 취소하게 되면 주문 테이블에서는 삭제가 되고
         // 취소테이블에 해당 주문번호로 추가되어야한다//트랜잭션
     }

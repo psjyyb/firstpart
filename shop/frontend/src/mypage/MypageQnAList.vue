@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="QnA in QnAs">
+                <tr v-for="QnA in QnAs" @click="qnaInfo(QnA.qna_no)">
                     <td>{{QnA.qna_no}}</td>
                     <td>{{QnA.qna_title}}</td>
                     <td>{{QnA.qna_date}}</td>
@@ -25,6 +25,8 @@
         </table>
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>
+    <hr />
+    <div><button type="button" class="btn btn-info" @click="addBtn">Q&A등록</button></div>
     </div>
 </template>
 <script>
@@ -54,6 +56,14 @@
         console.log('QnAs',result)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+    },
+    qnaInfo(no){
+        this.$router.push({
+                name: 'mypageQnAInfo', query: {no: no}
+            });
+    },
+    addBtn(){
+        this.$router.push('/mypageQnAInsert');
     }
     }
     }
