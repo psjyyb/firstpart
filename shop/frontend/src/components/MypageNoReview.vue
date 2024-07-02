@@ -36,6 +36,7 @@
       import PagingComponent from './PagingComponent.vue'
       import axios from 'axios'
       import ReviewInfo from '../components/MypageReviewInfo.vue'
+      import Swal from 'sweetalert2'
       export default{
       mixins:[pageCalcMixin],
       components: {PagingComponent,ReviewInfo },
@@ -63,10 +64,10 @@
       async delBtn(no){
         console.log(no);
             await axios.delete(`/api/mypage/ReviewDelete/`+no)
-            .then(result=>{alert('리뷰 삭제완료!'),
+            .then(result=>{Swal.fire('리뷰 삭제완료!'),
             this.goPage(1);
             })
-            .catch(err=>{console.log(err),alert('삭제실패!')})
+            .catch(err=>{console.log(err),Swal.fire('삭제실패!')})
         },
         infoForm(review){
             //this.review=review;

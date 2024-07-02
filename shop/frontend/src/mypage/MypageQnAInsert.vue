@@ -32,6 +32,7 @@
 <script>
     import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
+    import Swal from 'sweetalert2'
     export default{
     components: {SideVar},
     data(){
@@ -62,7 +63,7 @@
       data.append("userId",this.id);
       await axios.post(`/api/mypage/QnAInsert/`,data,
       { headers:{'Content-Type':'multipart/form-data'}})
-      .then(this.$router.push('/mypageQnAList'),alert('문의 등록완료!'))
+      .then(this.$router.push('/mypageQnAList'),Swal.fire('문의 등록완료!'))
       .catch(err=>console.log(err))
     }
     }

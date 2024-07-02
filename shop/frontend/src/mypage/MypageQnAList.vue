@@ -2,7 +2,6 @@
     <SideVar/>
     <div id="padd">
       <h3>♡Q&A리스트♡</h3>
-
     <div>
         <table class="table table-bordered border-primary">
             <thead>
@@ -26,7 +25,7 @@
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>
     <hr />
-    <div><button type="button" class="btn btn-info" @click="addBtn">Q&A등록</button></div>
+    <div><button type="button" class="btn btn-primary" @click="addBtn">Q&A등록</button></div>
     </div>
 </template>
 <script>

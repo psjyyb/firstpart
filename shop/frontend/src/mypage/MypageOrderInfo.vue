@@ -12,6 +12,8 @@
                     <p v-if="order.order_status==3">주문 상태 : 배송중</p>
                     <p v-if="order.order_status==4">주문 상태 : 배송완료</p>
                     <p v-if="order.order_status==5">주문 상태 : 구매확정</p>
+                    <p v-if="order.order_status==6">주문 상태 : 취소요청</p>
+                    <p v-if="order.order_status==7">주문 상태 : 취소완료</p>
                 </div>
                 <button type="button" class="btn btn-warning"  v-if="order.order_status==1">주문취소</button>
             </div>

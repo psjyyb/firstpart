@@ -50,24 +50,29 @@ module.exports = {
                             o.order_no DESC
                         LIMIT ?, ?`,
     mypageOrderListCount : `select count(*) as cnt 
-                            from orders where user_id= ? `,
-    mypageCancelList:` SELECT 
-                        c.cancel_no,
-                        c.cancel_date,
-                        c.cancel_state,
-                        d.product_no,
-                        c.order_no
-                    FROM 
-                        cancel c 
-                    left JOIN 
-                        order_detail d ON c.order_no = d.order_no 
-                    WHERE 
-                        c.user_id = ?
-                    GROUP BY 
-                        c.cancel_no, c.cancel_date, c.cancel_state, d.product_no
-                    ORDER BY 
-                        c.order_no DESC 
-                    LIMIT ?,?`,
+                            from orders where user_id= ?`,
+    mypageCancelList:`     SELECT 
+                            c.cancel_no,
+                            c.cancel_date,
+                            c.cancel_state,
+                            MAX(d.product_no) AS product_no,
+                            c.order_no,
+                            c.order_date,
+                            MAX(p.product_name) AS product_name,
+	                        MAX(p.product_img) AS product_img
+                        FROM 
+                            cancel c 
+                        LEFT JOIN 
+                            order_detail d ON c.order_no = d.order_no 
+                        JOIN 
+                            product p ON p.product_no = d.product_no
+                        WHERE 
+                            c.user_id = ?
+                        GROUP BY 
+                            c.cancel_no, c.cancel_date, c.cancel_state, c.order_no, c.order_date
+                        ORDER BY 
+                            c.order_no DESC
+                         LIMIT ?,?`,
     mypageCancelCount:`select count(*) as cnt
                         from cancel 
                         where user_id=?`,
@@ -138,11 +143,11 @@ module.exports = {
                     JOIN product p ON c.product_no = p.product_no
                     WHERE user_id = ?
                     ORDER BY p.product_no DESC
-                    LIMIT ?,?;`,
+                    LIMIT ?,?`,
     mypageCartListCount:`SELECT COUNT(*) as cnt
                          FROM cart c
                          JOIN product p ON c.product_no = p.product_no
-                         WHERE user_id =?`,
+                         WHERE user_id = ? `,
 
     mypageOrderInfo:`SELECT DISTINCT
                         d.order_no,
@@ -190,8 +195,11 @@ module.exports = {
                         c.cancel_no = ?`,
     mypageWishSelectDelete:`delete from wish 
                             where wish_no = ?`,
-    mypageOrderDelete:`delete from orders 
-                        where order_no = ?`,
+    mypageOrderDelete:`update orders 
+                        set order_status = 6
+                        where order_no = ? `,
+    // mypageOrderDelete:`delete from orders 
+    //                     where order_no = ?`,
     mypageCancelInsert:`insert into cancel(order_no,user_id,order_date)
                         values(?,?,?)`,
 

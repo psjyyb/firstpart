@@ -33,6 +33,7 @@
 <script>
     import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
+    import Swal from 'sweetalert2'
     export default{
     components: {SideVar},
     data(){
@@ -64,7 +65,7 @@
       console.log(this.qna.title,this.qna.content,this.qna.no)
       await axios.post(`/api/mypage/QnAUpdate/`,data,
       { headers:{'Content-Type':'multipart/form-data'}})
-      .then(this.$router.push('/mypageQnAList'),alert('문의 수정완료!'))
+      .then(this.$router.push('/mypageQnAList'),Swal.fire("문의수정완료!"))
       .catch(err=>console.log(err))
         }
         

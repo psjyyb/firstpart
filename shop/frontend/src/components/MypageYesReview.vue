@@ -17,7 +17,7 @@
                     <td>{{ review.product_name }}</td>
                     <td>{{ review.product_price }}</td>
                     <td>{{ getDateFormat(review.order_date) }}</td>
-                    <td><button type="button" class="btn btn-info" @click="addReview(review.product_no)">리뷰쓰기</button></td>
+                    <td><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
             </tbody>
         </table>
@@ -28,6 +28,7 @@
     import pageCalcMixin from '../mixin.js'
     import PagingComponent from './PagingComponent.vue'
     import axios from 'axios'
+    
     export default{
     mixins:[pageCalcMixin],
     components: {PagingComponent },
