@@ -31,16 +31,21 @@ import AdminOrderPage from '../views/AdminOrderPage.vue'
 import AdminNoticePage from '../views/AdminNoticePage.vue'
 import AdminQaPage from '../views/AdminQaPage.vue'
 
+
 // 주문결제
 import CartView from '../order/CartView.vue'
 import OrderView from '../order/OrderView.vue'
+
+
+import ProductInsert from '../views/ProductInsert.vue'
 
 
 import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
 import userCheck from '../user/userCheck.vue'
 import FindId from '@/user/FindId.vue'
-import FindPw from '@/user/FindPw.vue'
+import FindPw  from '@/user/FindPw.vue'
+
 const routes = [
   {
     path: '/FindId',
@@ -202,6 +207,11 @@ const routes = [
     path: '/adminqa',
     name: 'AdminQaPage',
     component: AdminQaPage
+  },
+  {
+    path: '/insertproduct',
+    name: 'ProductInsert',
+    component: ProductInsert
   },
   
 ]

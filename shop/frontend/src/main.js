@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 
 import BootstrapVue3 from 'bootstrap-vue-3';
+import vuetify from './plugins/vuetify'
+// jQuery와 Isotope 임포트
 
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
@@ -14,7 +16,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import $ from 'jquery'
 import Isotope from 'isotope-layout'
 
-// import InfiniteLoading from 'v3-infinite-loading'
+
+import mixins from "./mixin.js";
+
+
 // import 'v3-infinite-loading/lib/style.css';
 import InfiniteScroll from 'vue-infinite-scroll';
 
@@ -28,6 +33,10 @@ $.fn.isotope = function (options) {
     return new Isotope(this[0], options)
 }
 
+
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
+
+// component('InfiniteLoading', InfiniteLoading)
+
 
 window.Kakao.init("e440154fb509449508e887c15f543fe1");
