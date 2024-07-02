@@ -36,6 +36,7 @@ import AdminQaPage from '../views/AdminQaPage.vue'
 // 주문결제
 import CartView from '../order/CartView.vue'
 import OrderView from '../order/OrderView.vue'
+import OrderSuccessView from '../order/OrderSuccessView.vue'
 
 
 import ProductInsert from '../views/ProductInsert.vue'
@@ -177,6 +178,11 @@ const routes = [
     path: '/order',
     name: 'order',
     component: OrderView
+  },
+  {
+    path: '/orderSuccess',
+    name: 'orderSuccess',
+    component: OrderSuccessView
   },
   {
     path: '/cart',
