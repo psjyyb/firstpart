@@ -81,9 +81,9 @@ app.use("/adminproduct",adminproductRouter)
 app.use("/adminqa",adminqaRouter)
 app.use('/adminupload', express.static('d:/upload'));
 //
-app.use(function(req, res, next) {
-	next(createError(404));
-  });
+// app.use(function(req, res, next) {
+// 	next(createError(404));
+//   });
 
 
 app.listen(port, () => {
