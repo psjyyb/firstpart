@@ -262,13 +262,21 @@
           </div>
         </div>
       </div>
-      <div class="row">
+
+    <div class="fontSize">
+    <b-nav tabs align="center" >
+      <b-nav-item href="#" active>상품 상세</b-nav-item>
+      <b-nav-item href="#">상품리뷰</b-nav-item>
+      <b-nav-item href="#">상품 QnA</b-nav-item>
+    </b-nav>
+    </div>
+
+    <div class="row">
         <div class="col-6">
           <!-- <img src='../../public/images/blog1.jpg' class="img-fluid"
             style="width: 1000px"
           /> -->
           <div class="img-fluid" style="width: 1000px">{{ productInfo.product_detail_img }}</div>
-
           <!-- <img
             :src="`/download/${productId}/${productDetail.path}`"
             class="img-fluid"
@@ -276,6 +284,8 @@
           /> -->
         </div>
       </div>
+
+
     </div>
   </main>
 </template>
@@ -378,4 +388,10 @@ export default{
 }
 }
 </script>
-<style></style>
+<style>
+.fontSize{
+  font-size: 30px;
+  margin: 50px;
+}
+
+</style>
