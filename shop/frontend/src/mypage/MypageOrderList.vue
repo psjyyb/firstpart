@@ -13,7 +13,7 @@
         </ul>
     </div>
     <div>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th>상품이미지</th>

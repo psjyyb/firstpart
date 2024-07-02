@@ -6,7 +6,7 @@
     <!-- <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span> -->
     </div>
   <div>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th>남바</th>

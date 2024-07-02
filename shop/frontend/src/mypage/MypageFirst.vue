@@ -30,7 +30,7 @@
         <div class="b_order_list item">
             <h3><img src="https://img.dongwonmall.com/dwmall/web/images/content/mydw/tit02_mydw_main.gif" alt="최근 주문내역"></h3>
             <div class="tbl_list_mydw c_black">
-                <table class="table table-success table-striped-columns">
+                <table class="table table-bordered border-primary">
                     <thead>
                         <tr>
                             <th>주문일</th>
@@ -40,14 +40,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr class="last"  v-if="lastOrder=[]">
-                                <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
+                    <tr class="last"  v-if="lastOrder">
+                                <td>{{ lastOrder.order_date }}</td>
+                                <td>{{ lastOrder.product_name }}</td>
+                                <td>{{ lastOrder.order_status }}</td>
+                                <td>{{ lastOrder.prodcnt }}</td>
+                               
                             </tr>
                             <tr v-else>
-                                <td colspan="4">{{ lastOrder.orderDate }}</td>
-                                <td colspan="4">{{ lastOrder.productName }}</td>
-                                <td colspan="4">{{ lastOrder.orderStatus }}</td>
-                                <td colspan="4">{{ lastOrder.prodcnt }}</td>
+                                <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
                             </tr>
                         </tbody>
                 </table>

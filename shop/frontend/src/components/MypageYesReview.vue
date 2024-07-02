@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>작성하지 않은 리뷰</h4>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                    <th>이미지</th>
