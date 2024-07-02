@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
+import persistedstate from "vuex-persistedstate"
 
-export default createStore({
+const store = createStore({
   state() {
     return {
       user: {}
@@ -11,4 +12,7 @@ export default createStore({
       state.user = data
     },
   },
+  plugins: [persistedstate({ paths: ["user"] })],
 })
+
+export default store;
