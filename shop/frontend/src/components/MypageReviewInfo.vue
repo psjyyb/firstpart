@@ -4,21 +4,21 @@
     <hr>
     <hr>
      <div>
-        상품명:<input v-model="info.product_name">
+        상품명:<input v-model="info.product_name" readonly >
     </div>
     <div>
-        상품가격:<input v-model="info.product_price">
+        상품가격:<input v-model="info.product_price" readonly>
     </div>
     <img width="64"height="64":src="`/api/upload/${info.product_img}`">
     <hr>
     <div>
-        리뷰번호:<input v-model="info.review_no">
+        리뷰번호:<input v-model="info.review_no" readonly>
     </div>
     <div>
         리뷰내용:<input v-model="info.review_content">
     </div>
     <div>
-        작성일:<input v-model="info.review_date">
+        작성일:<input v-model="info.review_date" readonly>
     </div>
     <div v-for="img in imgs">
         <img :src="`/api/upload/${img.add_name}`">
@@ -51,8 +51,11 @@
             .then(result=>{console.log('이미지지지지지',result),this.imgs=result.data })
             .catch(err=>console.log(err))
         },
-        modBtn(){
-            axios.put(`/apu/mypage/reviewUpdate`)
+       async modBtn(){
+            console.log(this.info)
+           await axios.put(`/api/mypage/reviewUpdate?content=${this.info.review_content}&rno=${this.info.review_no}`)
+           .then(alert('리뷰수정 완료!'))
+           .catch(err=>console.log(err))
         }
     }
     }

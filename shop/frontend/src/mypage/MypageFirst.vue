@@ -1,12 +1,7 @@
 <template>
-    <!-- <Header /> -->
-
      <SideVar></SideVar>
     <div id="padd">
-    <SideVar></SideVar>
-    <SideVar/>
     <div>
-
         <hr />
         <h4>나의 포인트:{{ user.user_point }}</h4>
         <hr />
@@ -40,16 +35,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr class="last"  v-if="lastOrder=[]">
-                                <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
-                            </tr>
-                            <tr v-else>
-                                <td colspan="4">{{ lastOrder.orderDate }}</td>
-                                <td colspan="4">{{ lastOrder.productName }}</td>
-                                <td colspan="4">{{ lastOrder.orderStatus }}</td>
-                                <td colspan="4">{{ lastOrder.prodcnt }}</td>
-                            </tr>
-                        </tbody>
+                    <tr class="last"v-if="lastOrder">
+                        <td>{{ lastOrder.order_date }}</td>
+                        <td>{{ lastOrder.product_name }}</td>
+                        <td v-if="lastOrder.order_status==1">결제완료</td>
+                        <td v-if="lastOrder.order_status==2">상품준비중</td>
+                        <td v-if="lastOrder.order_status==3">배송중</td>
+                        <td v-if="lastOrder.order_status==4">배송완료</td>
+                        <td v-if="lastOrder.order_status==5">구매확정</td>
+                        <td>{{ lastOrder.prodcnt }}</td>
+                    </tr>
+                    <tr v-else>
+                        <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
+                    </tr>
+                </tbody>
                 </table>
             </div>
         </div>
@@ -58,13 +57,12 @@
     <!-- <Footer /> -->
 </template>
 <script>
-import { mapGetters } from "vuex";
-import Header from "@/components/Header.vue"
-import Footer from "@/components/Footer.vue"
+// import { mapGetters } from "vuex";
+// import store from "@/store";
 import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{
-        components: { Header, Footer,SideVar },
+        components: {SideVar },
 
     data(){
      return {
@@ -77,13 +75,15 @@ import axios from 'axios'
         lastOrder:{}
      }; 
     },
-    computed: {
-        ...mapGetters(["getUserInfo"]),
-        user() {
-            return this.getUserInfo;
-        },
-    },
+    // computed: {
+    //     ...mapGetters(["getUserInfo"]),
+    //     user() {
+    //         return this.getUserInfo;
+    //     },
+    // },
     created(){
+        console.log(this.$store.getters.getUserInfo.user_id)
+        //this.id=this.$store.getters.getUserInfo.user_id
         axios.get('/api/mypage/'+this.id)
         .then(result=>{console.log(result)
             this.reviewYesCount=result.data.revieYesCount[0].ycnt,
@@ -91,7 +91,8 @@ import axios from 'axios'
             this.qnaNoCount=result.data.qnaNoCount[0].ncnt,
             this.qnaYesCount=result.data.qnaYesCount[0].ycnt,
             this.user=result.data.userInfo[0],
-            this.lastOrder=result.data.lastOrder[0]
+            this.lastOrder=result.data.lastOrder[0],
+            console.log(this.lastOrder)
             
         })
         .catch(err=>console.log(err))
