@@ -108,9 +108,8 @@ export default {
       this.productCnt = response.data.total;
 
       // 다음 페이지 여부 판단
-        if (response.data.products.length < this.perPage) {
-          this.noMoreProducts = true;
-          
+      if (!response.data.hasNextPage) {
+        this.noMoreProducts = true;
         } else {
           this.pno++;
         }

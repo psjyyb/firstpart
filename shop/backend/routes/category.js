@@ -34,21 +34,6 @@ router.get("/search", async (req, res) => {
   })
 });
 
-
-// router.get("/search", async (req, res) => {
-//   const key = req.query.keyword;
-//   try {
-//     const searchQuery = `%${key}%`; // Add wildcards
-//     const result = await query("productSearch", searchQuery); // Use prepared statement
-//     const searchCnt = await query("SearchCnt", key);
-//     console.log("검색어", key);
-//     res.json({ products: result, total: searchCnt[0].count });
-//   } catch (error) {
-//     console.error('Error performing search:', error);
-//   }
-// });
-
-
 router.get("/:no", async (req, res) => {
   let { no } = req.params;
   let { pno = 1} = req.query;
