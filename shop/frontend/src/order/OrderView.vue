@@ -121,6 +121,8 @@
 <script>
   import axios from 'axios'
   import mixin from '../mixin'
+  import * as PortOne from "@portone/browser-sdk/v2"
+  import { v4 } from "uuid"
 
   export default {
     mixins: [mixin],
@@ -151,7 +153,7 @@
     computed: {
       // 로그인된 회원 아이디
       account() {
-        return this.$store.state.user.userid;
+        return this.$store.state.user.user_id;
       },
       // 총 상품 금액
       totalPrice() {
@@ -172,8 +174,6 @@
       },
     },
     created() {
-      this.$store.commit('user', {userid: 'user01'})
-
       this.getOrderList();
       this.getUserInfo();
     },
@@ -221,116 +221,71 @@
         this.point.amount = 0;
         this.point.using = false;
       },
-      // 결제하기
-      // 결제 api
+      // 결제
       payment() {
-        // 주문 데이터
-        const orderData = {
-          order_status: 1,
-          user_id: this.account,
-          delivery_name: this.form.user_name,
-          delivery_post: this.form.user_post,
-          delivery_addr: this.form.user_address,
-          delivery_detail_addr: this.form.user_detail_addr,
-          delivery_phone: this.form.user_phone,
-          pay_price: this.totalPay,
-          pay_point: this.point.amount
-        }
-        // 주문상품 데이터
-        const orderList = this.orderlist;
-        // 회원 최종 포인트
-        const point = this.form.user_point - this.point.amount;
+        // const orderName = this.orderlist.length > 1 ? `${this.orderlist[0].product_name} 외 ${this.orderlist.length - 1}건` : `${this.orderlist[0].product_name}`;
+        // const totalAmount = this.totalPay;
 
-        async function request() {
-          // 주문 테이블에 주문 추가
-          await axios.post('/api/order', orderData)
-          // 추가한 주문의 주문번호 가져오기
-          const result = await axios.get(`/api/order/detail/${orderData.user_id}`)
-          const orderNo = result.data[0].order_no
-          // 주문상세 테이블에 주문상세 추가
-          orderList.forEach(ele => {
-            let orderDetailData = {
-              order_cnt: ele.cart_cnt,
-              order_no: orderNo,
-              product_no: ele.product_no,
-              product_price: ele.product_price,
-              point: ele.product_point
-            }
-            axios.post('/api/order/detail', orderDetailData)
-          })
-          // 회원 포인트 수정
-          await axios.put(`api/order/info/${orderData.user_id}`, {user_point: point})
-        }
-        // 실행
-        request();
+        // async function requestPayment() {
+        //   const response = await PortOne.requestPayment({
+        //     storeId: "store-40bbe7f1-02aa-486e-8049-26324a1a258f",
+        //     channelKey: "channel-key-7dc5a544-efa0-4e55-af07-a7209657747c",
+        //     paymentId: `payment-${v4()}`,
+        //     orderName,
+        //     totalAmount,
+        //     currency: "CURRENCY_KRW",
+        //     payMethod: "EASY_PAY",
+        //   })
+        //   // 오류 발생
+        //   if (response.code != null) {
+        //     return alert(response.message);
+        //   }
+        // }
+
+        // requestPayment();
+
+        // // 주문 데이터
+        // const orderData = {
+        //   order_status: 1,
+        //   user_id: this.account,
+        //   delivery_name: this.form.user_name,
+        //   delivery_post: this.form.user_post,
+        //   delivery_addr: this.form.user_address,
+        //   delivery_detail_addr: this.form.user_detail_addr,
+        //   delivery_phone: this.form.user_phone,
+        //   pay_price: this.totalPay,
+        //   pay_point: this.point.amount
+        // }
+        // // 주문상품 데이터
+        // const orderListData = this.orderlist;
+        // // 회원 최종 포인트
+        // const point = this.form.user_point - this.point.amount;
+
+        // async function request() {
+        //   // 주문 테이블에 주문 추가
+        //   await axios.post('/api/order', orderData)
+        //   // 추가한 주문의 주문번호 가져오기
+        //   const result = await axios.get(`/api/order/detail/${orderData.user_id}`)
+        //   const orderNo = result.data[0].order_no
+        //   // 주문상세 테이블에 주문상세 추가
+        //   orderListData.forEach(ele => {
+        //     let orderDetailData = {
+        //       order_cnt: ele.cart_cnt,
+        //       order_no: orderNo,
+        //       product_no: ele.product_no,
+        //       product_price: ele.product_price,
+        //       point: ele.product_point
+        //     }
+        //     axios.post('/api/order/detail', orderDetailData)
+        //   })
+        //   // 회원 포인트 수정
+        //   await axios.put(`api/order/info/${orderData.user_id}`, {user_point: point})
+        // }
+        // // 실행
+        // request();
       },
     }
   }
-    // let prodNo = $('#cartTable tbody tr').eq(1).attr('id');
-		// let prodName = $('#name' + prodNo).text();
-		// let orderName;
-		
-		// if(order.totalCount > 1) {
-		// 	orderName = prodName + ' 외 ' + (order.totalCount - 1) + '건';
-		// } else {
-		// 	orderName = prodName;
-		// }
-		
-		// IMP.init("imp37176432");
-		// IMP.request_pay(
-		// 	{
-		// 	    pg: "kakaopay.TC0ONETIME",
-		// 	    pay_method: "card",
-		// 	    merchant_uid: `payment-${crypto.randomUUID()}`,
-		// 	    name: orderName,
-		// 	    amount: order.totalPrice,
-		// 	    buyer_name: userId
-		// 	},
-		//     function (resp) {
-		// 		// 결제 성공 시
-		// 		if(resp.success) {
-		// 			console.log(resp);
-					
-		// 			let prodNoVal = '';
-		// 			let prodCntVal = '';
-					
-		// 			$('#cartTable tbody tr').each((idx, item) => {
-		// 				if(idx > 0) {
-		// 					let prodNo = $(item).attr('id');
-		// 					prodNoVal += prodNo + ',';
-		// 					prodCntVal += $('#count' + prodNo).val() + ',';
-		// 				}
-		// 			})
-					
-		// 			let form = $('<form />').attr('action', 'orderForm.do')
-		// 						 			.attr('method', 'post')
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'prodNo')
-		// 						 								.val(prodNoVal))
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'prodCnt')
-		// 						 								.val(prodCntVal))
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'userPost')
-		// 						 								.val($('#postcode').val()))
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'userAddr')
-		// 						 								.val($('#address').val()))
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'userDetailAddr')
-		// 						 								.val($('#detailAddress').val()))
-		// 						 			.append($('<input>').attr('type', 'hidden')
-		// 						 								.attr('name', 'orderPrice')
-		// 						 								.val(order.totalPrice))
-					
-		// 			$('body').append(form);
-					
-		// 			form.submit();
-		// 		} else {
-		// 			console.log(resp);
-		// 		}
-		// 	}
-		// );
 </script>
 <style>
 

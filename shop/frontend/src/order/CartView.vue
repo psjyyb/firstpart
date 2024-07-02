@@ -79,7 +79,7 @@
     computed: {
       // 로그인된 회원 아이디
       account() {
-        return this.$store.state.user.userid;
+        return this.$store.state.user.user_id;
       },
       // 총 금액
       totalPrice() {
@@ -109,7 +109,6 @@
       }
     },
     created() {
-      this.$store.commit('user', {userid: 'user01'})
       this.getCartlist();
     },
     methods: {
