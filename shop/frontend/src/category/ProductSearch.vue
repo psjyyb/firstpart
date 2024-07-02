@@ -41,6 +41,7 @@
                   </div>
               </div>
           </div>
+
         </div>
     </div>
 </template>
@@ -60,15 +61,9 @@ export default{
         this.keyword = this.$route.query.keyword;
         this.searchProductList();
     },
-    watch: {
-    '$route.query.keyword': {
-      handler: 'searchProductList',
-      immediate: true
-    }
-    },
     methods :{
         async searchProductList(){
-            let result = await axios.get(`/api/category/search/${this.keyword}`);
+            let result = await axios.get(`/api/category/search?keyword=${this.keyword}`);
             this.productList = result.data.products;
             this.productCnt = result.data.total;
         },
