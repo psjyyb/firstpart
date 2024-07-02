@@ -21,11 +21,11 @@ module.exports = {
                         JOIN review r ON r.order_no = d.order_no 
                         AND r.product_no = d.product_no 
                         WHERE o.user_id = ?`,
-    mypageLastOrder : `select o.order_date,o.order_status,p.product_name,count(d.product_no) as prodcnt
+    mypageLastOrder : `select o.order_date,o.order_no,o.order_status,p.product_name,count(d.product_no) as prodcnt
                         from orders o join order_detail d on o.order_no=d.order_no 
                         join product p on p.product_no=d.product_no 
                         where o.user_id= ? 
-                        group by o.order_date,o.order_status,p.product_name 
+                        group by o.order_date,o.order_status,p.product_name,o.order_no 
                         order by order_date`,
 
     mypageOrderList : `SELECT
@@ -177,7 +177,7 @@ module.exports = {
                         p.product_img,
                         o.pay_price,
                         o.pay_point,
-                        order_date
+                        c.order_date
                     FROM 
                         cancel c 
                     LEFT JOIN 
@@ -192,8 +192,8 @@ module.exports = {
                             where wish_no = ?`,
     mypageOrderDelete:`delete from orders 
                         where order_no = ?`,
-    mypageCancelInsert:`insert into cancel(order_no,user_id)
-                        values(?,?)`,
+    mypageCancelInsert:`insert into cancel(order_no,user_id,order_date)
+                        values(?,?,?)`,
 
     mypageReviewInsertInfo:`select
                                 product_name,

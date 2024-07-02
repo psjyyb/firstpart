@@ -145,20 +145,29 @@ router.delete("/wishDelete/:no", async (req,res)=>{
     await query("mypageWishSelectDelete",req.params.no)
     .then(result=>res.send(result))
 })
-router.delete("/orderDelete/:no", async (req,res)=>{
+router.post("/orderDelete/", async (req,res)=>{
     console.log('1번들어옴')
-    console.log(req.params.no)
-    await query("mypageOrderDelete",req.params.no)
-    .then(result=>console.log('2번들어옴'))
-    .catch(err=>console.log(err))
+    let date = req.query.date.toString();
+    console.log(toString(req.query.date))
+    console.log(date)
+    await query("mypageCancelInsert",[req.query.no,req.query.id,date])
+         .then(result=>{res.send(result)
+            // query("mypageOrderDelete",req.query.no)
+            // .then(result=>res.send(result))
+            // .catch(err=>console.log(err))
+         })
+         .catch(err=>console.log(err))
+    // await query("mypageOrderDelete",req.params.no)
+    // .then(result=>console.log('2번들어옴'))
+    // .catch(err=>console.log(err))
    
 })
-router.post("/cancelInsert/",async (req,res)=>{
-    console.log(req.query.no,req.query.id)
-    await query("mypageCancelInsert",[req.query.no,req.query.id])
-    .then(result=>{console.log('3번들어옴'),res.send(result)})
-    .catch(err=>console.log(err))
-})
+// router.post("/cancelInsert/",async (req,res)=>{
+//     console.log(req.query.no,req.query.id)
+//     await query("mypageCancelInsert",[req.query.no,req.query.id])
+//     .then(result=>{console.log('3번들어옴'),res.send(result)})
+//     .catch(err=>console.log(err))
+// })
 
 router.get("/ReviewInsertInfo/:no",async (req,res)=>{
     await query("mypageReviewInsertInfo",req.params.no)

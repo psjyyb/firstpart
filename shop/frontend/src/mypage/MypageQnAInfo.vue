@@ -12,7 +12,7 @@
                 <span class="text-primary">{{qnas.qna_title}}</span>
             </h1>
             <div class="subheading mb-5">
-                {{ qnas.qna_date }}
+                {{ getDateFormat(qnas.qna_date) }}
                 <a href="mailto:name@email.com" v-if="qnas.reply==null">답변미완료</a>
                 <a href="mailto:name@email.com" v-else>답변완료</a>
             </div>
@@ -29,9 +29,11 @@
   </div>
 </template>
 <script>
-   import axios from 'axios' 
+    import pageCalcMixin from '../mixin.js'
+    import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
     export default{
+    mixins:[pageCalcMixin],
     components: {SideVar},
     data(){
      return {
@@ -58,7 +60,10 @@
             this.$router.push({
                 name: 'mypageQnAUpdate', query: {no: no}
             });
-        }
+        },
+        getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

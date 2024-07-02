@@ -36,8 +36,8 @@
                     </thead>
                     <tbody>
                     <tr class="last"v-if="lastOrder">
-                        <td>{{ lastOrder.order_date }}</td>
-                        <td>{{ lastOrder.product_name }}</td>
+                        <td>{{ getDateFormat(lastOrder.order_date) }}</td>
+                        <td @click="orderInfo(lastOrder.order_no)">{{ lastOrder.product_name }}</td>
                         <td v-if="lastOrder.order_status==1">결제완료</td>
                         <td v-if="lastOrder.order_status==2">상품준비중</td>
                         <td v-if="lastOrder.order_status==3">배송중</td>
@@ -60,11 +60,12 @@
 <script>
 // import { mapGetters } from "vuex";
 // import store from "@/store";
+import pageCalcMixin from '../mixin.js'
 import SideVar from '../components/SideVar.vue'
 import axios from 'axios'
     export default{
+        mixins:[pageCalcMixin],
         components: {SideVar },
-
     data(){
      return {
         id:9999,
@@ -99,6 +100,14 @@ import axios from 'axios'
         .catch(err=>console.log(err))
     },
     methods:{
+        orderInfo(no){
+        this.$router.push({
+                name: 'mypageOrderInfo', query: {no: no}
+            });
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

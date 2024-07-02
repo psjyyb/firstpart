@@ -17,7 +17,7 @@
                 <tr v-for="QnA in QnAs" @click="qnaInfo(QnA.qna_no)">
                     <td>{{QnA.qna_no}}</td>
                     <td>{{QnA.qna_title}}</td>
-                    <td>{{QnA.qna_date}}</td>
+                    <td>{{getDateFormat(QnA.qna_date)}}</td>
                     <td v-if="QnA.qna_reply==null">답변미완료</td>
                     <td v-else>답변완료</td>
                 </tr>
@@ -64,7 +64,10 @@
     },
     addBtn(){
         this.$router.push('/mypageQnAInsert');
-    }
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

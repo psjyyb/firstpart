@@ -19,7 +19,7 @@
                       <td><div><template v-for="star in review.review_score">★</template></div></td>
                       <td @click="infoForm(review)">{{ review.product_name }}</td>
                       <td>{{ review.product_price }}</td>
-                      <td>{{ review.review_date }}</td>
+                      <td>{{ getDateFormat(review.review_date) }}</td>
                       <td><button type="button" class="btn btn-danger" @click="delBtn(review.review_no)">리뷰삭제</button></td>
                   </tr>
               </tbody>
@@ -71,7 +71,10 @@
         infoForm(review){
             //this.review=review;
             this.$refs.child.getData(review)
-        }
+        },
+        getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
       }
       }
   </script>

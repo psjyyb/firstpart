@@ -18,7 +18,7 @@
         리뷰내용:<input v-model="info.review_content">
     </div>
     <div>
-        작성일:<input v-model="info.review_date" readonly>
+        작성일:<p>{{getDateFormat(info.review_date)}}</p>
     </div>
     <div v-for="img in imgs">
         <img :src="`/api/upload/${img.add_name}`">
@@ -26,9 +26,10 @@
        <div><button type="button" class="btn btn-info" @click="modBtn">수정</button></div>
 </template>
 <script>
+    import pageCalcMixin from '../mixin.js'
     import axios from 'axios';
     export default{
-        
+    mixins:[pageCalcMixin],
     data(){
      return {
             info:{},
@@ -56,7 +57,10 @@
            await axios.put(`/api/mypage/reviewUpdate?content=${this.info.review_content}&rno=${this.info.review_no}`)
            .then(alert('리뷰수정 완료!'))
            .catch(err=>console.log(err))
-        }
+        },
+        getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

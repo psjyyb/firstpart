@@ -16,6 +16,8 @@
             <thead>
                 <tr>
                     <th>주문번호</th>
+                    <th>상품명</th>
+                    <th>주문일자</th>
                     <th>취소번호</th>
                     <th>취소일자</th>
                     <th>주문가격</th>
@@ -25,8 +27,10 @@
             <tbody>
                 <tr v-for="cancel in cancels">
                     <td>{{cancel.order_no}}</td>
+                    <td>상품명</td>
+                    <td>주문일자</td>
                     <td>{{cancel.cancel_no}}</td>
-                    <td>{{cancel.cancel_date}}</td>
+                    <td>{{getDateFormat(cancel.cancel_date)}}</td>
                     <td>{{ cancel.pay_price }}</td>
                     <td v-if="cancel.cancel_state==1">취소요청<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
                     <td v-else>취소완료<button type="button" class="btn btn-info" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
@@ -83,12 +87,16 @@
         console.log('cancels',result)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
+        console.log('취소록곡',this.cancels)
     },
     goInfo(no){
         this.$router.push({
                 name: 'mypageCancelInfo', query: {no: no}
             });
-    }
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

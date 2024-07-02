@@ -27,7 +27,7 @@
             <tbody>
                 <tr v-for="order in orders">
                     <td><img width="64"height="64":src="`/api/upload/${order.product_image}`"></td>
-                    <td>{{ order.order_date }}</td>
+                    <td>{{getDateFormat(order.order_date) }}</td>
                     <td @click="orderInfo(order.order_no)">{{ order.product_name }}</td>
                     <td v-if="order.order_status==1">결제완료</td>
                     <td v-else-if="order.order_status==2">상품준비중</td>
@@ -36,7 +36,7 @@
                     <td v-else-if="order.order_status==5">구매확정</td>
                     <td v-else>배송지연</td>
                     <td>{{ order.product_count }}</td>
-                    <td><button type="button" class="btn btn-warning" v-if="order.order_status==1" @click="orderDel(order.order_no)">주문취소</button></td>
+                    <td><button type="button" class="btn btn-warning" v-if="order.order_status==1" @click="orderDel(order.order_no,order.order_date)">주문취소</button></td>
                 </tr>
             </tbody>
         </table>
@@ -91,24 +91,29 @@
         this.orders = result.data.list;
         console.log('orders',result.data)
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
-        console.log(this.page)
+        console.log('ordersssssssissss',this.orders)
     },
     orderInfo(no){
         this.$router.push({
                 name: 'mypageOrderInfo', query: {no: no}
             });
     },
-    async orderDel(no){
-        console.log(no);
-        await axios.delete(`/api/mypage/orderDelete/`+no)
-        .then( await axios.post(`/api/mypage/cancelInsert/?no=${no}&id=${this.id}`)
-            .then(result=>console.log(result))
-            .catch(err=>console.log(err))
-            )
+    async orderDel(no,date){
+        console.log(date);
+        await axios.post(`/api/mypage/orderDelete/?no=${no}&date=${date}&id=${this.id}`)
+        .then(result=>{alert('주문취소완료!'),this.goPage(1)})
         .catch(err=>console.log(err))
-        .then(this.goPage(1))
+        // .then( await axios.post(`/api/mypage/cancelInsert/?no=${no}&id=${this.id}`)
+        //     .then(result=>console.log(result))
+        //     .catch(err=>console.log(err))
+        //     )
+        // .catch(err=>console.log(err))
+        // .then(this.goPage(1))
         // 삭제가 아니라 주문을 취소하게 되면 주문 테이블에서는 삭제가 되고
         // 취소테이블에 해당 주문번호로 추가되어야한다//트랜잭션
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
     }
     }
     }
