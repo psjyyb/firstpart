@@ -42,7 +42,6 @@ $.fn.isotope = function (options) {
 createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
 
 // component('InfiniteLoading', InfiniteLoading)
-createApp(App).use(store).use(router).use(vuetify).use(mixins).mount('#app')
 
 
 window.Kakao.init("e440154fb509449508e887c15f543fe1");

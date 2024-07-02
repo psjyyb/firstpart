@@ -96,29 +96,6 @@
             </div>
           </div>
         </div>
-      </nav>
-
-    </div>
-  </header>
-</template>
-
-<script>
-import axios from "axios";
-export default{
-
-    data(){
-      return {
-      categoryList:[],
-      keyword: this.$route.query.keyword,
-    };
-    },
-    created () {
-      this.getCategoryList();
-    },
-    props:["isAdmin"],
-    methods :{
-      adminpage(){
-        this.$emit("change",true)
       </div>
   
       <div class="container-fluid">
@@ -253,25 +230,6 @@ export default{
         }
       },
       }
-    },
-    watch: {
-      '$route.query.keyword': {
-        handler: 'searchProductList',
-        immediate: true
-      }
-    },
-    }
-}
-</script>
-
-<style>
-button{
-  border: none;
-  background-color: white;
-}
-
-</style>
-
   }
   </script>
   
