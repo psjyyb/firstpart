@@ -77,7 +77,7 @@
           <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
             <div class="search-bar border rounded-2 px-3 border-dark-subtle">
               <!-- 써치 -->
-              <form id="search-form" class="text-center d-flex align-items-center" action="" method="">
+              <form @submit.prevent id="search-form" class="text-center d-flex align-items-center" action="" method="">
                 <input v-model="keyword" @keyup.enter="nameSearch(keyword)" type="text" class="form-control border-0 bg-transparent"
                   placeholder="Search for more than 10,000 products" />
                 <svg @click="nameSearch(keyword)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -190,6 +190,7 @@
   
   <script>
   import axios from "axios";
+  
   export default{
       data(){
         return {
@@ -216,12 +217,11 @@
               this.$router.push({ path: "/category", query: { no: no } });
           },
         nameSearch(keyword){
-          if (keyword !== ''){ 
-            this.$router.push({ path: "/search", query: { keyword : keyword } });
-            console.log('"',keyword,'"' + ' 검색')
-        } else {
-            alert('검색어를 입력해주세요!')  
-        }
+          if (this.keyword !== ''){ 
+            this.$router.push({ path: "/search", query: { keyword : this.keyword } });
+          } else {
+              alert('검색어를 입력해주세요!')  
+          }
       },
       watch: {
         '$route.query.keyword': {
