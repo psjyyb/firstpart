@@ -1,4 +1,8 @@
 <template>
+    <hr>
+    <hr>
+    <hr>
+    <hr>
      <div>
         상품명:<input v-model="info.product_name">
     </div>
@@ -19,7 +23,7 @@
     <div v-for="img in imgs">
         <img :src="`/api/upload/${img.add_name}`">
     </div>
-       
+       <div><button type="button" class="btn btn-info" @click="modBtn">수정</button></div>
 </template>
 <script>
     import axios from 'axios';
@@ -41,10 +45,14 @@
     methods:{
        async getData(review){
             this.info=review;
+            console.log('dddddd',this.info)
             //console.log('자식이벤트 호출',review,'<- 여기 내용 다 들어있고 이미지만 불러오면됨')    
             await axios.get(`/api/mypage/reviewImg/`+review.review_no)
             .then(result=>{console.log('이미지지지지지',result),this.imgs=result.data })
             .catch(err=>console.log(err))
+        },
+        modBtn(){
+            axios.put(`/apu/mypage/reviewUpdate`)
         }
     }
     }
