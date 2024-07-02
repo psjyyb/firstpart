@@ -13,10 +13,11 @@
         <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
       </b-breadcrumb>
     </div>
-    <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-      <div class="product-card" :key="product.product_no" v-for="product in displayedProducts.slice(0, initialDisplayCount)">
+    <!-- <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10"> -->
+      <div class="product-list" >
+      <div class="product-card" :key="product.product_no" v-for="product in productList">
        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-          New
+          no. {{ product.product_no }}
         </div>
         <div class="card position-relative">
           <a href="single-product.html">
@@ -56,129 +57,90 @@ import Swal from 'sweetalert2'
 // import InfiniteScroll from 'vue-infinite-scroll';
 
 export default {
-  // directives: {
-  //   InfiniteScroll
-  // },
   data() {
     return {
       searchNo: "",
       productList: [],
-      displayedProducts: [], // Holds visible products for rendering
       productCnt: 0,
-      initialDisplayCount: 12,
-      page: 1,
-      busy: false,  //true면 스크롤 안보임
-      noMoreProducts: false,
-      isLoading: false,
-
+      // displayedProducts: [], // Holds visible products for rendering
+      // initialDisplayCount: 12,
+      // page: 1,
+      // busy: false,  //true면 스크롤 안보임
+      // noMoreProducts: false,
+      // isLoading: false,
     };
   },
   created() {
     this.searchNo = this.$route.query.no;
     this.getProductList();
   },
-  watch: {
-    '$route.query.no': {
-      handler: 'getProductList',
-      immediate: true
-    },
-    
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
+  // mounted() {
+  //   window.addEventListener('scroll', this.handleScroll);
+  // },
+  // destroyed() {
+  //   window.removeEventListener('scroll', this.handleScroll);
+  // },
   methods: {
     async getProductList() {
-      this.page = 1;
-      this.productList = [];
-      this.displayedProducts = []; // Clear displayed products
-      this.busy = false;
-      this.noMoreProducts = false;
-      this.initialDisplayCount = 12;
-      this.searchNo = this.$route.query.no;
-      await this.loadInitialProducts();
-      this.isLoading = false;
-
+      let result =  await axios.get(`/api/category/${this.searchNo}`)
+      this.productList = result.data.productsall;
+      this.productCnt = result.data.total;
     },
+    
+//     async getProductList() {
+//       this.page = 1;
+//       this.productList = [];
+//       this.displayedProducts = []; // Clear displayed products
+//       this.busy = false;
+//       this.noMoreProducts = false;
+//       this.initialDisplayCount = 12;
+//       this.searchNo = this.$route.query.no;
+//       await this.loadMoreProducts();
+//       this.isLoading = false;
+//     },
 
-    async loadMoreProducts() {
-  if (this.busy || this.noMoreProducts) return;
-  this.busy = true;
+//     async loadMoreProducts() {
+//     if (this.busy || this.noMoreProducts) return;
+//     this.busy = true;
 
-  try {
-    const response = await axios.get(`/api/category/${this.searchNo}`, {
-      params: {
-        page: this.page,
-        perPage: 12,
-      }
-    });
+//   // 페이지 번호 업데이트
+//   this.page++;
 
-    if (response.data.products.length) {
-      this.displayedProducts.push(...response.data.products);
-      this.productList.push(...response.data.products);
-      this.productCnt = response.data.total;
-      console.log('productCnt2',this.productCnt)
-      if (this.productList.length >= this.productCnt) {
-        this.noMoreProducts = true;
-      }
-      this.initialDisplayCount += response.data.products.length;
-      this.page += response.data.products.length; // 페이지 번호 업데이트
-    } else {
-      this.noMoreProducts = true;
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    this.busy = false;
-  }
-},
+//   try {
+//     const response = await axios.get(`/api/category/${this.searchNo}`, {
+//       params: {
+//         page: this.page,
+//         perPage: 12,
+//       }
+//     });
+//     if (response.data.products.length) {
+//       this.displayedProducts.push(...response.data.products);
+//       this.productList.push(...response.data.products);
+//       this.productCnt = response.data.total;
 
+//       // 다음 페이지 여부 판단
+//         if (response.data.products.length < this.perPage) {
+//           this.noMoreProducts = true;
+//         } else {
+//           this.page++;
+//         }
+//     } else {
+//       this.noMoreProducts = true;
+//     }
+//   } catch (error) {
+//     console.error('데이터 가져오기 오류:', error);
+//   } finally {
+//     this.busy = false; 
+//   }
+// },
 
-
-    async handleScroll() {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 50 && !this.isLoading) {
-        this.currentPage++;
-        await this.getProductList();
-      }
-    },
-
-    async loadMoreProducts() {
-  if (this.busy || this.noMoreProducts) return;
-  this.busy = true;
-
-  try {
-    const response = await axios.get(`/api/category/${this.searchNo}`, {
-      params: {
-        page: this.page,
-        perPage: 12,
-      }
-    });
-
-    if (response.data.products.length) {
-      this.displayedProducts.push(...response.data.products);
-      this.productList.push(...response.data.products); // 추가된 코드
-      this.productCnt = response.data.total;
-      console.log('productCnt2',this.productCnt)
-      if (this.productList.length >= this.productCnt) {
-        this.noMoreProducts = true;
-      }
-      this.initialDisplayCount += response.data.products.length;
-      this.page++;
-    } else {
-      this.noMoreProducts = true;
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    this.busy = false;
-  }
-},
-
-
+//     async handleScroll() {
+//     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+//     if (scrollTop + clientHeight >= scrollHeight - 50 && !this.isLoading) {
+//     this.page++;
+//     await this.loadMoreProducts();
+//   }
+// },
 
     goToDetail(no) {
       this.$router.push({ path: "/detail", query: { no: no } });
@@ -235,9 +197,6 @@ export default {
   }
 }
 </script>
-
-
-
 
 <style>
 

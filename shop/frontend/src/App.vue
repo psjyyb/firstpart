@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <component :is="headerComponent" :isAdmin="isAdmin" @change="change"/>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
     <Footer/>
   </div>
 </template>

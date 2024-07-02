@@ -13,7 +13,6 @@
             <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
         </b-breadcrumb>
       </div>
-
       <div class="product-list">
           <!-- 상품1개 -->
           <div class="product-card" :key="i" v-for="(product, i) in productList" >
@@ -42,7 +41,6 @@
                   </div>
               </div>
           </div>
-
         </div>
     </div>
 </template>

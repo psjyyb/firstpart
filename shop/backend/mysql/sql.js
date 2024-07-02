@@ -12,12 +12,5 @@ module.exports = {
 	...userSql,
 	...orderSql,
 }
-module.exports =	{
- ...cartSql,
- 	 ...mypageSql,
-	  ...productSql,
-	  ...userSql,
-	  ...adminSql,
- }
 
 

@@ -36,7 +36,8 @@
                   class="d-block w-100"
                 /> -->
                 <div class="d-block w-100">
-                  {{ productInfo.product_img }}
+                  <!-- {{ productInfo.product_img }} -->
+                  <!-- {{ productInfo.product_img }} -->
                 </div>
                 <!-- <img
                   :src="`/download/${productId}/${pimg.path}`"
@@ -303,6 +304,7 @@ export default{
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
+      
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
