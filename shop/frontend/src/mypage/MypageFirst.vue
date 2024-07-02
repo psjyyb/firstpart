@@ -25,7 +25,7 @@
         <div class="b_order_list item">
             <h3><img src="https://img.dongwonmall.com/dwmall/web/images/content/mydw/tit02_mydw_main.gif" alt="최근 주문내역"></h3>
             <div class="tbl_list_mydw c_black">
-                <table class="table table-success table-striped-columns">
+                <table class="table table-bordered border-primary">
                     <thead>
                         <tr>
                             <th>주문일</th>
@@ -49,6 +49,7 @@
                         <td colspan="4"><div class="nodata"><p>최근 구매 상품이 없습니다.</p></div></td>
                     </tr>
                 </tbody>
+
                 </table>
             </div>
         </div>

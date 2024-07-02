@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th>주문번호</th>
@@ -29,7 +29,7 @@
                     <td>{{cancel.cancel_date}}</td>
                     <td>{{ cancel.pay_price }}</td>
                     <td v-if="cancel.cancel_state==1">취소요청<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
-                    <td v-else>취소완료<button type="button" class="btn btn-light" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
+                    <td v-else>취소완료<button type="button" class="btn btn-info" @click="goInfo(cancel.cancel_no)">상세보기</button></td>
                 </tr>
             </tbody>
         </table>
