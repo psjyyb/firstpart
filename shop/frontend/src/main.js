@@ -6,8 +6,6 @@ import store from './store'
 import BootstrapVue3 from 'bootstrap-vue-3';
 import vuetify from './plugins/vuetify'
 // jQuery와 Isotope 임포트
-// import InfiniteLoading from "v3-infinite-loading";
-// import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
@@ -20,11 +18,8 @@ import Isotope from 'isotope-layout'
 
 
 import mixins from "./mixin.js";
-// app.component('infinite-loading', InfiniteLoading)
 
-// import InfiniteLoading from 'vue-infinite-loading';
 
-// import InfiniteLoading from 'v3-infinite-loading'
 // import 'v3-infinite-loading/lib/style.css';
 import InfiniteScroll from 'vue-infinite-scroll';
 
