@@ -8,6 +8,10 @@ module.exports = {
                         LIMIT 8`,
     getCategory : `SELECT category_no,category_name 
                         FROM category`,
+    scrollProduct : `SELECT product_no,product_name,product_price,product_img 
+                        FROM product 
+                        WHERE category_no =?
+                        LIMIT ?, ?`,
     categoryProduct : `SELECT product_no,product_name,product_price,product_img 
                         FROM product 
                         WHERE category_no =?`,

@@ -36,7 +36,8 @@
                   class="d-block w-100"
                 /> -->
                 <div class="d-block w-100">
-                  {{ productInfo.product_img }}
+                  <!-- {{ productInfo.product_img }} -->
+                  <!-- {{ productInfo.product_img }} -->
                 </div>
                 <!-- <img
                   :src="`/download/${productId}/${pimg.path}`"
@@ -303,20 +304,19 @@ export default{
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
+      
     },
     getCurrencyFormat(value) {
-      // 가격의 ,을 새겨주는 $currencyFormat 호출
       return this.$currencyFormat(value);
     },
       // 메소드 호출
     calculatePrice(cnt) {
-      let total = this.total + cnt; // cnt를 받아 수량(total)을 나타냄 (total 초기값 = 0)
-      if (total < 0) total = 0; // total이 0보다 작을 땐 total은 무조건 0
+      let total = this.total + cnt; 
+      if (total < 0) total = 0; 
       this.total = total;
-      this.totalPrice = this.productInfo.product_price * this.total; // totalPrice는 제품 가격 * 수량
+      this.totalPrice = this.productInfo.product_price * this.total; 
     },
     wishGo(){
-        // this.$swal('Hello Vue world!!!');
         Swal.fire({
         position: "center",
         icon: "success",
