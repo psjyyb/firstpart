@@ -23,6 +23,7 @@
     </tbody	>
    </table	>
    <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
+   <router-link to ="/insertnotice"	class="nav-link">공지사항 등록</router-link	>
   </div	>
 </template	>
 <script	>

@@ -79,7 +79,7 @@ export	default {
     },
 
     async removeUser(user_id) {
-      let result =	(await axios .delete(`/api/adminmember/${user_id }`)).data
+      let result =	(await axios .delete(`/api/adminmember/useDelete/${user_id }`)).data
  	   .affectedRows ;
  	  if (result ==	1 )	{
  	   alert("정상적으로	삭제되었습니다.");

@@ -48,7 +48,18 @@ module.exports =	{
    SET stock_cnt = stock_cnt + ? , storage_cnt = storage_cnt +?
    WHERE product_no = ?
    `,
-   AdminuserDelete : `DELETE user
+   AdminuserDelete : `DELETE FROM user
    WHERE user_id = ? 
    `,
+   productInfo : `SELECT product_no,product_name,product_price,product_img,product_detail_img, product_mfd,product_exp,category_no 
+                        FROM product 
+                        WHERE product_no = ?
+   `,
+   productDelete:`DELETE FROM product 
+   WHERE product_no = ? 
+   `,
+   productUpdate:`UPDATE product SET ?
+   WHERE	product_no	=	?
+   `,
+    
 };

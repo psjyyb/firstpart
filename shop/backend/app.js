@@ -49,7 +49,8 @@ app.get("/", (req, res) => {
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
 
-app.use('/upload', express.static('upload/productImg'));
+app.use('/readproductImg', express.static('upload/productImg'));
+app.use('/readproductdetailimg', express.static('upload/productdetailimg'));
 app.use('/user',userRouter)
 app.use('/cart', cartRouter)
 

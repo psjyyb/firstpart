@@ -22,11 +22,11 @@
       @click ="goToDetail(board.no )" 	   >
       <td	>{{board.no }}</td	>
      </tr	> -->
-     <tr :key="i" v-for="(product,i) in products">
-                    <td>{{ product.product_no }}</td>
-                    <td>{{ product.product_name }}</td>
+     <tr :key="i" v-for="(product,i) in products"  >
+                    <td >{{ product.product_no }}</td>
+                    <td @click ="goToDetail(product.product_no)">{{ product.product_name }}</td>
                     <td>{{ product.product_price }}</td>            
-                    <td><img :src="`/api/upload/${product.product_img}`" height="180" width="180"></td>
+                    <td><img :src="`/api/readproductImg/${product.product_img}`" height="180" width="180"></td>
                     <td>{{ product.product_mfd }}</td>
                     <td>{{ product.product_exp }}</td>
                     <td>{{ product.category_name }}</td>
@@ -94,6 +94,10 @@ export	default {
   //  getDateFormat(date )	{
   //   return this.$dateFormat(date );
     },
+    goToDetail(no )	{
+ 	  this.$router.push({	path:"/infoproduct",	query: {	product_no:no }	});
+ 	 },
+
     async outCnt(product,i) {
         if(this.stock_cnt[i] > product.stock_cnt) {
 
@@ -130,6 +134,17 @@ export	default {
       this.goPage(this.page);
         
       },
+      change_product_img(file)	{
+        const fileData = (data) => {
+        this.p_product_img = data
+      }
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.addEventListener("load", function () {
+        fileData(reader.result)
+      }, false);
+      console.log(this. product_img);
+    },
 
 
     
