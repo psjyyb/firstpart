@@ -31,20 +31,10 @@
               ></button>
             </div>
             <div class="carousel-inner">
-              <div>
-                  <!-- <img src='../../public/images/item9.jpg'
-                  class="d-block w-100"
-                /> -->
                 <div class="d-block w-100">
-                  <!-- {{ productInfo.product_img }} -->
-                  <!-- {{ productInfo.product_img }} -->
+                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
+                  <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image">
                 </div>
-                <!-- <img
-                  :src="`/download/${productId}/${pimg.path}`"
-                  class="d-block w-100"
-                  alt="..."
-                /> -->
-              </div>
             </div>
             <button
               class="carousel-control-prev"
@@ -76,13 +66,13 @@
           <div class="card border-0 text-start">
             <div class="card-body">
               <!-- <h5 class="card-title">{{ productDetail.product_name }}</h5> -->
-              <h5 class="card-title">{{ productInfo.product_name }}</h5>
-              <h5>
+              <h2 class="card-title">{{ productInfo.product_name }}</h2>
+              <h3>
                 <p class="card-text pt-3 pb-3">
                   <!-- {{ getCurrencyFormat(productDetail.product_price) }}원 -->
                   {{ getCurrencyFormat(productInfo.product_price) }} 원
                 </p>
-              </h5>
+              </h3>
               <div class="card-text pb-3 mb-4">
                 <div class="row">
                   <div class="col-auto">
@@ -251,7 +241,6 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
-                      
                     >
                     <i class="bi-cart3"></i>
                       BUY NOW
@@ -271,17 +260,14 @@
     </b-nav>
     </div>
 
-    <div class="row">
+    <div class="row-detail">
         <div class="col-6">
-          <!-- <img src='../../public/images/blog1.jpg' class="img-fluid"
-            style="width: 1000px"
-          /> -->
-          <div class="img-fluid" style="width: 1000px">{{ productInfo.product_detail_img }}</div>
-          <!-- <img
-            :src="`/download/${productId}/${productDetail.path}`"
-            class="img-fluid"
-            style="width: 1000px"
-          /> -->
+
+          <div class="img-fluid">
+            <!-- <img :src="require(`../../../backend/upload/productdetailimg/10276_web_detailView_1715071344956708.jpg`)" class="img-fluid rounded-4" alt="image"> -->
+            <img :src="require(`../../../backend/upload/productdetailimg/${productInfo.product_detail_img}`)" class="img-fluid rounded-4" alt="image">
+          </div>
+
         </div>
       </div>
 
@@ -304,6 +290,7 @@ export default{
       productInfo: {},
       totalPrice: 0,
       total: 0,
+      emits: [],
 
   };
   },
@@ -350,22 +337,22 @@ export default{
     },
     shareMessage() {
         if (!window.Kakao) return;
+        let productImageElement  = $('.carousel-inner').find('img').attr('src');
+        // let productImageUrl = productImageElement ? productImageElement.getAttribute('src') : '';
         
         window.Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
             title: this.productInfo.product_name,
             description: `${this.productInfo.product_price} 원`,
-            imageUrl: `http://localhost:8080/images/item13.jpg`,
+            // <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image">
+            // imageUrl: `http://localhost:8080/img/${this.productInfo.product_img}`,
+            // `http://localhost:8080/img/9935_web_list_L1_1695271064438511.5aab711d.jpg`
+            imageUrl: productImageElement,
             link: {
               mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
               webUrl: `http://localhost:8080/detail?no=${this.searchNo}`,
             },
-          },
-          social: {
-            likeCount: 286,
-            commentCount: 45,
-            sharedCount: 845,
           },
           buttons: [
             {
@@ -397,5 +384,20 @@ export default{
   font-size: 30px;
   margin: 50px;
 }
+.carousel {
+    position: relative;
+    margin-top: 100px;
+}
+.col-md-6{
+  margin-top:100px;
+}
+.sub {
+  width: 400px;
+  height: 400px;
+}
 
+.col-6 {
+    flex: 0 0 auto;
+    width: 100%;
+}
 </style>

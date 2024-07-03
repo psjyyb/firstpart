@@ -210,7 +210,7 @@
       methods :{
         ...mapActions(['logoutUser']),
         adminpage(){
-          this.$emit("change",true)
+          // this.$emit("change",true)
         },
         async getCategoryList() {
           let result = await axios.get(`/api/category`);
