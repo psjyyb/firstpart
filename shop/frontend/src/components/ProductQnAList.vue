@@ -10,11 +10,10 @@
             <th>Content</th>
             <th>userId</th>
             <th>Photos</th>
-            <th>Reply</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="qna in qnas" :key="qna.qna_id">
+        <tbody  v-for="qna in qnas" :key="qna.qna_id">
+          <tr>
             <td>{{ qna.qna_no }}</td>
             <td>{{ qna.qna_title }}</td>
             <td>{{ getDateFormat(qna.qna_date) }}</td>
@@ -26,11 +25,14 @@
             </div>
             </td>
             <td v-else>사진첨부없음</td>
-            <td>{{ qna.qna_reply }}</td>
+          </tr>
+          <tr v-if="qna.qna_reply">
+            <td colspan="6"> ┖≫ {{ qna.qna_reply }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div><button type="button" class="btn btn-primary" @click="addBtn">QnA등록</button></div>
   </template>
 <script>
 import pageCalcMixin from '../mixin.js'
@@ -39,13 +41,15 @@ import axios from "axios";
         mixins:[pageCalcMixin],
     data(){
      return {
-        qnas:{}
+        qnas:{},
+        prodNo:0
      }; 
     },
     created(){
     },
     methods:{
         async getData(no){
+            this.prodNo=no
             console.log(no,'여긴리스트')
             await axios.get(`/api/mypage/ProductQnA/?pno=${no}`)
             .then(result=>{console.log('qnaqnaqnaqnaqna',result.data),this.qnas=result.data})
@@ -54,6 +58,11 @@ import axios from "axios";
         getDateFormat(date) {
       return this.$dateFormat(date);
     },
+    addBtn(){
+      this.$router.push({
+                name: 'mypageQnAInsert', query: {no: this.prodNo}
+            });
+    }
     }
     }
 </script>

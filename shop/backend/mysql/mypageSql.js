@@ -250,8 +250,9 @@ module.exports = {
     mypageQnAinsert:`insert into qna(
                                     qna_title,
                                     qna_content,
-                                    user_id)
-                     values(?,?,?)`,
+                                    user_id,
+                                    product_no)
+                     values(?,?,?,?)`,
     mypageQnADelete:`delete from qna 
                      where qna_no=?`,
     mypageQnAImgDelete:`DELETE FROM addFile
@@ -306,6 +307,7 @@ module.exports = {
                         q.qna_date,
                         q.qna_reply,
                         q.user_id,
+                        q.product_no,
                         GROUP_CONCAT(a.add_name SEPARATOR ', ') AS add_names
                     FROM 
                         qna q
@@ -314,8 +316,20 @@ module.exports = {
                     ON 
                         q.qna_no = a.table_no AND a.table_class = 'qna'
                     WHERE 
-                        q.product_no = 1192
+                        q.product_no = ?
                     GROUP BY 
-                    q.qna_no,q.qna_title, q.qna_content,q.qna_date,q.qna_reply,q.user_id`
+                    q.qna_no,q.qna_title, q.qna_content,q.qna_date,q.qna_reply,q.user_id`,
+    mypageReviewInfo:`select product_name,
+                            product_img,
+                            review_content,
+                            review_score,
+                            review_no
+                    from review r join  product p
+                    on r.product_no = p.product_no
+                    where review_no = ? `,
+    mypageReviewUpdate:`update review
+                        set review_score = ?,
+                            review_content = ?
+                        where review_no = ?`
 
 }

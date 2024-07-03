@@ -10,7 +10,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">상품가격:</label>
           <div class="col-sm-10">
-            <input v-model="info.product_price" class="form-control" readonly>
+            <p>{{getcurrencyFormat(info.product_price)}}원</p>
           </div>
         </div>
         <div class="text-center">
@@ -28,7 +28,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">리뷰내용:</label>
           <div class="col-sm-10">
-            <textarea v-model="info.review_content" class="form-control"></textarea>
+            <textarea v-model="info.review_content" class="form-control" readonly></textarea>
           </div>
         </div>
         <div class="form-group row">
@@ -41,9 +41,6 @@
           <div class="col-6 col-sm-4 col-md-3 mb-2" v-for="img in imgs" :key="img.add_name">
             <img :src="`/api/upload/${img.add_name}`" class="img-fluid img-thumbnail">
           </div>
-        </div>
-        <div class="text-center mt-3">
-          <button type="button" class="btn btn-primary" @click="modBtn">수정</button>
         </div>
       </div>
     </div>
@@ -77,15 +74,18 @@
             .then(result=>{console.log('이미지지지지지',result),this.imgs=result.data })
             .catch(err=>console.log(err))
         },
-       async modBtn(){
-            console.log(this.info)
-           await axios.put(`/api/mypage/reviewUpdate?content=${this.info.review_content}&rno=${this.info.review_no}`)
-           .then(Swal.fire('리뷰수정 완료!'))
-           .catch(err=>console.log(err))
-        },
+      //  async modBtn(){
+      //       console.log(this.info)
+      //      await axios.put(`/api/mypage/reviewUpdate?content=${this.info.review_content}&rno=${this.info.review_no}`)
+      //      .then(Swal.fire('리뷰수정 완료!'))
+      //      .catch(err=>console.log(err))
+      //   },
         getDateFormat(date) {
       return this.$dateFormat(date);
     },
+    getcurrencyFormat(value) {
+          return this.$currencyFormat(value);
+      }
     
     }
     }

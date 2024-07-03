@@ -28,6 +28,7 @@
     </form>
 </div>
 </div>
+{{ prodNo }}
 </template>
 <script>
     import axios from 'axios' 
@@ -39,11 +40,17 @@
      return {
         imgFile: [],
         qna:{},
-        id:'9999'
+        id:'9999',
+        prodNo:0,
+
      }; 
     },
     created(){
         this.id=this.$store.getters.getUserInfo.user_id
+        if(this.$route.query.no!=null){
+        this.prodNo=this.$route.query.no
+        }
+        console.log('default',this.prodNo)
     },
     methods:{
         upload() {
@@ -62,6 +69,8 @@
       data.append("title",this.qna.title);
       data.append("content",this.qna.content);
       data.append("userId",this.id);
+      data.append("prodNo",this.prodNo);
+      console.log('default',this.prodNo)
       await axios.post(`/api/mypage/QnAInsert/`,data,
       { headers:{'Content-Type':'multipart/form-data'}})
       .then(this.$router.push('/mypageQnAList'),Swal.fire('문의 등록완료!'))

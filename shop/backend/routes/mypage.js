@@ -211,12 +211,12 @@ router.get("/QnAInfo/:no", async (req,res)=>{
 
 router.post("/QnAInsert/",upload.array("files"), async (req, res) => {
     let data = { ...req.body };
-    console.log(data)
+    console.log('dsdsds확인해봐여겟뉴',data.prodNo)
     console.log(req.files)
     console.log(req.files.length)
     //const originalname = Buffer.from(req.files.originalname, 'latin1').toString('utf8');
     let qna = 'qna';
-    await query("mypageQnAinsert",[data.title,data.content,data.userId])
+    await query("mypageQnAinsert",[data.title,data.content,data.userId,data.prodNo])
     .then(result=>{console.log(result)
         for(let i=1; i<req.files.length+1; i++){
             query("mypageReviewImg",[req.files[i-1].filename,qna,result.insertId,i,req.files[i-1].originalname])
@@ -289,7 +289,28 @@ router.get("/ProductQnA/", async (req,res)=>{
      .then(result=>{console.log('revuwesdae',result),res.send(result)})
     .catch(err=>console.log(err))
     })  
-
+router.get("/ReviewInfo/:no", async (req,res)=>{
+    console.log('review바바바바',req.params.no);
+    await query("mypageReviewInfo",req.params.no)
+    .then(result=>{console.log('review',result),res.send(result)})
+    .catch(err=>console.log(err))
+})
+router.post("/ReviewUpdate/",upload.array("files"), async (req,res)=>{
+    let data = { ...req.body };
+    console.log(data,req.files)
+    let review = 'review'
+    await query("mypageUpdateImg",[review,data.reviewNo])
+    .then(result=>{console.log('이미지 삭제',result)
+     query("mypageReviewUpdate",[data.score,data.content,data.reviewNo])
+    .then(result=>{console.log(result)
+        for(let i=1; i<req.files.length+1; i++){
+            query("mypageReviewImg",[req.files[i-1].filename,review,data.reviewNo,i,req.files[i-1].originalname])
+            .then(result=>{console.log(result)})
+            .catch(err=>{console.log(err)})
+        }})
+    })
+    .catch(err=>console.log(err))
+})
 module.exports = router;
 
 

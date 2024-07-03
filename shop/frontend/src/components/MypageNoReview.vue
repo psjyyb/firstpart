@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md 12 col-lg-7 border p-5">
+       
           <table class="table table-bordered border-primary">
               <thead>
                   <tr>
@@ -10,6 +10,7 @@
                      <th>상품가격</th>
                      <th>작성일</th>
                      <th>리뷰삭제</th>
+                     <th>리뷰수정</th>
                   </tr>
               </thead>
               <tbody>
@@ -21,11 +22,12 @@
                       <td>{{getcurrencyFormat(review.product_price) }}원</td>
                       <td>{{ getDateFormat(review.review_date) }}</td>
                       <td><button type="button" class="btn btn-danger" @click="delBtn(review.review_no)">리뷰삭제</button></td>
+                      <td><button type="button" class="btn btn-warning" @click="modBtn(review.review_no)">리뷰수정</button></td>
                   </tr>
               </tbody>
           </table>
           <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
-      </div>
+    
       <div class="col-md 12 col-lg-5 border">
             <ReviewInfo ref="child" :review="review"></ReviewInfo>
         </div>
@@ -79,6 +81,9 @@
     },
     getcurrencyFormat(value){
         return this.$currencyFormat(value);
+    },
+    modBtn(no){
+      this.$router.push({ name: 'mypageReviewUpdate', query: { no: no } });
     }
       }
       }

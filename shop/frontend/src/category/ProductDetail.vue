@@ -256,8 +256,8 @@
     <div class="fontSize">
     <b-nav tabs align="center" >
       <b-nav-item  active>상품 상세</b-nav-item>
-      <b-nav-item @click="infoForm">상품리뷰</b-nav-item>
-      <b-nav-item @click="qnaForm" >상품 QnA</b-nav-item>
+      <b-nav-item @click="activateReviewTab">상품 리뷰</b-nav-item>
+      <b-nav-item @click="activateQnATab">상품 QnA</b-nav-item>
     </b-nav>
     </div>
 
@@ -271,10 +271,12 @@
         </div>
       </div>
 
-      <ReviewList ref="child"></ReviewList>
+      
     </div>
+
     <div>
-      <ReviewQnA ref="qchild"></ReviewQnA>
+      <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
+      <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
     </div>
   </main>
 </template>
@@ -295,6 +297,8 @@ export default{
       totalPrice: 0,
       total: 0,
       emits: [],
+      isActiveReview: false, // 리뷰 탭 활성화 상태
+      isActiveQnA: false,    // Q&A 탭 활성화 상태
   };
   },
   created () {
@@ -375,13 +379,29 @@ export default{
           ],
         });
       },
-      infoForm(){
-        //console.log(this.productInfo.product_no,'여긴디테일')
-        this.$refs.child.getData(this.productInfo.product_no)
-      },
-      qnaForm(){
-        this.$refs.qchild.getData(this.productInfo.product_no)
-      }
+      activateReviewTab() {
+    this.isActiveReview = true;
+    this.isActiveQnA = false;
+    // 리뷰 탭이 활성화되었을 때 자식 컴포넌트에 데이터 전달
+    this.$nextTick(() => {
+  this.$refs.child.getData(this.productInfo.product_no);
+});
+  },
+  activateQnATab() {
+    this.isActiveQnA = true;
+    this.isActiveReview = false;
+    // Q&A 탭이 활성화되었을 때 자식 컴포넌트에 데이터 전달
+    this.$nextTick(() => {
+      this.$refs.qchild.getData(this.productInfo.product_no);
+    });
+  },
+      // infoForm(){
+      //   //console.log(this.productInfo.product_no,'여긴디테일')
+      //   this.$refs.child.getData(this.productInfo.product_no)
+      // },
+      // qnaForm(){
+      //   this.$refs.qchild.getData(this.productInfo.product_no)
+      // }
 }
 }
 </script>
