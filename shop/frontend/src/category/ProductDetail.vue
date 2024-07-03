@@ -33,7 +33,8 @@
             <div class="carousel-inner">
                 <div class="d-block w-100">
                   <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
-                  <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image">
+                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image"> -->
+                  <img :src="`/api/upload/productImg/${productInfo.product_img}`" class="sub" alt="image">
                 </div>
             </div>
             <button
@@ -264,8 +265,7 @@
         <div class="col-6">
 
           <div class="img-fluid">
-            <!-- <img :src="require(`../../../backend/upload/productdetailimg/10276_web_detailView_1715071344956708.jpg`)" class="img-fluid rounded-4" alt="image"> -->
-            <img :src="require(`../../../backend/upload/productdetailimg/${productInfo.product_detail_img}`)" class="img-fluid rounded-4" alt="image">
+            <img :src="`/api/upload/productdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
 
         </div>
@@ -281,6 +281,7 @@ import axios from "axios";
 import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
+
 export default{
   mixins : [PageMixin],
   components: {ReviewList},
@@ -291,7 +292,6 @@ export default{
       totalPrice: 0,
       total: 0,
       emits: [],
-
   };
   },
   created () {
