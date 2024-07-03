@@ -256,8 +256,8 @@
     <div class="fontSize">
     <b-nav tabs align="center" >
       <b-nav-item  active>상품 상세</b-nav-item>
-      <b-nav-item @click="activateReviewTab">상품 리뷰</b-nav-item>
-      <b-nav-item @click="activateQnATab">상품 QnA</b-nav-item>
+      <b-nav-item @click.prevent="activateReviewTab">상품 리뷰</b-nav-item>
+      <b-nav-item @click.prevent="activateQnATab">상품 QnA</b-nav-item>
     </b-nav>
     </div>
 
