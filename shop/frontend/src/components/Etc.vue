@@ -19,13 +19,13 @@
       <div ref="isotopeContainer" class="isotope-container row">
         <div class="item cat col-md-4 col-lg-3 my-4" :key="i" v-for="(product, i) in displayedProducts">
           <div class="card position-relative">
-            <a href="single-product.html">
+            <a @click="goToDetail(product.product_no)">
               <!-- <img :src="product.product_img" class="img-fluid rounded-4" alt="image"> -->
               <img src="images/item2.jpg" class="img-fluid rounded-4" alt="image">
 
             </a>
             <div class="card-body p-0">
-              <a href="single-product.html">
+              <a @click="goToDetail(product.product_no)">
                 <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
               </a>
               <div class="card-text">
@@ -54,56 +54,8 @@
     </div>
   </section>
   
-  <section id="service">
-    <div class="container py-5 my-5">
-      <div class="row g-md-5 pt-4">
-        <div class="col-md-3 my-3">
-          <div class="card">
-            <div>
-              <iconify-icon class="service-icon text-primary" icon="la:shopping-cart"></iconify-icon>
-            </div>
-            <h3 class="card-title py-2 m-0">Free Delivery</h3>
-            <div class="card-text">
-              <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 my-3">
-          <div class="card">
-            <div>
-              <iconify-icon class="service-icon text-primary" icon="la:user-check"></iconify-icon>
-            </div>
-            <h3 class="card-title py-2 m-0">100% secure payment</h3>
-            <div class="card-text">
-              <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 my-3">
-          <div class="card">
-            <div>
-              <iconify-icon class="service-icon text-primary" icon="la:tag"></iconify-icon>
-            </div>
-            <h3 class="card-title py-2 m-0">Daily Offer</h3>
-            <div class="card-text">
-              <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 my-3">
-          <div class="card">
-            <div>
-              <iconify-icon class="service-icon text-primary" icon="la:award"></iconify-icon>
-            </div>
-            <h3 class="card-title py-2 m-0">Quality guarantee</h3>
-            <div class="card-text">
-              <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- <section id="service"> -->
+  
   </template>
   
   <script>
@@ -140,7 +92,6 @@
       },
       async filterProducts(categoryNo) {
         this.currentCategory = categoryNo;
-  
         if (categoryNo === null) {
           let response = await axios.get(`/api/category`);
           this.bestAll = response.data.best8;
@@ -153,12 +104,17 @@
           this.isotope.arrange({ filter: '*' });
         });
       },
+      goToDetail(no) {
+      this.$router.push({ path: "/detail", query: { no: no } });
+      },
     },
   };
   </script>
   
   <style>
   /* Add your styles here */
-  
+  #foodies{
+    height: 1200px;
+  }
   </style>
   

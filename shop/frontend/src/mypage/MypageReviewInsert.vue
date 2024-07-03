@@ -26,7 +26,7 @@
 
 <script>
 import axios from 'axios';
-
+import Swal from 'sweetalert2'
 export default {
   data() {
     return {
@@ -40,6 +40,7 @@ export default {
     };
   },
   created() {
+    this.id=this.$store.getters.getUserInfo.user_id
     axios.get(`api/mypage/ReviewInsertInfo/` + this.$route.query.no)
       .then(result => {
         console.log(result);
@@ -72,7 +73,7 @@ export default {
       console.log('zkzkzkzkdnsnsn',this.cnt);
      await axios.post('/api/mypage/ReviewInsert/', data,
       { headers:{'Content-Type':'multipart/form-data'}})
-      .then(this.$router.push('/mypageReviewList'),alert('리뷰 등록완료!'))
+      .then(this.$router.push('/mypageReviewList'),Swal.fire('리뷰 등록완료!'))
       .catch(err=>console.log(err))
     },
     canBtn(){

@@ -16,5 +16,8 @@ router.get("/userList/",async(req,res )=> {
     res.send({list,count})
 });
 
-
+router.delete("/adminmember/:user_id",	async (req ,	res )	=> {
+    let result =	await query("AdminuserDelete",	req.params.user_id );
+    res.send(result);
+});
 module.exports =router ;

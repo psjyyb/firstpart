@@ -76,7 +76,6 @@ router.get("/QnAList/", async (req,res)=>{
     if(!pageUnit){ pageUnit = 5; }
      
    let offset = (page-1)*pageUnit;
-   console.log(offset,pageUnit)
    let list = await query("mypageQnAList",[req.query.id,offset,pageUnit])
    let count = await query("mypageQnAListCount",req.query.id)
     res.send({list,count})
@@ -132,7 +131,7 @@ router.get("/NoReviewList/", async (req,res)=>{
     res.send({list,count})
 })
 
-router.get("/:id", async (req,res)=>{
+router.get("/firstPage/:id", async (req,res)=>{
     let userInfo = await query("mypageUserInfo",req.params.id);
     let qnaNoCount = await query("mypageNoQnACount",req.params.id);
     let qnaYesCount = await query("mypageYesQnACount",req.params.id);
@@ -146,20 +145,29 @@ router.delete("/wishDelete/:no", async (req,res)=>{
     await query("mypageWishSelectDelete",req.params.no)
     .then(result=>res.send(result))
 })
-router.delete("/orderDelete/:no", async (req,res)=>{
+router.post("/orderDelete/", async (req,res)=>{
     console.log('1번들어옴')
-    console.log(req.params.no)
-    await query("mypageOrderDelete",req.params.no)
-    .then(result=>console.log('2번들어옴'))
-    .catch(err=>console.log(err))
+    let date = req.query.date.toString();
+    console.log(toString(req.query.date))
+    console.log(date)
+    await query("mypageCancelInsert",[req.query.no,req.query.id,date])
+         .then(result=>{res.send(result)
+            query("mypageOrderDelete",req.query.no)
+            .then(result=>res.send(result))
+            .catch(err=>console.log(err))
+         })
+         .catch(err=>console.log(err))
+    // await query("mypageOrderDelete",req.params.no)
+    // .then(result=>console.log('2번들어옴'))
+    // .catch(err=>console.log(err))
    
 })
-router.post("/cancelInsert/",async (req,res)=>{
-    console.log(req.query.no,req.query.id)
-    await query("mypageCancelInsert",[req.query.no,req.query.id])
-    .then(result=>{console.log('3번들어옴'),res.send(result)})
-    .catch(err=>console.log(err))
-})
+// router.post("/cancelInsert/",async (req,res)=>{
+//     console.log(req.query.no,req.query.id)
+//     await query("mypageCancelInsert",[req.query.no,req.query.id])
+//     .then(result=>{console.log('3번들어옴'),res.send(result)})
+//     .catch(err=>console.log(err))
+// })
 
 router.get("/ReviewInsertInfo/:no",async (req,res)=>{
     await query("mypageReviewInsertInfo",req.params.no)
@@ -194,8 +202,9 @@ router.delete("/ReviewDelete/:no",async (req,res)=>{
 })
 
 router.get("/QnAInfo/:no", async (req,res)=>{
+   let qna = 'qna';
    let info = await query("mypageQnAInfo",req.params.no)
-   let img = await query("mypageSelectImg",req.params.no)
+   let img = await query("mypageSelectImg",[req.params.no,qna])
     res.send({info,img})
     
 })
@@ -229,11 +238,51 @@ router.delete("/QnADelete/:no", async (req,res)=>{
 })
 
 router.get("/reviewImg/:no", async (req,res)=>{
-    console.log('여기는.,.?')
-    await query("mypageSelectImg",req.params.no)
+    let review = 'review'
+    await query("mypageSelectImg",[req.params.no,review])
     .then(result=>res.send(result))
     .catch(err=>console.log(err))
 })
+
+router.post("/wishGetCart/", async (req,res)=>{
+    await query("mypageWishGetCart",[req.query.id,req.query.pno])
+    .then(result=>res.send(result))
+    .catch(err=>console.log(err))
+})
+
+router.put("/reviewUpdate/", async (req,res)=>{
+    console.log('reviewNo',req.query.rno)
+    await query("mypageReviewUpdate",[req.query.content,req.query.rno])
+    .then(result=>{console.log('dldldl',result),res.send(result)})
+    .catch(err=>console.log(err))
+})
+
+router.post("/QnAUpdate/",upload.array("files"),async (req,res)=>{
+    console.log('여긴들어와???')
+    let data = { ...req.body };
+    console.log(data)
+    console.log(req.files)
+    //const originalname = Buffer.from(req.files.originalname, 'latin1').toString('utf8');
+    let qna = 'qna';
+    await query("mypageUpdateImg",[qna,data.reviewNo])
+    .then(result=>{console.log('이미지 삭제',result)
+     query("mypageQnAupdate",[data.title,data.content,data.reviewNo])
+    .then(result=>{console.log(result)
+        for(let i=1; i<req.files.length+1; i++){
+            query("mypageReviewImg",[req.files[i-1].filename,qna,data.reviewNo,i,req.files[i-1].originalname])
+            .then(result=>{console.log(result)})
+            .catch(err=>{console.log(err)})
+        }})
+    })
+    .catch(err=>console.log(err))
+    
+});
+router.get("/ProductReview/", async (req,res)=>{
+    console.log('값넘어오는지확인',req.query.pno)
+     await query("mypageProductReview",req.query.pno)
+     .then(result=>{console.log('revuwesdae',result),res.send(result)})
+    .catch(err=>console.log(err))
+    })  
 
 module.exports = router;
 

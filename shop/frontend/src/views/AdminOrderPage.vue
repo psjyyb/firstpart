@@ -3,12 +3,10 @@
    <table class ="table	table-hover">
     <thead	>
      <tr	>
-      <th	>품목별 주문 번호</th	>
-      <th	>상품이미지 </th	>
-      <th	>상품이름 </th	>
-      <th	>수량</th	>
+      <th	>주문 번호</th	>
+      <th	>주문자 아이디 </th	>
+      <th	>주문 날짜 </th	>
       <th	>판매가 </th	>
-      <th	>구매가격 </th	>
       <th	>주문상태 </th	>
      </tr	>
     </thead	>
@@ -20,12 +18,10 @@
       <td	>{{board.no }}</td	>
      </tr	> -->
      <tr :key="i" v-for="(order,i) in orders">
-                    <td>{{ order.order_detail_No }}</td>
-                    <td>{{ order.product_img }}</td>
-                    <td>{{ order.product_name }}</td>            
-                    <td>{{ order.order_cnt }}</td>
-                    <td>{{ order.product_price }}</td>
-                    <td>{{ order.order_cnt*order.product_price  }}</td>
+                    <td>{{ order.order_no }}</td>
+                    <td>{{ order.user_id }}</td>
+                    <td>{{ order.order_date }}</td>
+                    <td>{{ order.pay_price }}</td>
                     <td>
                         <select v-model="order.order_status" @change="change_order_status(i,order.order_status)">
                           <option value="1">결제완료</option>
@@ -91,7 +87,7 @@ export	default {
     async change_order_status(i,order_status){
         console.log(this.orders[i]);
         console.log(order_status);
-        let orderstate={no:this.orders[i].order_detail_No,state:order_status}
+        let orderstate={no:this.orders[i].order_no,state:order_status}
         console.log(orderstate);
       
         let result = (await axios.put(`/api/adminorder/orderstate/`,orderstate)).data;

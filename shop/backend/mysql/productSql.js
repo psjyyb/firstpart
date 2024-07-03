@@ -8,6 +8,10 @@ module.exports = {
                         LIMIT 8`,
     getCategory : `SELECT category_no,category_name 
                         FROM category`,
+    scrollProduct : `SELECT product_no,product_name,product_price,product_img 
+                        FROM product 
+                        WHERE category_no =?
+                        LIMIT ?, ?`,
     categoryProduct : `SELECT product_no,product_name,product_price,product_img 
                         FROM product 
                         WHERE category_no =?`,
@@ -18,7 +22,7 @@ module.exports = {
                         WHERE product_no = ?`,
     productSearch: `SELECT  product_no, product_name, product_price, product_img
                     FROM product
-                    WHERE product_name LIKE '%' ? '%' `,
+                    WHERE product_name like concat('%',?,'%') `,
     SearchCnt : `SELECT count(*) as count 
                     FROM product 
                     WHERE product_name LIKE '%' ? '%'`,
@@ -31,6 +35,8 @@ module.exports = {
                     FROM product  
                     ORDER BY (storage_cnt - stock_cnt) DESC
                     LIMIT 8`,
+    
+                        
     
 }
 

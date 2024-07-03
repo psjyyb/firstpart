@@ -5,7 +5,7 @@
         <div class="resume-section-content">
         <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
-                <p>주문일자 : {{fcancel.order_date}} 주문번호 : {{ fcancel.order_no }}</p>
+                <p>주문일자 : {{getDateFormat(fcancel.order_date)}} 주문번호 : {{ fcancel.order_no }}</p>
                 <div class="subheading mb-3">
                     <p v-if="fcancel.cancel_state==1">취소 상태 : 취소요청</p>
                     <p v-if="fcancel.cancel_state==2">취소 상태 : 취소완료</p>
@@ -57,7 +57,7 @@
     </div>
     <div>
         <div class="sc-14f0hdm-3 nXoWQ">
-        <p>취소일자 : {{fcancel.cancel_date}} 취소접수번호 : {{ fcancel.cancel_no }}</p>
+        <p>취소일자 : {{getDateFormat(fcancel.cancel_date)}} 취소접수번호 : {{ fcancel.cancel_no }}</p>
     </div>
     <div>
         <h3 class="mb-0">결제 정보</h3>
@@ -70,9 +70,11 @@
     </div>
 </template>
 <script>
+    import pageCalcMixin from '../mixin.js'
     import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
     export default{
+    mixins:[pageCalcMixin],
     components: {SideVar},
     data(){
      return {
@@ -81,13 +83,16 @@
     },
     created(){
         axios.get(`/api/mypage/CancelInfo/?no=`+this.$route.query.no)
-        .then(result=>{console.log(result),this.cancels=result.data,this.fcancel=result.data[0]})
+        .then(result=>{console.log('cancncnc',result),this.cancels=result.data,this.fcancel=result.data[0]})
         
     },
     methods:{
         goList(){
             this.$router.push('/mypageCancelList');
-        }
+        },
+        getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

@@ -36,7 +36,8 @@
                   class="d-block w-100"
                 /> -->
                 <div class="d-block w-100">
-                  {{ productInfo.product_img }}
+                  <!-- {{ productInfo.product_img }} -->
+                  <!-- {{ productInfo.product_img }} -->
                 </div>
                 <!-- <img
                   :src="`/download/${productId}/${pimg.path}`"
@@ -261,13 +262,21 @@
           </div>
         </div>
       </div>
-      <div class="row">
+
+    <div class="fontSize">
+    <b-nav tabs align="center" >
+      <b-nav-item href="#" active>상품 상세</b-nav-item>
+      <b-nav-item @click="infoForm">상품리뷰</b-nav-item>
+      <b-nav-item href="#">상품 QnA</b-nav-item>
+    </b-nav>
+    </div>
+
+    <div class="row">
         <div class="col-6">
           <!-- <img src='../../public/images/blog1.jpg' class="img-fluid"
             style="width: 1000px"
           /> -->
           <div class="img-fluid" style="width: 1000px">{{ productInfo.product_detail_img }}</div>
-
           <!-- <img
             :src="`/download/${productId}/${productDetail.path}`"
             class="img-fluid"
@@ -275,6 +284,8 @@
           /> -->
         </div>
       </div>
+
+      <ReviewList ref="child"></ReviewList>
     </div>
   </main>
 </template>
@@ -283,10 +294,10 @@
 import axios from "axios";
 import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
-
+import ReviewList from '../components/ProductReviewList.vue'
 export default{
   mixins : [PageMixin],
-
+  components: {ReviewList},
   data(){
   return {
       searchNo: "",
@@ -303,20 +314,19 @@ export default{
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
+      //console.log('여긴 인포',this.productInfo)
     },
     getCurrencyFormat(value) {
-      // 가격의 ,을 새겨주는 $currencyFormat 호출
       return this.$currencyFormat(value);
     },
       // 메소드 호출
     calculatePrice(cnt) {
-      let total = this.total + cnt; // cnt를 받아 수량(total)을 나타냄 (total 초기값 = 0)
-      if (total < 0) total = 0; // total이 0보다 작을 땐 total은 무조건 0
+      let total = this.total + cnt; 
+      if (total < 0) total = 0; 
       this.total = total;
-      this.totalPrice = this.productInfo.product_price * this.total; // totalPrice는 제품 가격 * 수량
+      this.totalPrice = this.productInfo.product_price * this.total; 
     },
     wishGo(){
-        // this.$swal('Hello Vue world!!!');
         Swal.fire({
         position: "center",
         icon: "success",
@@ -375,7 +385,17 @@ export default{
           ],
         });
       },
+      infoForm(){
+        //console.log(this.productInfo.product_no,'여긴디테일')
+        this.$refs.child.getData(this.productInfo.product_no)
+      }
 }
 }
 </script>
-<style></style>
+<style>
+.fontSize{
+  font-size: 30px;
+  margin: 50px;
+}
+
+</style>

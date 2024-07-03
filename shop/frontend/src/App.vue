@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <component :is="headerComponent" :isAdmin="isAdmin" @change="change"/>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
     <Footer/>
   </div>
 </template>
@@ -12,8 +12,6 @@ import Footer from "./components/Footer.vue"
 import AdminHeader from "./components/AdminHeader.vue"
 import AdminFooter from "./components/AdminFooter.vue"
 import { useRouter, useRoute } from 'vue-router'
-
-
 export default {
   components: { Header, Footer, AdminHeader, AdminFooter },
   data(){
@@ -36,7 +34,12 @@ export default {
       else{
         this.$router.push('/');
       }
-    }
+    },
+    // changeRouter(value){
+    //        console.log(value);
+    //   this.$router.push('/');
+      
+    // }
   }
 };
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>작성하지 않은 리뷰</h4>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                    <th>이미지</th>
@@ -16,8 +16,8 @@
                     <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
                     <td>{{ review.product_name }}</td>
                     <td>{{ review.product_price }}</td>
-                    <td>{{ review.order_date }}</td>
-                    <td><button type="button" class="btn btn-info" @click="addReview(review.product_no)">리뷰쓰기</button></td>
+                    <td>{{ getDateFormat(review.order_date) }}</td>
+                    <td><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
             </tbody>
         </table>
@@ -28,6 +28,7 @@
     import pageCalcMixin from '../mixin.js'
     import PagingComponent from './PagingComponent.vue'
     import axios from 'axios'
+    
     export default{
     mixins:[pageCalcMixin],
     components: {PagingComponent },
@@ -40,6 +41,7 @@
      }; 
     },
     created(){
+        this.id=this.$store.getters.getUserInfo.user_id
         this.goPage(1);
     },
     methods:{
@@ -56,7 +58,10 @@
         this.$router.push({
                 name: 'mypageReviewInsert', query: {no: no}
             });
-    }
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

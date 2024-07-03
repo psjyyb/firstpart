@@ -13,7 +13,6 @@
             <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
         </b-breadcrumb>
       </div>
-
       <div class="product-list">
           <!-- 상품1개 -->
           <div class="product-card" :key="i" v-for="(product, i) in productList" >
@@ -62,15 +61,9 @@ export default{
         this.keyword = this.$route.query.keyword;
         this.searchProductList();
     },
-    watch: {
-    '$route.query.keyword': {
-      handler: 'searchProductList',
-      immediate: true
-    }
-    },
     methods :{
         async searchProductList(){
-            let result = await axios.get(`/api/category/search/${this.keyword}`);
+            let result = await axios.get(`/api/category/search?keyword=${this.keyword}`);
             this.productList = result.data.products;
             this.productCnt = result.data.total;
         },

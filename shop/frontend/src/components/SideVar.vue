@@ -13,7 +13,7 @@
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageOrderList">주문/배송조회</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageCancelList">취소조회</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageWishList">찜목록</a></li>
-                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageQnAList">상품Q&A</a></li>
+                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageQnAList">Q&A</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageReviewList">리뷰</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">장바구니</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/userCheck">개인정보수정</a></li>
@@ -35,6 +35,26 @@
  * Start Bootstrap - Resume v7.0.6 (https://startbootstrap.com/theme/resume)
  * Copyright 2013-2023 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-resume/blob/master/LICENSE)
+
+</script>
+
+<style scoped>
+/* @import "startbootstrap-resume/dist/css/styles.css";
+@import "bootstrap";
+@import "bootstrap/dist/css/bootstrap.min.css"; */
+
+@charset "UTF-8";
+/*!
+* Start Bootstrap - Resume v7.0.6 (https://startbootstrap.com/theme/resume)
+* Copyright 2013-2023 Start Bootstrap
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-resume/blob/master/LICENSE)
+*/
+/*!
+ * Bootstrap  v5.2.3 (https://getbootstrap.com/)
+ * Copyright 2011-2022 The Bootstrap Authors
+ * Copyright 2011-2022 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+>>>>>>> Sung
  */
  /*!
   * Bootstrap  v5.2.3 (https://getbootstrap.com/)

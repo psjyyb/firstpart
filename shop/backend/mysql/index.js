@@ -14,6 +14,7 @@ const pool = mysql.createPool(conn);//pool 방법으로 mysql 에연결
 function query(alias, values ){// DB에 쿼리문을 보내는 부분
     return new Promise((resolve,reject)=>  
         pool.query(sql[alias],values,(err,result)=>{
+        console.log('SQL', sql[alias], values);
         if(err){
             console.log(err);
             reject({err});

@@ -1,9 +1,9 @@
 <template>
    <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#" @click="prevPage">Prev</a></li>
+    <li class="page-item"><a class="page-link" @click="prevPage">Prev</a></li>
     <li class="page-item" v-for=" page in pageArr"><a @click="goPage(page)" class="page-link">{{page}}</a></li>
-    <li class="page-item"><a class="page-link" href="#" @click="nextPage">Next</a></li>
+    <li class="page-item"><a class="page-link" @click="nextPage">Next</a></li>
   </ul>
 </nav>
 </template>

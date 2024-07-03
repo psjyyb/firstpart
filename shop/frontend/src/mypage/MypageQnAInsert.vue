@@ -24,7 +24,6 @@
         <div align="center">
             <button type="button" class="btn btn-success" @click="addQna">등록</button>
             <button type="button" class="btn btn-warning" @click="canBtn">취소</button>
-            <!-- history.back(): 뒤로가기 전용 함수 -->
         </div>
     </form>
 </div>
@@ -33,6 +32,7 @@
 <script>
     import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
+    import Swal from 'sweetalert2'
     export default{
     components: {SideVar},
     data(){
@@ -43,6 +43,7 @@
      }; 
     },
     created(){
+        this.id=this.$store.getters.getUserInfo.user_id
     },
     methods:{
         upload() {
@@ -63,7 +64,7 @@
       data.append("userId",this.id);
       await axios.post(`/api/mypage/QnAInsert/`,data,
       { headers:{'Content-Type':'multipart/form-data'}})
-      .then(this.$router.push('/mypageQnAList'),alert('문의 등록완료!'))
+      .then(this.$router.push('/mypageQnAList'),Swal.fire('문의 등록완료!'))
       .catch(err=>console.log(err))
     }
     }
