@@ -39,7 +39,7 @@
           </div>
   
           <div class="form-group">
-            <input type="text" id="user_email" v-model="userInfo.user_email" placeholder="이메일" class="form-control user-info-email" />
+            <input type="email" id="user_email" v-model="userInfo.user_email" placeholder="이메일" class="form-control user-info-email" />
           </div>
         </div>
   

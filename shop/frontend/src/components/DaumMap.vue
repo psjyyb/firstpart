@@ -1,11 +1,11 @@
 <template>
   <div class="daum-map-container">
     <div class="input-group">
-      <input type="text" id="user_post" v-model="postcode" readonly placeholder="우편번호" class="form-control" />
+      <input type="text" id="user_post" v-model="postcode" required readonly placeholder="우편번호" class="form-control" />
       <button type="button" @click="openDaumPostcode" class="btn btn-secondary">우편번호 검색</button>
     </div>
     <br />
-    <input type="text" id="user_address" v-model="fullAddress" readonly placeholder="주소" class="form-control" />
+    <input type="text" id="user_address" v-model="fullAddress" required readonly placeholder="주소" class="form-control" />
   </div>
 </template>
 
