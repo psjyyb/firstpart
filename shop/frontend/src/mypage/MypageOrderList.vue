@@ -88,6 +88,7 @@
      }; 
     },
     created(){
+        this.id=this.$store.getters.getUserInfo.user_id
         this.goPage(1);
         // axios.get('/api/mypage/orderList/' + this.id)
         // .then(result=>{console.log(result),this.orders=result.data})

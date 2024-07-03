@@ -131,7 +131,7 @@ router.get("/NoReviewList/", async (req,res)=>{
     res.send({list,count})
 })
 
-router.get("/:id", async (req,res)=>{
+router.get("/firstPage/:id", async (req,res)=>{
     let userInfo = await query("mypageUserInfo",req.params.id);
     let qnaNoCount = await query("mypageNoQnACount",req.params.id);
     let qnaYesCount = await query("mypageYesQnACount",req.params.id);
@@ -277,6 +277,12 @@ router.post("/QnAUpdate/",upload.array("files"),async (req,res)=>{
     .catch(err=>console.log(err))
     
 });
+router.get("/ProductReview/", async (res,req)=>{
+    console.log('값넘어오는지확인',req.query.prodNo)
+    
+    // await query("mypageProductReview",req.params.no)
+    // .then(result=>{console.log('revuwesdae',result)})
+})
 
 module.exports = router;
 

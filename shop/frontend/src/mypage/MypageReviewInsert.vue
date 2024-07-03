@@ -40,6 +40,7 @@ export default {
     };
   },
   created() {
+    this.id=this.$store.getters.getUserInfo.user_id
     axios.get(`api/mypage/ReviewInsertInfo/` + this.$route.query.no)
       .then(result => {
         console.log(result);

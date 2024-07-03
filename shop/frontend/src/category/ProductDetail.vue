@@ -266,7 +266,7 @@
     <div class="fontSize">
     <b-nav tabs align="center" >
       <b-nav-item href="#" active>상품 상세</b-nav-item>
-      <b-nav-item href="#">상품리뷰</b-nav-item>
+      <b-nav-item @click="infoForm">상품리뷰</b-nav-item>
       <b-nav-item href="#">상품 QnA</b-nav-item>
     </b-nav>
     </div>
@@ -285,7 +285,7 @@
         </div>
       </div>
 
-
+      <ReviewList ref="child"></ReviewList>
     </div>
   </main>
 </template>
@@ -294,10 +294,10 @@
 import axios from "axios";
 import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
-
+import ReviewList from '../components/ProductReviewList.vue'
 export default{
   mixins : [PageMixin],
-
+  components: {ReviewList},
   data(){
   return {
       searchNo: "",
@@ -314,7 +314,7 @@ export default{
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
-      
+      //console.log('여긴 인포',this.productInfo)
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
@@ -385,6 +385,10 @@ export default{
           ],
         });
       },
+      infoForm(){
+        //console.log(this.productInfo.product_no,'여긴디테일')
+        this.$refs.child.getData(this.productInfo.product_no)
+      }
 }
 }
 </script>

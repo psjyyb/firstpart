@@ -43,6 +43,7 @@
      }; 
     },
     created(){
+        this.id=this.$store.getters.getUserInfo.user_id
     },
     methods:{
         upload() {

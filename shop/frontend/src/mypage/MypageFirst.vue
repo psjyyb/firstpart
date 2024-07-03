@@ -2,6 +2,7 @@
     <div class="container my-5">
       <SideVar></SideVar>
       <div id="padd">
+        <div>{{ user.user_id }}님 환영합니다!</div>
         <div class="points-section card p-3 mb-3">
           <h4>나의 포인트: <span class="text-primary">{{ user.user_point }}</span></h4>
         </div>
@@ -44,7 +45,7 @@
                   <th>주문일</th>
                   <th>주문내역</th>
                   <th>주문상태</th>
-                  <th>주문관리</th>
+                  <th>주문갯수</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,6 +57,8 @@
                   <td v-else-if="lastOrder.order_status == 3">배송중</td>
                   <td v-else-if="lastOrder.order_status == 4">배송완료</td>
                   <td v-else-if="lastOrder.order_status == 5">구매확정</td>
+                  <td v-else-if="lastOrder.order_status == 6">취소요청</td>
+                  <td v-else-if="lastOrder.order_status == 7">취소완료</td>
                   <td>{{ lastOrder.prodcnt }}</td>
                 </tr>
                 <tr v-else>
@@ -100,8 +103,8 @@ import axios from 'axios'
     // },
     created(){
         console.log(this.$store.getters.getUserInfo.user_id)
-        //this.id=this.$store.getters.getUserInfo.user_id
-        axios.get('/api/mypage/'+this.id)
+        this.id=this.$store.getters.getUserInfo.user_id
+        axios.get('/api/mypage/firstPage/'+this.id)
         .then(result=>{console.log(result)
             this.reviewYesCount=result.data.revieYesCount[0].ycnt,
             this.reviewNoCount=result.data.revieNoCount[0].ncnt,
@@ -109,7 +112,7 @@ import axios from 'axios'
             this.qnaYesCount=result.data.qnaYesCount[0].ycnt,
             this.user=result.data.userInfo[0],
             this.lastOrder=result.data.lastOrder[0],
-            console.log(this.lastOrder)
+            console.log(this.user)
             
         })
         .catch(err=>console.log(err))

@@ -55,6 +55,7 @@
      }; 
     },
     created(){
+        this.id=this.$store.getters.getUserInfo.user_id
         this.goPage(1);
     },
     methods:{

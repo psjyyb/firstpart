@@ -1,7 +1,7 @@
 module.exports = {
     mypageUserInfo : `select * 
-                    from user 
-                    where user_id = ?`,
+                        from user 
+                        where user_id = ?`,
     mypageNoQnACount : `select count(q.qna_no) as ncnt 
                         from user u join qna q on u.user_id=q.user_id 
                         where u.user_id= ? and q.qna_reply is null`,
@@ -281,6 +281,11 @@ module.exports = {
                     where qna_no= ?`,
     mypageUpdateImg:`delete from addFile 
                         where table_class= ?
-                        and table_no= ? `
+                        and table_no= ? `,
+    mypageProductReview:`SELECT *
+                    FROM review r
+                    LEFT JOIN addFile a
+                    ON r.review_no = a.table_no AND a.table_class = 'review'
+                    WHERE r.product_no = ?`
 
 }
