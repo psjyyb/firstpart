@@ -319,15 +319,38 @@ router.post('/kakao-register', async (req, res) => {
 router.post('/insertKakaoUser', async (req, res) => {
   const { user_id, email } = req.body;
   try {
+    // 사용자 정보 준비
     const user = {
-      user_id: user_id,
-      email: email,
+      user_id: user_id.toString(), // user_id는 문자열로 저장
+      user_name: "카카오 사용자",
+      user_email: email,
     };
-    const result = await query('kakaoUserInsert', user);
-    res.status(201).send('사용자 정보가 저장되었습니다.');
+
+    // DB에 사용자 정보 저장 (이미 존재하는지 체크 후 처리)
+    let result = await query('checkId', [user.user_id]);
+    const exists = result[0].count > 0;
+
+    if (exists) {
+      // 이미 존재하는 사용자일 경우 세션 설정
+      req.session.user_id = user.user_id;
+      req.session.is_logined = true;
+      req.session.save(err => {
+        if (err) throw err;
+        res.send({ success: true, message: "이미 가입된 사용자입니다." });
+      });
+    } else {
+      // 존재하지 않는 사용자일 경우 새로 등록
+      result = await query('userInsert', user);
+      req.session.user_id = user.user_id;
+      req.session.is_logined = true;
+      req.session.save(err => {
+        if (err) throw err;
+        res.status(201).send({ success: true, message: '회원가입 완료' });
+      });
+    }
   } catch (error) {
-    console.error('사용자 정보 저장 오류:', error);
-    res.status(500).send('사용자 정보 저장 중 오류 발생');
+    console.error('카카오 로그인 오류:', error);
+    res.status(500).send({ success: false, message: '카카오 로그인 중 오류 발생' });
   }
 });
 

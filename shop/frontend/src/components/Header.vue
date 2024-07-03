@@ -228,21 +228,18 @@
           }
       },
       handleLogout() {
-      this.logoutUser()
+        this.logoutUser()
         .then(() => {
+          // 로그아웃 성공 시 카카오 API로 인증된 세션도 해제
+          Kakao.Auth.logout(function() {
+            console.log('카카오 로그아웃 성공');
+          });
           this.$router.push({ name: 'home' });
-          alert('로그아웃되었습니다')
+          alert('로그아웃되었습니다');
         })
         .catch(error => {
           console.error('Error logging out:', error);
         });
-      },
-  
-      watch: {
-        '$route.query.keyword': {
-          handler: 'searchProductList',
-          immediate: true
-        }
       },
       }
   }

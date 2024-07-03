@@ -37,7 +37,7 @@ export default {
           };
 
           // DB에 사용자 정보 저장
-          await fetch('/api/insertKakaoUser', {
+          await fetch('/api/user/insertKakaoUser', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default {
           alert("로그인 성공!");
 
           // Redirect to BoardList.vue using Vue Router
-          vm.$router.push('/info'); // Assuming '/info' is your route path
+          vm.$router.push('/home'); // Assuming '/info' is your route path
         },
         fail: function (error) {
           console.log(error);
@@ -69,7 +69,7 @@ export default {
         vm.$store.dispatch('logoutUser');
 
         // Redirect to '/' after logout (adjust as needed)
-        vm.$router.push('/');
+        vm.$router.push('/home');
       });
     },
   },
