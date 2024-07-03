@@ -21,11 +21,11 @@ module.exports = {
                         JOIN review r ON r.order_no = d.order_no 
                         AND r.product_no = d.product_no 
                         WHERE o.user_id = ?`,
-    mypageLastOrder : `select o.order_date,o.order_status,p.product_name,count(d.product_no) as prodcnt
+    mypageLastOrder : `select o.order_date,o.order_no,o.order_status,p.product_name,count(d.product_no) as prodcnt
                         from orders o join order_detail d on o.order_no=d.order_no 
                         join product p on p.product_no=d.product_no 
                         where o.user_id= ? 
-                        group by o.order_date,o.order_status,p.product_name 
+                        group by o.order_date,o.order_status,p.product_name,o.order_no 
                         order by order_date`,
 
     mypageOrderList : `SELECT
@@ -50,24 +50,29 @@ module.exports = {
                             o.order_no DESC
                         LIMIT ?, ?`,
     mypageOrderListCount : `select count(*) as cnt 
-                            from orders where user_id= ? `,
-    mypageCancelList:` SELECT 
-                        c.cancel_no,
-                        c.cancel_date,
-                        c.cancel_state,
-                        d.product_no,
-                        c.order_no
-                    FROM 
-                        cancel c 
-                    left JOIN 
-                        order_detail d ON c.order_no = d.order_no 
-                    WHERE 
-                        c.user_id = ?
-                    GROUP BY 
-                        c.cancel_no, c.cancel_date, c.cancel_state, d.product_no
-                    ORDER BY 
-                        c.order_no DESC 
-                    LIMIT ?,?`,
+                            from orders where user_id= ?`,
+    mypageCancelList:`     SELECT 
+                            c.cancel_no,
+                            c.cancel_date,
+                            c.cancel_state,
+                            MAX(d.product_no) AS product_no,
+                            c.order_no,
+                            c.order_date,
+                            MAX(p.product_name) AS product_name,
+	                        MAX(p.product_img) AS product_img
+                        FROM 
+                            cancel c 
+                        LEFT JOIN 
+                            order_detail d ON c.order_no = d.order_no 
+                        JOIN 
+                            product p ON p.product_no = d.product_no
+                        WHERE 
+                            c.user_id = ?
+                        GROUP BY 
+                            c.cancel_no, c.cancel_date, c.cancel_state, c.order_no, c.order_date
+                        ORDER BY 
+                            c.order_no DESC
+                         LIMIT ?,?`,
     mypageCancelCount:`select count(*) as cnt
                         from cancel 
                         where user_id=?`,
@@ -138,11 +143,11 @@ module.exports = {
                     JOIN product p ON c.product_no = p.product_no
                     WHERE user_id = ?
                     ORDER BY p.product_no DESC
-                    LIMIT ?,?;`,
+                    LIMIT ?,?`,
     mypageCartListCount:`SELECT COUNT(*) as cnt
                          FROM cart c
                          JOIN product p ON c.product_no = p.product_no
-                         WHERE user_id =?`,
+                         WHERE user_id = ? `,
 
     mypageOrderInfo:`SELECT DISTINCT
                         d.order_no,
@@ -177,7 +182,7 @@ module.exports = {
                         p.product_img,
                         o.pay_price,
                         o.pay_point,
-                        order_date
+                        c.order_date
                     FROM 
                         cancel c 
                     LEFT JOIN 
@@ -190,10 +195,13 @@ module.exports = {
                         c.cancel_no = ?`,
     mypageWishSelectDelete:`delete from wish 
                             where wish_no = ?`,
-    mypageOrderDelete:`delete from orders 
-                        where order_no = ?`,
-    mypageCancelInsert:`insert into cancel(order_no,user_id)
-                        values(?,?)`,
+    mypageOrderDelete:`update orders 
+                        set order_status = 6
+                        where order_no = ? `,
+    // mypageOrderDelete:`delete from orders 
+    //                     where order_no = ?`,
+    mypageCancelInsert:`insert into cancel(order_no,user_id,order_date)
+                        values(?,?,?)`,
 
     mypageReviewInsertInfo:`select
                                 product_name,

@@ -2,7 +2,6 @@
     <SideVar/>
     <div id="padd">
       <h3>♡Q&A리스트♡</h3>
-
     <div>
         <table class="table table-bordered border-primary">
             <thead>
@@ -17,7 +16,7 @@
                 <tr v-for="QnA in QnAs" @click="qnaInfo(QnA.qna_no)">
                     <td>{{QnA.qna_no}}</td>
                     <td>{{QnA.qna_title}}</td>
-                    <td>{{QnA.qna_date}}</td>
+                    <td>{{getDateFormat(QnA.qna_date)}}</td>
                     <td v-if="QnA.qna_reply==null">답변미완료</td>
                     <td v-else>답변완료</td>
                 </tr>
@@ -26,7 +25,7 @@
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>
     <hr />
-    <div><button type="button" class="btn btn-info" @click="addBtn">Q&A등록</button></div>
+    <div><button type="button" class="btn btn-primary" @click="addBtn">Q&A등록</button></div>
     </div>
 </template>
 <script>
@@ -64,7 +63,10 @@
     },
     addBtn(){
         this.$router.push('/mypageQnAInsert');
-    }
+    },
+    getDateFormat(date) {
+      return this.$dateFormat(date);
+    },
     }
     }
 </script>

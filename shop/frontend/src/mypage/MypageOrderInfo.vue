@@ -5,13 +5,15 @@
     <div class="resume-section-content">
         <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
-                <p>주문일자 : {{order.order_date}} 주문번호 : {{ order.order_no }}</p>
+                <p>주문일자 : {{getDateFormat(order.order_date)}} 주문번호 : {{ order.order_no }}</p>
                 <div class="subheading mb-3">
                     <p v-if="order.order_status==1">주문 상태 : 결제완료</p>
                     <p v-if="order.order_status==2">주문 상태 : 상품준비중</p>
                     <p v-if="order.order_status==3">주문 상태 : 배송중</p>
                     <p v-if="order.order_status==4">주문 상태 : 배송완료</p>
                     <p v-if="order.order_status==5">주문 상태 : 구매확정</p>
+                    <p v-if="order.order_status==6">주문 상태 : 취소요청</p>
+                    <p v-if="order.order_status==7">주문 상태 : 취소완료</p>
                 </div>
                 <button type="button" class="btn btn-warning"  v-if="order.order_status==1">주문취소</button>
             </div>
@@ -75,8 +77,10 @@
 <script>
     import axios from 'axios' 
     import SideVar from '../components/SideVar.vue'
+    import pageCalcMixin from '../mixin.js'
     export default{
     components: {SideVar},
+    mixins:[pageCalcMixin],
     data(){
      return {
         order:{},orders:{}
@@ -93,7 +97,10 @@
     methods:{
         goList(){
             this.$router.push('/mypageOrderList');
-        }
+        },
+        getDateFormat(date) {
+      return this.$dateFormat(date);
+    }
     }
     }
 </script>
