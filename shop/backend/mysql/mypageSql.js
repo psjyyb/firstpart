@@ -282,10 +282,22 @@ module.exports = {
     mypageUpdateImg:`delete from addFile 
                         where table_class= ?
                         and table_no= ? `,
-    mypageProductReview:`SELECT *
-                    FROM review r
-                    LEFT JOIN addFile a
-                    ON r.review_no = a.table_no AND a.table_class = 'review'
-                    WHERE r.product_no = ?`
+    mypageProductReview:`SELECT 
+                            r.review_no,
+                            r.review_content,
+                            r.review_score,
+                            r.review_date,
+                            r.user_id,
+                            GROUP_CONCAT(a.add_name SEPARATOR ', ') AS add_names
+                        FROM 
+                            review r
+                        LEFT JOIN 
+                            addFile a
+                        ON 
+                            r.review_no = a.table_no AND a.table_class = 'review'
+                        WHERE 
+                            r.product_no = ?
+                        GROUP BY 
+                            r.review_no, r.review_content, r.review_score, r.review_date, r.user_id`
 
 }

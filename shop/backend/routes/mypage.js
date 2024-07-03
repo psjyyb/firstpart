@@ -277,12 +277,12 @@ router.post("/QnAUpdate/",upload.array("files"),async (req,res)=>{
     .catch(err=>console.log(err))
     
 });
-router.get("/ProductReview/", async (res,req)=>{
-    console.log('값넘어오는지확인',req.query.prodNo)
-    
-    // await query("mypageProductReview",req.params.no)
-    // .then(result=>{console.log('revuwesdae',result)})
-})
+router.get("/ProductReview/", async (req,res)=>{
+    console.log('값넘어오는지확인',req.query.pno)
+     await query("mypageProductReview",req.query.pno)
+     .then(result=>{console.log('revuwesdae',result),res.send(result)})
+    .catch(err=>console.log(err))
+    })  
 
 module.exports = router;
 

@@ -13,7 +13,7 @@
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageOrderList">주문/배송조회</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageCancelList">취소조회</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageWishList">찜목록</a></li>
-                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageQnAList">상품Q&A</a></li>
+                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageQnAList">Q&A</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/mypageReviewList">리뷰</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/cart">장바구니</a></li>
                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/userCheck">개인정보수정</a></li>
