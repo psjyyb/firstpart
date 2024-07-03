@@ -89,7 +89,8 @@
           </div>
           <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
             <div class="support-box text-end d-none d-xl-block">
-              <a href="/loginForm" class="nav-link">로그인</a>
+              <a v-if="isLoggedIn" @click="handleLogout" class="nav-link">로그아웃</a>
+              <router-link v-else to="/loginForm" class="nav-link">로그인</router-link>
             </div>
             <div class="support-box text-end d-none d-xl-block">
               <a href="/joinForm" class="nav-link">회원가입</a>
@@ -190,6 +191,7 @@
   
   <script>
   import axios from "axios";
+  import { mapGetters, mapActions } from 'vuex';
   
   export default{
       data(){
@@ -201,8 +203,12 @@
       created () {
         this.getCategoryList();
       },
+      computed: {
+    ...mapGetters(['isLoggedIn']),
+      },
       props:["isAdmin"],
       methods :{
+        ...mapActions(['logoutUser']),
         adminpage(){
           this.$emit("change",true)
         },
@@ -221,6 +227,17 @@
               alert('검색어를 입력해주세요!')  
           }
       },
+      handleLogout() {
+      this.logoutUser()
+        .then(() => {
+          alert('로그아웃되었습니다')
+          this.$router.push({ name: 'HomePage' });
+        })
+        .catch(error => {
+          console.error('Error logging out:', error);
+        });
+      },
+  
       watch: {
         '$route.query.keyword': {
           handler: 'searchProductList',
