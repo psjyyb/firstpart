@@ -1,55 +1,18 @@
-// const axios = require("axios");
-// const cheerio = require("cheerio");
-// const iconv = require('iconv-lite');
-
-// const getHtml = async () => {
-//   try {
-//     // axios 요청 설정에서 responseType을 'arraybuffer'로 지정
-//     const response = await axios.get("https://www.dogpang.com/shop/goods/goods_list.php?category=002001",
-//        { responseType: 'arraybuffer' });
-    
-//     // 응답 데이터를 변환
-//     const decodedHtml = iconv.decode(response.data, 'euc-kr');
-    
-//     let ulList = [];
-//     const $ = cheerio.load(decodedHtml);
-//     const bodyList = $("div.flex-root");
-
-//     bodyList.each((i, element) => {
-//       ulList.push({
-//         product_no: i + 1,
-//         product_name: $(element).find("span.two-line").text().trim(),
-//         product_price: $(element).find("strong.price").text().trim(),
-//         product_img: $(element).find("div.thumb_gray img").attr("src").trim()
-//       });
-//     });
-
-//     console.log("bodyList : ", ulList);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// getHtml();
-
-
-
-
-
 const express = require('express');
 const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const iconv = require('iconv-lite');
 const mysql = require('mysql2');
-// const query = require('../mysql')
 
 // MySQL 연결 설정
-// const connection = mysql.createConnection({
-
-
-
-// });
+const connection = mysql.createConnection({
+host: '3.36.49.13',
+user: 'shop',
+port: '3306',
+password: 'Yedam#2024',
+database: 'shopdb'
+});
 
 connection.connect();
 
@@ -65,18 +28,25 @@ const getHtml = async () => {
 
     // Cheerio로 HTML 파싱
     const $ = cheerio.load(decodedHtml);
-    const bodyList = $("div.flex-contents");
+    const bodyList = $("div.flex-root");
 
     // 데이터 저장 배열
     let ulList = [];
-
+    
+    let regex = /[^0-9]/g;
+    
+    
     bodyList.each((i, element) => {
-      ulList.push({
-        product_no: i + 1,
-        product_name: $(element).find("span.two-line").text(),
-        product_price: $(element).find("strong.price").text(),
-        product_img: $(element).find("div.thumb_gray img").attr("src")
-      });
+      productPrice = $(element).find("strong.price").text()
+      // productImg = $(element).find("div.flex-media img").attr("src")
+      productImg = $(element).find("div.list-m-container img")
+        ulList.push({
+          product_no: i + 1,
+          product_name: $(element).find("span.two-line").text(),
+          product_price: productPrice.replace(regex,''),
+          product_img: $(element).find("img").attr("src")
+          // product_img: $(element).find("img.list-m-container").find("img").attr("src")
+        });
     });
     // 데이터 저장
     saveToDatabase(ulList);
@@ -88,8 +58,8 @@ const getHtml = async () => {
 
 // 데이터베이스에 데이터 저장 함수
 const saveToDatabase = (data) => {
-  const sql = 'INSERT INTO product (product_name, product_price, product_img) VALUES ? ';
-  const values = data.map(item => [item.product_name, item.product_price, item.product_img]);
+  const sql = 'INSERT INTO product (product_name, product_price, product_img, category_no) VALUES ? ';
+  const values = data.map(item => [item.product_name, item.product_price, item.product_img, 1]);
 
   connection.query(sql, [values], (err, result) => {
     if (err) {
