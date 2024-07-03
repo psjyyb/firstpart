@@ -157,7 +157,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="wishlist.html" class="mx-3">
+                    <a href="/mypageWishList" class="mx-3">
                       <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
                     </a>
                   </li>
@@ -195,8 +195,6 @@
       data(){
         return {
         categoryList:[],
-        // bestAll : [],
-        // bestCategory : [],
         keyword: this.$route.query.keyword,
       };
       },

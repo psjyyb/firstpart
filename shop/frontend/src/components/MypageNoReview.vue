@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md 12 col-lg-7 border p-5">
       <h4>작성한 리뷰</h4>
-          <table class="table table-success table-striped-columns">
+          <table class="table table-bordered border-primary">
               <thead>
                   <tr>
                      <th>이미지</th>

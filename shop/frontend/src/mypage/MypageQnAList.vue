@@ -4,7 +4,7 @@
       <h3>♡Q&A리스트♡</h3>
 
     <div>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th>번호</th>

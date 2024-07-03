@@ -72,8 +72,8 @@ module.exports = {
                         from cancel 
                         where user_id=?`,
 
-    mypageWishList:`select wish_no,product_name,product_price,product_img 
-                    from wish w join product p on w.product_no=p.product_no 
+    mypageWishList:`select wish_no,product_name,product_price,product_img,w.product_no 
+                    from wish w left join product p on w.product_no=p.product_no 
                     where user_id = ? order by p.product_no desc limit ?,?`,
     mypageWishListCount:`select count(*) as cnt 
                         from wish where user_id = ?`,
@@ -256,7 +256,23 @@ module.exports = {
                         add_name,
                         temName
                     from addFile 
-                    where table_no= ?
-                    order by turn`
+                    where table_no= ? 
+                    and table_class = ?
+                    order by turn`,
+    mypageWishGetCart:`insert into cart (user_id,product_no)
+                        values(?,?)`,
+
+    mypageReviewUpdate:`update review 
+                        set review_content= ?
+                        where review_no= ? `,
+                        
+    mypageQnAupdate:`update qna 
+                    set
+                     qna_title = ?, 
+                    qna_content = ?
+                    where qna_no= ?`,
+    mypageUpdateImg:`delete from addFile 
+                        where table_class= ?
+                        and table_no= ? `
 
 }

@@ -40,6 +40,7 @@
     },
     created(){
         this.goPage(1);
+        console.log(this.$store.getters.getUserInfo.user_id);
     },
     methods:{
         async goPage(page){

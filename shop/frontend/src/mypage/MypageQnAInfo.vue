@@ -13,8 +13,8 @@
             </h1>
             <div class="subheading mb-5">
                 {{ qnas.qna_date }}
-                <a href="mailto:name@email.com" v-if="qnas.reply!=''">답변완료</a>
-                <a href="mailto:name@email.com" v-else>답변미완료</a>
+                <a href="mailto:name@email.com" v-if="qnas.reply==null">답변미완료</a>
+                <a href="mailto:name@email.com" v-else>답변완료</a>
             </div>
             <p class="lead mb-5">{{qnas.qna_content}}</p>
             <div  v-for="img in imgs">
@@ -25,7 +25,8 @@
         <p v-if="qnas.qna_reply">{{qnas.qna_reply}}</p>
         <button type="button" class="btn btn-success" @click="goList">목록으로</button>
         <button type="button" class="btn btn-warning" @click="delBtn">삭제</button>
-   </div>
+        <button type="button" class="btn btn-info" @click="modBtn(qnas.qna_no)">수정</button>
+  </div>
 </template>
 <script>
    import axios from 'axios' 
@@ -42,6 +43,7 @@
     created(){
         axios.get(`/api/mypage/QnAInfo/`+this.$route.query.no)
         .then(result=>{console.log(result),this.qnas=result.data.info[0],this.imgs=result.data.img})
+        console.log(this.imgs)
     },
     methods:{
         goList(){
@@ -51,6 +53,11 @@
             await axios.delete(`/api/mypage/QnADelete/`+this.$route.query.no)
             .then(this.$router.push('/mypageQnAList'),alert('나문의 삭제완료!'))
             .catch(err=>console.log(err))
+        },
+        modBtn(no){
+            this.$router.push({
+                name: 'mypageQnAUpdate', query: {no: no}
+            });
         }
     }
     }

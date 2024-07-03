@@ -6,7 +6,7 @@
     <!-- <span class="st-wish-icon"></span><span class="total-count st-total-count"> 총<span>1</span>개</span> -->
     </div>
   <div>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-bordered border-primary">
             <thead>
                 <tr>
                     <th>남바</th>
@@ -32,11 +32,9 @@
     </div>
     <div>
         <button @click="delSel" class="btn btn-warning">선택삭제</button>
+        <button @click="getCart" type="button" class="btn btn-success">선택담기</button>
     </div>
-    <div>
-        <button @click="orderSel" class="btn btn-primary">선택담기</button>
-        <button @click="orderAll" class="btn btn-primary">전체담기</button>
-    </div>
+
     </div>
 </template>
 <script>
@@ -75,9 +73,22 @@
         this.wishs.forEach(a=>{if(a.selected==true){
             console.log(a.wish_no)
             axios.delete(`/api/mypage/wishDelete/`+a.wish_no)
-            .then(this.goPage(1))
+            .then(result=>console.log(result))
+            .catch(err=>console.log(err));
+            
             // 선택삭제 포이치 돌려서 선택된 놈들의 번호 가지고 와서 삭제요청
+        }
+    })
+        this.goPage(1);
+    },
+    getCart(){
+        this.wishs.forEach(a=>{if(a.selected==true){
+            console.log(a.product_no)
+            axios.post(`/api/mypage/wishGetCart/?id=${this.id}&pno=${a.product_no}`)
+            .then(result=>console.log(result))
+            .catch(err=>console.log(err));
         }})
+        this.goPage(1);
     }
     }
     }
