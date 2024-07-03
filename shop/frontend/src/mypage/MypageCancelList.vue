@@ -15,32 +15,26 @@
             <table class="table table-bordered border-primary">
                 <thead>
                     <tr>
-                        <th>이미지</th>
                         <th>주문번호</th>
-                        <th>상품명</th>
                         <th>주문일자</th>
-                        <th>취소번호</th>
-                        <th>취소일자</th>
+                        <th>상품명</th>
+                        <th>이미지</th>
                         <th>주문가격</th>
+                        <th>취소일자</th>
                         <th>취소상태</th>
-                        <th>상세보기</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="cancel in cancels" :key="cancel.cancel_no">
-                        <td><img width="64" height="64" :src="`/api/upload/${cancel.product_img}`" alt="상품 이미지"></td>
                         <td>{{ cancel.order_no }}</td>
-                        <td>{{ cancel.product_name }}</td>
                         <td>{{ getDateFormat(cancel.order_date) }}</td>
-                        <td>{{ cancel.cancel_no }}</td>
-                        <td>{{ getDateFormat(cancel.cancel_date) }}</td>
+                        <td  @click="goInfo(cancel.cancel_no)">{{ cancel.product_name }}</td>
+                        <td><img width="64" height="64" :src="`/api/upload/${cancel.product_img}`" alt="상품 이미지"></td>
                         <td>{{ cancel.pay_price }}</td>
+                        <td>{{ getDateFormat(cancel.cancel_date) }}</td>
                         <td>
                             <span v-if="cancel.cancel_state == 1">취소요청</span>
                             <span v-else>취소완료</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" @click="goInfo(cancel.cancel_no)">상세보기</button>
                         </td>
                     </tr>
                 </tbody>

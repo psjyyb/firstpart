@@ -16,9 +16,9 @@
             <table class="table table-bordered border-primary">
                 <thead>
                     <tr>
-                        <th>상품이미지</th>
-                        <th>주문일</th>
                         <th>상품명</th>
+                        <th>주문일</th>
+                        <th>상품이미지</th>
                         <th>주문상태</th>
                         <th>주문갯수</th>
                         <th>주문취소</th>
@@ -26,9 +26,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="order in orders" :key="order.order_no">
-                        <td><img width="64" height="64" :src="`/api/upload/${order.product_image}`" alt="상품 이미지"></td>
-                        <td>{{ getDateFormat(order.order_date) }}</td>
                         <td @click="orderInfo(order.order_no)" class="clickable">{{ order.product_name }}</td>
+                        <td>{{ getDateFormat(order.order_date) }}</td>
+                        <td><img width="64" height="64" :src="`/api/upload/${order.product_image}`" alt="상품 이미지"></td>
                         <td>
                             <span v-if="order.order_status == 1">결제완료</span>
                             <span v-else-if="order.order_status == 2">상품준비중</span>
