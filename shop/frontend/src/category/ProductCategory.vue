@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <div>category</div>
     <div class="offcanvas-body justify-content-between">
       상품갯수 :  {{ productCnt }}
@@ -13,7 +13,8 @@
         <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
       </b-breadcrumb>
     </div>
-    <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+    <!-- <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10" v-if="productList"> -->
+      <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
       <!-- <div class="product-list" > -->
       <div class="product-card" :key="product.product_no" v-for="product in productList">
        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
@@ -21,7 +22,7 @@
         </div>
         <div class="card position-relative">
           <a @click="goToDetail(product.product_no)">
-            <img src="images/item13.jpg" class="img-fluid rounded-4" alt="image">
+            <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="img-fluid rounded-4" alt="image">
           </a>
           <div class="card-body p-0">
             <a @click="goToDetail(product.product_no)">
@@ -92,35 +93,35 @@ export default {
       this.isLoading = false;
     },
     async loadMoreProducts() {
-    if (this.busy || this.noMoreProducts) return;
-    this.busy = true;
+      if (this.busy || this.noMoreProducts) return;
+      this.busy = true;
 
-  try {
-    const response = await axios.get(`/api/category/${this.searchNo}`, {
-      params: {
-        pno: this.pno,
-        perPage: 12,
-      }
-    });
-    if (response.data.products.length) {
-      this.displayedProducts.push(...response.data.products);
-      this.productList.push(...response.data.products);
-      this.productCnt = response.data.total;
-
-      // 다음 페이지 여부 판단
-      if (!response.data.hasNextPage) {
-        this.noMoreProducts = true;
-        } else {
-          this.pno++;
+    try {
+      const response = await axios.get(`/api/category/${this.searchNo}`, {
+        params: {
+          pno: this.pno,
+          perPage: 12,
         }
-    } else {
-      this.noMoreProducts = true;
+      });
+      if (response.data.products.length) {
+        this.displayedProducts.push(...response.data.products);
+        this.productList.push(...response.data.products);
+        this.productCnt = response.data.total;
+
+        // 다음 페이지 여부 판단
+        if (!response.data.hasNextPage) {
+          this.noMoreProducts = true;
+          } else {
+            this.pno++;
+          }
+      } else {
+        this.noMoreProducts = true;
+      }
+    } catch (error) {
+      console.error('데이터 가져오기 오류:', error);
+    } finally {
+      this.busy = false; 
     }
-  } catch (error) {
-    console.error('데이터 가져오기 오류:', error);
-  } finally {
-    this.busy = false; 
-  }
 },
 
     async handleScroll() {

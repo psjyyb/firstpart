@@ -1,70 +1,81 @@
 <template>
-    <div class="login-container">
-        <div class="login-wrapper">
-          <form method="post" action="서버의url" id="login-form">
-            </form>
-        </div>
-        <hr>
-        <div style="text-align: center;">
-          <a id="custom-login-btn" @click="kakaoLogin()">
-            <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-              alt="카카오 로그인 버튼" />
-          </a>
-      </div>
+  <div class="login-container">
+    <div class="login-wrapper">
+      <form method="post" action="서버의url" id="login-form">
+      </form>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    methods: {
-      kakaoLogin() {
-        window.Kakao.Auth.login({
-          scope: "profile_image, account_email",
-          success: this.getKakaoAccount,
-        });
-      },
-      getKakaoAccount() {
-        const vm = this; // Store the Vue instance context
-        window.Kakao.API.request({
-          url: "/v2/user/me",
-          success: function (res) {
-            const kakao_account = res.kakao_account;
-            const nickname = kakao_account.profile.nickname;
-            const email = kakao_account.email;
-            console.log("nickname", nickname);
-            console.log("email", email);
-  
-            // Example of storing data in sessionStorage
-            sessionStorage.setItem('nickname', nickname);
-            sessionStorage.setItem('email', email);
-  
-            alert("로그인 성공!");
-  
-            // Redirect to BoardList.vue using Vue Router
-            vm.$router.push('/info'); // Assuming '/boardlist' is your route path
-          },
-          fail: function (error) {
-            console.log(error);
-          },
-        });
-      },
-      kakaoLogout() {
-        const vm = this; // Store the Vue instance context
-        window.Kakao.Auth.logout(function () {
-          // Clear sessionStorage
-          sessionStorage.removeItem('nickname');
-          sessionStorage.removeItem('email');
-  
-          // Optional: Clear any other state or UI related to logged-in state
-          // For example, resetting the UI or redirecting to a login page
-  
-          // Redirect to '/' after logout (adjust as needed)
-          vm.$router.push('/');
-        });
-      },
+    <hr>
+    <div style="text-align: center;">
+      <a id="custom-login-btn" @click="kakaoLogin()">
+        <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+          alt="카카오 로그인 버튼" />
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    kakaoLogin() {
+      window.Kakao.Auth.login({
+        scope: "profile_image, account_email",
+        success: this.getKakaoAccount,
+      });
     },
-  };
-  </script>
+    getKakaoAccount() {
+      const vm = this; // Store the Vue instance context
+      window.Kakao.API.request({
+        url: "/v2/user/me",
+        success: async function (res) {
+          const kakao_account = res.kakao_account;
+          const kakao_id = res.id; // 카카오 사용자 ID
+          const email = kakao_account.email;
+          const user = {
+            user_id: kakao_id,
+            email: email,
+          };
+
+          // DB에 사용자 정보 저장
+          await fetch('/api/insertKakaoUser', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+          });
+
+          // Vuex 스토어에 사용자 정보 저장
+          vm.$store.dispatch('loginUser', user);
+
+          alert("로그인 성공!");
+
+          // Redirect to BoardList.vue using Vue Router
+          vm.$router.push('/info'); // Assuming '/info' is your route path
+        },
+        fail: function (error) {
+          console.log(error);
+        },
+      });
+    },
+    kakaoLogout() {
+      const vm = this; // Store the Vue instance context
+      window.Kakao.Auth.logout(function () {
+        // Clear sessionStorage
+        sessionStorage.removeItem('nickname');
+        sessionStorage.removeItem('email');
+
+        // Vuex 스토어의 사용자 정보 제거
+        vm.$store.dispatch('logoutUser');
+
+        // Redirect to '/' after logout (adjust as needed)
+        vm.$router.push('/');
+      });
+    },
+  },
+};
+</script>
+
 <style scoped>
 .login-container {
   display: flex;
@@ -95,43 +106,5 @@
 
 #custom-login-btn img:hover {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-info {
-  padding: 10px 20px;
-  background-color: #5bc0de;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-info:hover {
-  background-color: #31b0d5;
-}
-
-.btn-secondary {
-  padding: 10px 20px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-bottom: 12px;
-}
-
-.success {
-  color: green;
-  font-size: 12px;
-  margin-bottom: 12px;
 }
 </style>

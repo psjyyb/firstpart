@@ -47,8 +47,19 @@ import loginForm from '../user/loginForm.vue'
 import userCheck from '../user/userCheck.vue'
 import FindId from '@/user/FindId.vue'
 import FindPw  from '@/user/FindPw.vue'
-
+import userInfo from '@/user/ModifyInfo.vue'
+import userDelete from '@/user/userDelete.vue'
 const routes = [
+  {
+    path: '/userDelete',
+    name: 'userDelete',
+    component: userDelete
+  },
+  {
+    path: '/userInfo',
+    name: 'userInfo',
+    component: userInfo
+  },
   {
     path: '/FindId',
     name: 'FindId',

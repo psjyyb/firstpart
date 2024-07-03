@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div>Search result</div>
+        <div>검색결과</div>
         <div class="offcanvas-body justify-content-between">
        상품갯수 :  {{ productCnt }}
       </div>
@@ -21,8 +21,8 @@
               </div>
               <div class="card position-relative">
                   <a href="single-product.html">
-                    <img src="images/item13.jpg" class="img-fluid rounded-4" alt="image">
-                  </a>
+                    <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="sub" alt="image">
+                </a>
                   <div class="card-body p-0">
                       <a @click="goToDetail(product.product_no)" >
                           <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>

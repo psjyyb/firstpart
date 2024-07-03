@@ -21,7 +21,7 @@
           <div class="card position-relative">
             <a @click="goToDetail(product.product_no)">
               <!-- <img :src="product.product_img" class="img-fluid rounded-4" alt="image"> -->
-              <img src="images/item2.jpg" class="img-fluid rounded-4" alt="image">
+              <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="img-fluid rounded-4" alt="image">
 
             </a>
             <div class="card-body p-0">
