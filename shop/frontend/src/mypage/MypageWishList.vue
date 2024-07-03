@@ -24,7 +24,7 @@
                     </td>
                     <td><img width="64"height="64":src="`/api/upload/${wish.product_img}`"></td>
                     <td>{{wish.product_name}}</td>
-                    <td>{{wish.product_price}}</td>
+                    <td>{{getcurrencyFormat(wish.product_price)}}원</td>
                 </tr>
             </tbody>
         </table>
@@ -91,6 +91,9 @@
             .catch(err=>console.log(err));
         }})
         this.goPage(1);
+    },
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
     }
     }
     }

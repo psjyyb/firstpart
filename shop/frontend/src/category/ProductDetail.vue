@@ -265,9 +265,9 @@
 
     <div class="fontSize">
     <b-nav tabs align="center" >
-      <b-nav-item href="#" active>상품 상세</b-nav-item>
+      <b-nav-item  active>상품 상세</b-nav-item>
       <b-nav-item @click="infoForm">상품리뷰</b-nav-item>
-      <b-nav-item href="#">상품 QnA</b-nav-item>
+      <b-nav-item @click="qnaForm" >상품 QnA</b-nav-item>
     </b-nav>
     </div>
 
@@ -287,6 +287,9 @@
 
       <ReviewList ref="child"></ReviewList>
     </div>
+    <div>
+      <ReviewQnA ref="qchild"></ReviewQnA>
+    </div>
   </main>
 </template>
 
@@ -295,9 +298,10 @@ import axios from "axios";
 import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
+import ReviewQnA from '../components/ProductQnAList.vue'
 export default{
   mixins : [PageMixin],
-  components: {ReviewList},
+  components: {ReviewList,ReviewQnA},
   data(){
   return {
       searchNo: "",
@@ -388,6 +392,9 @@ export default{
       infoForm(){
         //console.log(this.productInfo.product_no,'여긴디테일')
         this.$refs.child.getData(this.productInfo.product_no)
+      },
+      qnaForm(){
+        this.$refs.qchild.getData(this.productInfo.product_no)
       }
 }
 }

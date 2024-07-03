@@ -10,6 +10,10 @@
                     <p v-if="fcancel.cancel_state==1">취소 상태 : 취소요청</p>
                     <p v-if="fcancel.cancel_state==2">취소 상태 : 취소완료</p>
                 </div>
+                <div>
+                    <div class="sc-14f0hdm-3 nXoWQ">
+                    <p>취소일자 : {{getDateFormat(fcancel.cancel_date)}} 취소접수번호 : {{ fcancel.cancel_no }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -35,13 +39,13 @@
                                 <a href="#"target="_blank"class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
                                 <span class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">{{cancel.product_name}}</span></a>
                                         <div class="sc-uaa4l4-0 jxRaeI">
-                                        <span font-weight="normal" class="sc-755zt3-0 eDgzyT"> {{cancel.product_price}}원</span>
+                                        <span font-weight="normal" class="sc-755zt3-0 eDgzyT"> {{getcurrencyFormat(cancel.product_price)}}원</span>
                                         <span class="sc-13xhsmd-0 kYtEGM">
                                         <span class="sc-13xhsmd-1 joIhoV"></span></span>
                                         <span class="sc-755zt3-0 jtWNEg">{{cancel.order_cnt}}개</span>
                                         </div>
                                         <div>
-                                        <span>상품총금액:{{cancel.order_cnt*cancel.product_price}}원</span>
+                                        <span>상품총금액:{{getcurrencyFormat(cancel.order_cnt*cancel.product_price)}}원</span>
                                         </div>
                                     </div>
                                 <div class="sc-fxyxvg-0 igPkOG"></div>
@@ -55,15 +59,12 @@
     </tbody>
     </table>
     </div>
-    <div>
-        <div class="sc-14f0hdm-3 nXoWQ">
-        <p>취소일자 : {{getDateFormat(fcancel.cancel_date)}} 취소접수번호 : {{ fcancel.cancel_no }}</p>
-    </div>
+   
     <div>
         <h3 class="mb-0">결제 정보</h3>
-        <div>총 주문 금액 : {{fcancel.pay_price}}</div>
-        <div>포인트 사용 금액 : {{ fcancel. pay_point}}</div>
-        <div>환불받을 금액 : {{ fcancel.pay_price - fcancel.pay_point}}</div>
+        <div>총 주문 금액 : {{getcurrencyFormat(fcancel.pay_price)}}원</div>
+        <div>포인트 사용 금액 : {{ getcurrencyFormat(fcancel. pay_point)}}원</div>
+        <div>환불받을 금액 : {{ getcurrencyFormat(fcancel.pay_price - fcancel.pay_point)}}원</div>
     </div>
     </div>
     <button type="button" class="btn btn-success" @click="goList">목록으로</button>
@@ -92,7 +93,10 @@
         },
         getDateFormat(date) {
       return this.$dateFormat(date);
-    },
+    }, 
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
+    }
     }
     }
 </script>
