@@ -12,22 +12,28 @@
         <input type="text" id="user_name" v-model="userInfo.user_name" readonly class="form-control readonly" />
       </div>
 
-      <!-- DaumMap 컴포넌트를 사용하여 우편번호와 주소 입력 -->
       <div class="form-group">
-        <DaumMap @address-selected="updateAddress" />
+        <label for="user_post">우편번호</label>
+        <input type="text" id="user_post" v-model="userInfo.user_post" placeholder="우편번호" readonly class="form-control" />
+        <button type="button" @click="openDaumPostcode" class="btn btn-secondary">우편번호 검색</button>
+      </div>
+
+      <div class="form-group">
+        <label for="user_address">주소</label>
+        <input type="text" id="user_address" v-model="userInfo.user_address" placeholder="주소" readonly class="form-control" />
       </div>
 
       <div class="form-group">
         <label for="user_detail_addr">상세주소</label>
         <input type="text" id="user_detail_addr" v-model="userInfo.user_detail_addr" placeholder="상세주소"
-          class="form-control" />
+               class="form-control" />
       </div>
 
       <div class="form-group">
         <label for="user_phone">전화번호</label>
         <input type="text" id="user_phone" v-model="userInfo.user_phone" placeholder="전화번호" class="form-control" />
       </div>
-
+      
       <div class="form-group">
         <label for="user_email">이메일</label>
         <input type="text" id="user_email" v-model="userInfo.user_email" placeholder="이메일" class="form-control" />
@@ -44,6 +50,7 @@
         <a href="/userDelete" class="btn btn-withdraw small-btn">회원탈퇴</a>
       </div>
     </form>
+
     <!-- 모달 컴포넌트 -->
     <Modal v-if="showModal" :message="modalMessage" @close="showModal = false" />
   </div>
@@ -51,13 +58,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DaumMap from '@/components/DaumMap.vue';
 import axios from 'axios';
 import Modal from '@/components/UpdateUserModal.vue';
 
 export default {
   components: {
-    DaumMap,
     Modal
   },
   data() {
@@ -86,7 +91,6 @@ export default {
         console.log(response.data); // 성공 메시지 확인
         this.showModal = true;
         this.modalMessage = '사용자 정보가 성공적으로 업데이트되었습니다.';
-        // this.$router.push({ name: 'home' });
       } catch (error) {
         console.error('Error updating user info:', error);
       }
@@ -94,9 +98,14 @@ export default {
     cancelEdit() {
       this.$router.push({ name: 'home' });
     },
-    updateAddress(data) {
-      this.userInfo.user_post = data.postcode;
-      this.userInfo.user_address = data.address;
+    openDaumPostcode() {
+      // Daum 우편번호 서비스 API를 이용한 우편번호 검색 기능
+      new daum.Postcode({
+        oncomplete: (data) => {
+          this.userInfo.user_post = data.zonecode;
+          this.userInfo.user_address = data.address;
+        }
+      }).open();
     }
   },
   created() {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4>작성하지 않은 리뷰</h4>
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
@@ -15,7 +14,7 @@
                 <tr v-for="review in reviews">
                     <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
                     <td>{{ review.product_name }}</td>
-                    <td>{{ review.product_price }}</td>
+                    <td>{{getcurrencyFormat(review.product_price) }}원</td>
                     <td>{{ getDateFormat(review.order_date) }}</td>
                     <td><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
@@ -62,6 +61,9 @@
     getDateFormat(date) {
       return this.$dateFormat(date);
     },
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
+    }
     }
     }
 </script>

@@ -1,45 +1,52 @@
 <template>
     <SideVar/>
     <div id="padd">
-    <div>
+      <div class="fontSize">
+        <b-nav tabs align="center">
+          <b-nav-item @click="activeTab = 'yesReview'" :active="activeTab === 'yesReview'">
+            작성 가능한 리뷰
+          </b-nav-item>
+          <b-nav-item @click="activeTab = 'noReview'" :active="activeTab === 'noReview'">
+            작성한 리뷰
+          </b-nav-item>
+        </b-nav>
+      </div>
+      <div v-if="activeTab === 'yesReview'">
         <yesReview/>
-    </div>
-    <div>
+      </div>
+      <div v-if="activeTab === 'noReview'">
         <noReview/>
+      </div>
     </div>
-    </div>
-</template>
-<script>
-    import noReview from '../components/MypageNoReview.vue'
-    import yesReview from '../components/MypageYesReview.vue'
-    import pageCalcMixin from '../mixin.js'
-    import SideVar from '../components/SideVar.vue'
-    import PagingComponent from '../components/PagingComponent.vue'
-    import axios from 'axios'
-    export default{
-    mixins:[pageCalcMixin],
-    components: {SideVar,PagingComponent,yesReview,noReview },
-    data(){
-     return {
-        id:9999,
-        // yreviews:{},
-        // pageUnit:5,
-        // page:{}
-     }; 
+  </template>
+  
+  <script>
+  import noReview from '../components/MypageNoReview.vue'
+  import yesReview from '../components/MypageYesReview.vue'
+  import pageCalcMixin from '../mixin.js'
+  import SideVar from '../components/SideVar.vue'
+  import PagingComponent from '../components/PagingComponent.vue'
+  import axios from 'axios'
+  
+  export default {
+    mixins: [pageCalcMixin],
+    components: { SideVar, PagingComponent, yesReview, noReview },
+    data() {
+      return {
+        id: 9999,
+        activeTab: 'yesReview' // 초기 활성 탭 설정
+      };
     },
-    created(){
-        this.id=this.$store.getters.getUserInfo.user_id
+    created() {
+      this.id = this.$store.getters.getUserInfo.user_id
     },
-    methods:{
-    //     async goPage(page){
-    //     let pageUnit =this.pageUnit;
-    //     let result = await axios.get(`/api/mypage/YesReviewList/?pageUnit=${pageUnit}&page=${page}&id=${this.id}`);
-    //     this.yreviews = result.data.list;
-    //     console.log('yreviews',result.data.count[0].cnt)
-    //     this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
-    //     console.log(this.page)
-    // }
+    methods: {
+      // 기존 메서드들 주석 처리됨
     }
-    }
-</script>
-<style></style>
+  }
+  </script>
+  
+  <style>
+  /* 필요한 스타일 지정 */
+  </style>
+  
