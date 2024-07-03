@@ -15,7 +15,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 import $ from 'jquery'
 import Isotope from 'isotope-layout'
-
+import '@fortawesome/fontawesome-free/js/all.js'
 
 import mixins from "./mixin.js";
 

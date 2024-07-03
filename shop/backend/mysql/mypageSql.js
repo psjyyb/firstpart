@@ -298,6 +298,24 @@ module.exports = {
                         WHERE 
                             r.product_no = ?
                         GROUP BY 
-                            r.review_no, r.review_content, r.review_score, r.review_date, r.user_id`
+                            r.review_no, r.review_content, r.review_score, r.review_date, r.user_id`,
+    mypageProductQnA:`SELECT 
+                        q.qna_no,
+                        q.qna_title,
+                        q.qna_content,
+                        q.qna_date,
+                        q.qna_reply,
+                        q.user_id,
+                        GROUP_CONCAT(a.add_name SEPARATOR ', ') AS add_names
+                    FROM 
+                        qna q
+                    LEFT JOIN 
+                        addFile a
+                    ON 
+                        q.qna_no = a.table_no AND a.table_class = 'qna'
+                    WHERE 
+                        q.product_no = 1192
+                    GROUP BY 
+                    q.qna_no,q.qna_title, q.qna_content,q.qna_date,q.qna_reply,q.user_id`
 
 }
