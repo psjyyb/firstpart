@@ -12,8 +12,8 @@
 			</tr>			
 			<tr>
 				<th><label for="product_name">상품이름</label></th>
-				<td><input type ="text"id ="product_name"v-model ="this.productInfo.product_name "/></td>
-			</tr>
+				<td><input type ="text"id ="product_name"v-model ="this.productInfo.product_name "/></td>      
+      </tr>
             <tr>
 				<th><label for="category_no">카테고리</label></th>
 				<td> <select v-model="this.productInfo.category_no">
@@ -31,7 +31,10 @@
 				<th><label for="product_price">가격</label></th>
 				<td><input type ="number"id ="product_price" v-model ="this.productInfo.product_price " /></td>
 			</tr>
-           
+           <tr>
+                <th><label for="product_point">포인트</label></th>
+                <td>300</td>
+            </tr>
             <tr>
                 <th><label for="product_mfd">제조일자</label></th>
                 <td><input type ="date"id ="product_mfd" v-model ="this.productInfo.product_mfd " /></td>
@@ -60,13 +63,14 @@
 
             </td>
 			</tr>
-			<tr>
-				<th colspan="2">
-                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="updateProduct"> 상품수정 </button	>
-                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="deleteProduct"> 상품삭제 </button	>
-				</th>
-			</tr>
+			
 		</table>
+
+    <div align="center">
+      <button type ="button" class ="text-center" @click ="updateProduct"> 상품수정 </button	>
+        <button type ="button" class ="text-center" @click ="resetProduct"> 초기화 </button	>
+        <button type ="button" class ="text-center" @click ="deleteProduct"> 상품삭제 </button	>
+    </div>
      </form	>
     </div	>
 </template	>
@@ -119,12 +123,12 @@ export	default {
             data.append("c_product_detail_img",this.product_detail_img_file)   
         
         let result =(await axios .put(`/api/adminproduct/updateproduct/${this .productNo}`,data,{ headers:{'Content-Type':'multipart/form-data'}} )).data ;
- 	//    if(result .affectedRows >0 )	{
- 	//     alert("정상적으로	수정되었습니다.");
-    //      this .$router .push({path:"/adminproduct" });
- 	//    }	else {
- 	//     alert("정상적으로	저장되지	않았습니다.");
- 	//    }
+ 	   if(result .affectedRows >0 )	{
+ 	    alert("정상적으로	수정되었습니다.");
+         this .$router .push({path:"/adminproduct" });
+ 	   }	else {
+ 	    alert("정상적으로	수정되지	않았습니다.");
+ 	   }
       },
  	 async deleteProduct()	{
  	  let result =	(await axios .delete(`/api/adminproduct/deleteproduct/${this .productNo}`)).data
@@ -164,6 +168,10 @@ export	default {
       //this.productInfo.product_detail_img=this.product_detail_img;
       console.log(this.productInfo.product_detail_img.name);
       
+    },
+    async resetProduct(){
+      this .getProductInfo();
+
     },
 
      

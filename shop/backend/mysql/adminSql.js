@@ -61,5 +61,17 @@ module.exports =	{
    productUpdate:`UPDATE product SET ?
    WHERE	product_no	=	?
    `,
+   qnaInfo:`SELECT qna_no,qna_title,qna_content,qna_date,qna_reply,product_no,user_id
+   FROM qna
+   WHERE qna_no = ?
+   `,
+   qnaInsert:`UPDATE qna 
+   SET qna_reply = ?
+   WHERE	qna_no	=	?
+   `,
+   noticeInsert:`insert into notice
+   (notice_title,notice_content,notice_picture)
+   values(?,?,?)
+   `,
     
 };

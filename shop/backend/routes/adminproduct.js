@@ -32,7 +32,10 @@ const moveFile = async (filename,destfilename) => {
     return true;
   }
 
-
+//   //검색
+//   router.get("/productList/seach",async(req,res )=> {
+    
+// });
 
 
 //목록
@@ -95,16 +98,49 @@ router.get("/productInfo/:no",async(req,res )=> {
 //수정
 router.put("/updateproduct/:no",product_img_upload.fields([{ name: 'c_product_img' }, { name: 'c_product_detail_img' }]),	async (req ,	res )	=> {
 
-
   console.log(req.params.no);
   console.log((req.body));
   
    if(req.body.c_product_img===undefined){
+   //파일삭제
+   try {
+
+    //동기 방식으로 파일 삭제
+      fs.unlinkSync(`upload/productimg/${req.body.product_img}`)
+  
+  } catch (error) {
+  
+      if(err.code == 'ENOENT'){
+          console.log("파일 삭제 Error 발생");
+      }
+  }
+   //
    req.body.product_img=req.files.c_product_img[0].filename;
+   
+   let product_img='productimg';
+   moveFile(req.files.c_product_img[0].filename,product_img);
+
    }
    
    if(req.body.c_product_detail_img===undefined){
-    req.body.product_img=req.files.c_product_detail_img[0].filename;
+    //파일삭제
+   try {
+
+    //동기 방식으로 파일 삭제
+      fs.unlinkSync(`upload/productdetailimg/${req.body.product_detail_img}`)
+  
+  } catch (error) {
+  
+      if(err.code == 'ENOENT'){
+          console.log("파일 삭제 Error 발생");
+      }
+  }
+   //
+    req.body.product_detail_img=req.files.c_product_detail_img[0].filename;
+
+    let product_detail_img='productdetailimg';
+   moveFile(req.files.c_product_detail_img[0].filename,product_detail_img);
+
     }
     
     let update={
@@ -116,7 +152,6 @@ router.put("/updateproduct/:no",product_img_upload.fields([{ name: 'c_product_im
       product_img: req.body.product_img,
       product_detail_img: req.body.product_detail_img
     };
-
 
   console.log(update);
    let result =	await query("productUpdate",[update,	req.params.no]);

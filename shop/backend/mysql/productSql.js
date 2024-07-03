@@ -7,7 +7,6 @@ module.exports = {
     productDetail : `SELECT product_no,product_name,product_price,product_img,product_detail_img 
                         FROM product 
                         WHERE product_no = ?`,
-    
-                        
+                   
     
 }

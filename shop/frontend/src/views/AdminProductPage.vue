@@ -25,10 +25,10 @@
      <tr :key="i" v-for="(product,i) in products"  >
                     <td >{{ product.product_no }}</td>
                     <td @click ="goToDetail(product.product_no)">{{ product.product_name }}</td>
-                    <td>{{ product.product_price }}</td>            
+                    <td>{{ makeComma(product.product_price) }}</td>            
                     <td><img :src="`/api/readproductImg/${product.product_img}`" height="180" width="180"></td>
-                    <td>{{ product.product_mfd }}</td>
-                    <td>{{ product.product_exp }}</td>
+                    <td>{{ this.$dateFormat(product.product_mfd )}}</td>
+                    <td>{{ this.$dateFormat(product.product_exp) }}</td>
                     <td>{{ product.category_name }}</td>
                     <td>{{ product.product_point }}</td>
                     <td>{{ product.storage_cnt }}</td>
@@ -45,7 +45,18 @@
                 </tr>
     </tbody	>
    </table	>
-   <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
+   <div>
+    <select v-model="this.seachcatecory">
+                          <option value="product_no">번호</option>
+                          <option value="product_name">상품 이름</option>
+                          <option value="category_no">카테고리</option>                          
+                        </select>
+                        <input type ="text" v-model="this.seachname" id ="seachname">
+                        <button @click="">검색</button>
+
+   </div>
+   <PagingComponent v-bind="page" @go-page="goPage" ></PagingComponent>
+   
    <router-link to ="/insertproduct"	class="nav-link">상품 등록</router-link	>
   </div	>
 </template	>
@@ -59,6 +70,8 @@ export	default {
     components: {PagingComponent },
   data ()	{
    return {
+    seachcatecory:'',
+    seachname:'',
     products:{},
     stock_cnt:[],
     pageUnit:5,
@@ -67,32 +80,23 @@ export	default {
   },
   created()	{
     this.goPage(1);
-  //  this.getBoardList();
+    
   },
   methods: {
+    async seach(page){
+      let pageUnit =this.pageUnit;
 
+      let result = await axios.get(`/api/adminproduct/productList/seach/?seachcatecory=${this.seachcatecory}&seachname=${this.seachname}&pageUnit=${pageUnit}&page=${page}`);
+      this.products = result.data.list;
+
+    },
     async goPage(page){
         let pageUnit =this.pageUnit;
         let result = await axios.get(`/api/adminproduct/productList/?pageUnit=${pageUnit}&page=${page}`);
-        this.products = result.data.list;
-
-        this.stock_cnt=[];
-        this.products.forEach(product => this.stock_cnt.push(0));
-        console.log(this.stock_cnt);
-
-        
-        this.products
+        this.products = result.data.list;        
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
-  //  async getBoardList()	{
-  //   let result =	await axios.get(`/api/board`);
-  //   this.boardList =	result.data ;
-  //  },
-  //  goToDetail(no )	{
-  //   this.$router.push({	path:"/info",	query: {	no:no }	});
-  //  },
-  //  getDateFormat(date )	{
-  //   return this.$dateFormat(date );
+  
     },
     goToDetail(no )	{
  	  this.$router.push({	path:"/infoproduct",	query: {	product_no:no }	});

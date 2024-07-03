@@ -18,7 +18,7 @@
      <tr v-for="notice in notices">
                     <td>{{ notice.notice_no }}</td>
                     <td>{{ notice.notice_title }}</td>
-                    <td>{{ notice.notice_date }}</td>                                
+                    <td>{{ this.$dateFormat(notice.notice_date) }}</td>                                
                 </tr>
     </tbody	>
    </table	>

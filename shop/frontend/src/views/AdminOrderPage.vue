@@ -20,8 +20,8 @@
      <tr :key="i" v-for="(order,i) in orders">
                     <td>{{ order.order_no }}</td>
                     <td>{{ order.user_id }}</td>
-                    <td>{{ order.order_date }}</td>
-                    <td>{{ order.pay_price }}</td>
+                    <td>{{ this.$dateFormat(order.order_date) }}</td>
+                    <td>{{ makeComma(order.pay_price) }}</td>
                     <td>
                         <select v-model="order.order_status" @change="change_order_status(i,order.order_status)">
                           <option value="1">결제완료</option>

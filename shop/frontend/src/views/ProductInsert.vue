@@ -59,12 +59,12 @@
 
             </td>
 			</tr>
-			<tr>
-				<th colspan="2">
-                    <button type ="button" class ="btn	btn-xs	btn-info" @click ="insertproduct"> 상품등록 </button	>
-				</th>
-			</tr>
+			
 		</table>
+        <div align="center">
+            <button type ="button" class ="text-center" @click ="insertproduct"> 상품등록 </button	>
+            <button type="button" class="text-center" @click="canBtn">취소</button>
+     </div	>
      </form	>
     </div	>
 </template	>
@@ -141,7 +141,9 @@ export	default {
         fileData(reader.result)
       }, false);
     },
-   
+    canBtn(){
+        this.$router.push('/adminproduct');
+    },
  	 
  	},
 };

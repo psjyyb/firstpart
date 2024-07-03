@@ -15,7 +15,6 @@ router.get("/:no", async (req, res) => {
 
 
 
-
   module.exports = router;
 
   

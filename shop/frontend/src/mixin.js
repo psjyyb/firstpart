@@ -16,6 +16,7 @@ export default {
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
         },
         
+        
         $currencyFormat(value, format = "#,###") {
             
             if (value == 0 || value == null) return 0;

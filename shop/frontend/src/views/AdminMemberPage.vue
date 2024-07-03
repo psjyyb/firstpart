@@ -24,7 +24,6 @@
      </tr	> -->
      <tr v-for="user in users">
                     <td>{{ user.user_id }}</td>
-                    <td>{{ user.user_pw }}</td>
                     <td>{{ user.user_name }}</td>            
                     <td>{{ user.user_post }}</td>
                     <td>{{ user.user_address }}</td>
