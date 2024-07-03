@@ -19,13 +19,13 @@
       <div ref="isotopeContainer" class="isotope-container row">
         <div class="item cat col-md-4 col-lg-3 my-4" :key="i" v-for="(product, i) in displayedProducts">
           <div class="card position-relative">
-            <a href="single-product.html">
+            <a @click="goToDetail(product.product_no)">
               <!-- <img :src="product.product_img" class="img-fluid rounded-4" alt="image"> -->
               <img src="images/item2.jpg" class="img-fluid rounded-4" alt="image">
 
             </a>
             <div class="card-body p-0">
-              <a href="single-product.html">
+              <a @click="goToDetail(product.product_no)">
                 <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
               </a>
               <div class="card-text">
@@ -103,6 +103,9 @@
         this.$nextTick(() => {
           this.isotope.arrange({ filter: '*' });
         });
+      },
+      goToDetail(no) {
+      this.$router.push({ path: "/detail", query: { no: no } });
       },
     },
   };

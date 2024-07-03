@@ -20,7 +20,7 @@
           no. {{ product.product_no }}
         </div>
         <div class="card position-relative">
-          <a href="single-product.html">
+          <a @click="goToDetail(product.product_no)">
             <img src="images/item13.jpg" class="img-fluid rounded-4" alt="image">
           </a>
           <div class="card-body p-0">
