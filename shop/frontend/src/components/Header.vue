@@ -63,7 +63,6 @@
         </div>
       </div>
     </div>
-  
       <header>
       <div class="container py-2">
         <div class="row py-4 pb-0 pb-sm-4 align-items-center ">
@@ -147,7 +146,7 @@
             <div class="offcanvas-body justify-content-between">
               <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                 <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no)">
-                  <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
+                  <a class="nav-link" style="cursor:pointer;" @onclick="clickColor">{{ category.category_name }}</a>
                 </li>
               </ul>
               <div class="d-none d-lg-flex align-items-end">
@@ -184,7 +183,6 @@
             </div>
           </div>
         </nav>
-  
       </div>
     </header>
   </template>
@@ -210,7 +208,6 @@
       methods :{
         ...mapActions(['logoutUser']),
         adminpage(){
-          // this.$emit("change",true)
         },
         async getCategoryList() {
           let result = await axios.get(`/api/category`);
@@ -241,6 +238,16 @@
           console.error('Error logging out:', error);
         });
       },
+      clickColor(){
+        let items = document.querySelectorAll(".nav-link");
+        items.forEach(item => {
+          item.addEventListner('clcik',()=>{
+            items.forEach(e => {
+              
+            });
+          })
+        });
+      },
       }
   }
   </script>
@@ -250,5 +257,7 @@
     border: none;
     background-color: white;
   }
-  
+  a:active {
+  background-color: yellow;
+  }
   </style>

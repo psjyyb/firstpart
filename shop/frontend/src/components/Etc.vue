@@ -20,8 +20,9 @@
         <div class="item cat col-md-4 col-lg-3 my-4" :key="i" v-for="(product, i) in displayedProducts">
           <div class="card position-relative">
             <a @click="goToDetail(product.product_no)">
-              <!-- <img :src="product.product_img" class="img-fluid rounded-4" alt="image"> -->
-              <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="img-fluid rounded-4" alt="image">
+
+              <!-- <img :src="`/api/image/productImg/${product.product_img}`" class="img-fluid rounded-4" alt="image"> -->
+              <img :src="`/api/readproductImg/${product.product_img}`" class="img-fluid rounded-4" alt="image">
 
             </a>
             <div class="card-body p-0">

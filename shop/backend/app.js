@@ -62,7 +62,10 @@ app.use('/user', (req, res, next) => {
   // 여기에 crypto 모듈을 사용하는 코드 추가
   next();
 }, userRouter);
-app.use('/upload', express.static('upload/productImg'));
+
+// app.use('/upload', express.static('upload/productImg'));
+app.use('/upload', express.static('upload'));
+// app.use('/image', express.static('upload'));
 app.use('/user',userRouter)
 app.use('/cart', cartRouter)
 app.use('/order', orderRouter)
@@ -77,12 +80,13 @@ app.use("/adminnotice",adminnoticeRouter)
 app.use("/adminorder",adminorderRouter)
 app.use("/adminproduct",adminproductRouter)
 app.use("/adminqa",adminqaRouter)
-app.use('/adminupload', express.static('d:/upload'));
+// app.use('/adminupload', express.static('d:/upload'));
 //
 // app.use(function(req, res, next) {
 // 	next(createError(404));
 //   });
-
+app.use('/readproductImg', express.static('upload/productImg'));
+app.use('/readproductdetailimg', express.static('upload/productdetailimg'));
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);

@@ -21,7 +21,9 @@
               </div>
               <div class="card position-relative">
                   <a href="single-product.html">
-                    <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="sub" alt="image">
+                    <!-- <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="sub" alt="image"> -->
+                    <img :src="`/api/upload/productImg/${product.product_img}`" class="sub" alt="image">
+
                 </a>
                   <div class="card-body p-0">
                       <a @click="goToDetail(product.product_no)" >

@@ -5,32 +5,22 @@ const cheerio = require("cheerio");
 const iconv = require('iconv-lite');
 const mysql = require('mysql2');
 
-// MySQL 연결 설정
-const connection = mysql.createConnection({
-host: '3.36.49.13',
-user: 'shop',
-port: '3306',
-password: 'Yedam#2024',
-database: 'shopdb'
-});
+// const connection = mysql.createConnection({
+
+// });
 
 connection.connect();
 
-// 웹 스크래핑 함수
 const getHtml = async () => {
   try {
-    // 웹사이트로부터 HTML 가져오기
     const response = await axios.get("https://www.dogpang.com/shop/goods/goods_list.php?category=002001"
       , { responseType: 'arraybuffer' });
 
-    // 응답 데이터를 euc-kr에서 utf-8로 변환
     const decodedHtml = iconv.decode(response.data, 'euc-kr');
 
-    // Cheerio로 HTML 파싱
     const $ = cheerio.load(decodedHtml);
     const bodyList = $("div.flex-root");
 
-    // 데이터 저장 배열
     let ulList = [];
     
     let regex = /[^0-9]/g;
@@ -56,7 +46,6 @@ const getHtml = async () => {
   }
 };
 
-// 데이터베이스에 데이터 저장 함수
 const saveToDatabase = (data) => {
   const sql = 'INSERT INTO product (product_name, product_price, product_img, category_no) VALUES ? ';
   const values = data.map(item => [item.product_name, item.product_price, item.product_img, 1]);
@@ -67,9 +56,8 @@ const saveToDatabase = (data) => {
       return;
     }
     console.log('데이터 저장 성공: ', result.affectedRows, '행이 추가되었습니다.');
-    connection.end(); // 연결 종료
+    connection.end(); 
   });
 };
 
-// 웹 스크래핑 실행
 getHtml();
