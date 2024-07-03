@@ -3,10 +3,10 @@
     <h2>FIND ID</h2>
     <form @submit.prevent="findId">
       <label for="user_name">이름</label>
-      <input type="text" id="user_name" v-model="userId.user_name" required />
+      <input type="text" id="user_name" v-model="user_id.user_name" required />
       <br>
       <label for="user_phone">전화번호</label>
-      <input type="text" id="user_phone" v-model="userId.user_phone" required />
+      <input type="text" id="user_phone" v-model="user_id.user_phone" required />
       <br>
 
       <button class="btn find-btn">FIND</button>
@@ -42,7 +42,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      userId: {
+      user_id: {
         user_name: '',
         user_phone: ''
       },
@@ -52,7 +52,7 @@ export default {
   methods: {
     async findId() {
 
-        const response = await axios.post('/api/user/findId', this.userId);
+        const response = await axios.post('/api/user/findId', this.user_id);
         if (response.status === 200) {
           this.foundUserId = response.data.user_id; // 서버에서 받은 아이디를 저장
           $('#idModal').modal('show'); // 모달을 보여줌

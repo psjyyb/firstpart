@@ -4,7 +4,7 @@
       <div class="header">비밀번호 변경</div>
 
       <div class="form-group">
-        <label for="current_pw">현재 비밀번호</label>
+        <label for="current_pw">현 비밀번호</label>
         <input type="password" id="current_pw" v-model="currentPassword" class="form-control" />
       </div>
 
@@ -50,7 +50,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('/api/changePassword', {
+        const response = await axios.post('/api/user/changePassword', {
           current_pw: this.currentPassword,
           new_pw: this.newPassword
         });

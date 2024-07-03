@@ -230,8 +230,8 @@
       handleLogout() {
       this.logoutUser()
         .then(() => {
+          this.$router.push({ name: 'home' });
           alert('로그아웃되었습니다')
-          this.$router.push({ name: 'HomePage' });
         })
         .catch(error => {
           console.error('Error logging out:', error);

@@ -86,7 +86,6 @@ router.get('/account', (req, res) => {
 router.post('/login', async (req, res) => {
   const { user_id, user_pw } = req.body;
   try {
-    // 사용자의 최신 솔트 가져오기
     const saltResult = await query('getSalt', [user_id]);
     if (!saltResult || saltResult.length === 0) {
       res.sendStatus(401);
@@ -132,35 +131,32 @@ router.post('/login', async (req, res) => {
 // 비밀번호 확인
 router.post('/pwCheck', async (req, res) => {
   const { user_pw } = req.body;
-  const userid = req.session.user_id;
-  console.log(userid);
-  if (!userid) {
-    console.log('No user ID in session.');
+  const userId = req.session.user_id;
+
+  if (!userId) {
     res.sendStatus(401); 
     return;
   }
   try {
-    const saltResult = await query('getSalt', [userid]);
+    const saltResult = await query('getSalt', [userId]);
     if (!saltResult || saltResult.length === 0) {
-      console.log('Salt not found for user ID:', userid);
-      res.sendStatus(401); 
+      res.sendStatus(401);
       return;
     }
     const salt = saltResult[0].salt;
     const hashedPassword = await hashPassword(user_pw, salt);
-    console.log('Hashed Password:', hashedPassword);
-    const result = await query('userLogin', [userid, hashedPassword]);
-    const user = result.find(m => m.user_id === userid && m.user_pw === hashedPassword);
+
+    const result = await query('userLogin', [userId, hashedPassword]);
+    const user = result.find(m => m.user_id === userId && m.user_pw === hashedPassword);
+
     if (user) {
-      console.log('비밀번호 일치:', userid);
       res.sendStatus(200); 
     } else {
-      console.log('비밀번호 불일치:', userid);
       res.sendStatus(401);
     }
   } catch (error) {
     console.error('비밀번호 확인 중 오류 발생:', error);
-    res.sendStatus(500); // 서버 오류
+    res.sendStatus(500); 
   }
 });
 
@@ -171,9 +167,9 @@ router.post("/FindId",async (req, res) =>{
 	console.log(username);
 	console.log(userphone);
 	let result = await query("userFindId",[username,userphone]);
-	user = result.find(m=>m.user_name === username && m.user_phone ===userphone)
-	console.log('user:',user);
-	res.send(user);
+  console.log(result)
+
+	res.send(result[0]);
 })
 
 //비밀번호 찾기 
@@ -191,6 +187,37 @@ router.post("/FindPw",async (req, res) =>{
 })
 
 //비밀번호수정
+router.put('/changePassword/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  const { new_password } = req.body;
+  
+  try {
+    // 사용자의 salt 가져오기
+    const saltResult = await query('getSalt', [userId]);
+    if (!saltResult || saltResult.length === 0 || !saltResult[0].salt) {
+      // salt를 가져오지 못한 경우
+      console.error('사용자의 salt를 찾을 수 없습니다.');
+      res.status(500).send('사용자의 salt를 찾을 수 없습니다.');
+      return;
+    }
+
+    const salt = saltResult[0].salt;
+    const hashedPassword = await hashPassword(new_password, salt);
+    console.log('++++++++', new_password);
+    console.log(hashedPassword);
+  
+    // 비밀번호 업데이트
+    const updateResult = await query('changePw', [hashedPassword, userId]);
+    if (updateResult.affectedRows > 0) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (error) {
+    console.error('비밀번호 변경 중 오류 발생:', error);
+    res.sendStatus(500);
+  }
+});
 
 //개인정보수정
 router.put('/updateUser', async (req, res) => {
@@ -206,7 +233,6 @@ router.put('/updateUser', async (req, res) => {
       user_email: user_email
     };
     
-    // 여기서 데이터베이스 쿼리를 사용하여 사용자 정보 업데이트 로직을 추가합니다.
     const result = await query('updateUser', [user_name, user_post, user_address, user_detail_addr, user_phone, user_email, user_id]);
     
     res.status(200).send('사용자 정보가 업데이트되었습니다.');
@@ -239,6 +265,69 @@ router.post('/delete', async (req, res) => {
   } catch (error) {
     console.error('Error deleting account:', error);
     res.status(500).json({ success: false, message: '서버 오류로 회원 탈퇴를 진행할 수 없습니다.' });
+  }
+});
+
+// 카카오 로그인 회원가입 및 세션 처리
+router.post('/kakao-register', async (req, res) => {
+  const { kakao_id, email } = req.body;
+
+  try {
+    const salt = await generateSalt();
+    const hashedPassword = await hashPassword(kakao_id.toString(), salt); // Convert kakao_id to string
+
+    const user = {
+      user_id: kakao_id.toString(), // Convert kakao_id to string
+      user_pw: hashedPassword,
+      user_name: "카카오 사용자", // 
+      user_post: "",
+      user_address: "",
+      user_detail_addr: "",
+      user_phone: "",
+      user_email: email,
+      salt: salt 
+    };
+
+    // 존재여부파악
+    let result = await query('checkId', [kakao_id.toString()]);
+    const exists = result[0].count > 0;
+
+    if (exists) {
+      req.session.user_id = kakao_id.toString();
+      req.session.is_logined = true;
+      req.session.save(err => {
+        if (err) throw err;
+        res.send({ success: true, message: "이미 가입된 사용자입니다." });
+      });
+    } else {
+     //db저장
+      result = await query('userInsert', user);
+      req.session.user_id = kakao_id.toString();
+      req.session.is_logined = true;
+      req.session.save(err => {
+        if (err) throw err;
+        res.status(201).send({ success: true, message: '회원가입 완료' });
+      });
+    }
+  } catch (error) {
+    console.error('카카오 로그인 오류:', error);
+    res.status(500).send({ success: false, message: '카카오 로그인 중 오류 발생' });
+  }
+});
+
+//카카오사용자 정보 등록
+router.post('/insertKakaoUser', async (req, res) => {
+  const { user_id, email } = req.body;
+  try {
+    const user = {
+      user_id: user_id,
+      email: email,
+    };
+    const result = await query('kakaoUserInsert', user);
+    res.status(201).send('사용자 정보가 저장되었습니다.');
+  } catch (error) {
+    console.error('사용자 정보 저장 오류:', error);
+    res.status(500).send('사용자 정보 저장 중 오류 발생');
   }
 });
 
