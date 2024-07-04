@@ -34,6 +34,7 @@ export default {
           const user = {
             user_id: kakao_id,
             email: email,
+            is_kakao_user: true,
           };
 
           // DB에 사용자 정보 저장

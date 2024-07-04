@@ -17,6 +17,11 @@ const store = createStore({
   },
   actions: {
     async loginUser({ commit }, user) {
+      if (user.is_kakao_user) {
+        user.is_kakao_user = true; // 카카오 로그인 시 true로 설정
+      } else {
+        user.is_kakao_user = false;
+      }
       commit('setUser', user);
     },
     async logoutUser({ commit }) {
@@ -26,6 +31,7 @@ const store = createStore({
   getters: {
     isLoggedIn: state => !!state.user,
     getUserInfo: state => state.user,
+    isKakaoUser: state => state.user && state.user.is_kakao_user,
   },
   plugins: [persistedstate({ paths: ['user'] })],
 });
