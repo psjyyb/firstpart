@@ -155,24 +155,31 @@
               </ul>
               <div class="d-none d-lg-flex align-items-end">
                 <ul class="d-flex justify-content-end list-unstyled m-0">
-                  <li>
-                    <a v-if="isLoggedIn" href="/mypage" class="mx-3"></a>
-                    <a v-else href="/loginForm" class="mx-3">
-                      <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
-                    </a>
-                  </li>
-                  <li>
-                    <a v-if="isLoggedIn" href="/mypageWishList" class="mx-3"></a>
-                    <a v-else href="/loginForm" class="mx-3">
-                      <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
-                 </a>
-                  </li>
-                  <li class="">
-                    <a v-if="isLoggedIn" href="/cart" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"></a>
-                    <a v-else href="/loginForm" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                      <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
-                    </a>
-                  </li>
+                               <li>
+                  <router-link v-if="isLoggedIn" to="/mypage" class="mx-3">
+                    <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
+                  </router-link>
+                  <router-link v-else to="/loginForm" class="mx-3">
+                    <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
+                  </router-link>
+                </li>
+                <li>
+                  <router-link v-if="isLoggedIn" to="/mypageWishList" class="mx-3">
+                    <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
+                  </router-link>
+                  <router-link v-else to="/loginForm" class="mx-3">
+                    <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
+                  </router-link>
+                </li>
+                <li class="">
+                  <router-link v-if="isLoggedIn" to="/cart" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                  </router-link>
+                  <router-link v-else to="/loginForm" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                  </router-link>
+                </li>
+
                   <li>
                     <!-- 여기 -->
                     <a href="noticeList" class="nav-link">공지사항</a>
