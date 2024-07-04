@@ -19,7 +19,7 @@
       <h4>사진첨부</h4>
       <input multiple @change="upload" ref="imageFile" type="file" id="file" accept="image/*">
       <hr />
-      <button type="button" class="btn btn-success" @click="editReview">수정</button>
+      <button type="button" class="btn btn-success" @click="editReview">등록</button>
       <button type="button" class="btn btn-warning" @click="canBtn">취소</button>
     </div>
   </div>

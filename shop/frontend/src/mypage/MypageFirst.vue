@@ -4,7 +4,7 @@
       <div id="padd">
         <div>{{ user.user_id }}님 환영합니다!</div>
         <div class="points-section card p-3 mb-3">
-          <h4>나의 포인트: <span class="text-primary">{{ user.user_point }}</span></h4>
+          <h4>나의 포인트: <span class="text-primary">{{ getcurrencyFormat(user.user_point) }}포인트</span></h4>
         </div>
         <div class="info card p-3 mb-3">
           <div class="con mb-3">
@@ -125,6 +125,9 @@ import axios from 'axios'
     },
     getDateFormat(date) {
       return this.$dateFormat(date);
+    },
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
     },
     }
     }
