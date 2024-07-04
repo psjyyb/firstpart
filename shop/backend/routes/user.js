@@ -251,6 +251,7 @@ router.put('/updateUser', async (req, res) => {
 //회원탈퇴
 router.post('/delete', async (req, res) => {
   const userId = req.session.user_id;
+  console.log(userId)
   if (!userId) {
     return res.status(401).json({ success: false, message: '로그인이 필요합니다.' });
   }
