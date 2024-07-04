@@ -8,4 +8,6 @@ module.exports = {
   where cart_no = ?`,
   deleteCart: `delete from cart
   where cart_no = ?`,
+  insertCart: `insert into cart set ?`,
+  checkCart:  `select count(*) cnt from cart where user_id = ? and product_no = ?`,
 }

@@ -14,5 +14,13 @@ router.delete('/:no', (req, res) => {
   query('deleteCart', req.params.no)
   .then(result => res.send(result))
 })
+router.post('/', (req, res) => {
+  query('insertCart', req.body)
+  .then(result => res.send(result))
+})
+router.get('/check/:userid/:no', (req, res) => {
+  query('checkCart', [req.params.userid, req.params.no])
+  .then(result => res.send(result))
+})
 
 module.exports = router;

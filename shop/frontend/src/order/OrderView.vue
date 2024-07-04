@@ -20,8 +20,7 @@
       </thead>
       <tbody>
         <tr v-for="order in orderlist">
-          <!-- <td><img :src="order.product_img"></td> -->
-          <td><img src="../assets/insta4.jpg" width="100px"></td>
+          <td><img :src="`/api/upload/productImg/${order.product_img}`"></td>
           <td class="text-start">{{ order.product_name }}</td>
           <td>{{ order.cart_cnt }}개</td>
           <td>{{ makeComma(order.product_price * order.cart_cnt) }}원</td>

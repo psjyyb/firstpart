@@ -224,7 +224,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
-                      @click="cartGo"
+                      @click="checkCart"
                     >
                     <i class="bi-basket3"></i>
                       ADD CART
@@ -301,6 +301,12 @@ export default{
       isActiveQnA: false,    // Q&A 탭 활성화 상태
   };
   },
+  computed: {
+    // 로그인된 회원 아이디
+    account() {
+      return this.$store.state.user.user_id;
+    },
+  },
   created () {
     this.searchNo = this.$route.query.no;
    this.proInfo();
@@ -329,18 +335,40 @@ export default{
         timer: 1500
         });
     },
-    cartGo(){
-      Swal.fire({
-        title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
-        icon: "success",
-        showCloseButton: true,
-        focusConfirm: false,
-        confirmButtonText: `
-        <a href="/cart">
-          <i class="fa fa-thumbs-up"></i> 장바구니로 이동
-        </a>
-        `,
-    });
+    checkCart() {
+      if(this.total == 0) {
+        return alert('상품의 수량을 선택해주세요.');
+      }
+      axios.get(`/api/cart/check/${this.account}/${this.productInfo.product_no}`)
+      .then(result => {
+        if(result.data[0].cnt == 1) {
+          alert('이미 장바구니에 담겨있는 상품입니다.');
+        } else {
+          this.cartGo();
+        }
+      })
+    },
+    cartGo() {
+      axios.post('/api/cart', 
+        {
+          user_id: this.account,
+          product_no: this.productInfo.product_no,
+          cart_cnt: this.total
+        }
+      )
+      .then(result => {
+        Swal.fire({
+          title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
+          icon: "success",
+          showCloseButton: true,
+          focusConfirm: false,
+          confirmButtonText: `
+          <a href="/cart">
+            <i class="fa fa-thumbs-up"></i> 장바구니로 이동
+          </a>
+          `,
+        });
+      })
     },
     shareMessage() {
         if (!window.Kakao) return;
