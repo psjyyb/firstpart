@@ -14,14 +14,13 @@
         </b-breadcrumb>
       </div>
       <div class="product-list">
-          <!-- 상품1개 -->
           <div class="product-card" :key="i" v-for="(product, i) in productList" >
               <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
                   New
               </div>
               <div class="card position-relative">
                   <a @click="goToDetail(product.product_no)">
-                    <img :src="`/api/upload/productImg/${product.product_img}`" class="sub" alt="image">
+                    <img :src="`/api/readproductImg/${product.product_img}`" class="sub" alt="image">
                 </a>
                   <div class="card-body p-0">
                       <a @click="goToDetail(product.product_no)" >
@@ -42,7 +41,6 @@
                   </div>
               </div>
           </div>
-
         </div>
     </div>
 </template>
@@ -115,15 +113,7 @@ export default{
                 }
             })
             .catch(err=>console.log(err))
-                //console.log(this.productInfo.product_no)
-                // axios.get(`/api/mypage/`)
-                // Swal.fire({
-                // position: "center",
-                // icon: "success",
-                // title: "Wish completed",
-                // showConfirmButton: false,
-                // timer: 1500
-                // });
+
             },
         checkCart(pno) {
             axios.get(`/api/cart/check/${this.account}/${pno}`)
