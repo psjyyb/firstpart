@@ -20,7 +20,7 @@ module.exports = {
     productDetail : `SELECT product_no,product_name,product_price,product_img,product_detail_img,product_point, product_mfd,product_exp, stock_cnt, category_no
                         FROM product 
                         WHERE product_no = ?`,
-    productSearch: `SELECT  product_no, product_name, product_price, product_img, stock_cnt
+    productSearch: `SELECT  product_no, product_name, product_price, product_img, stock_cnt,storage_cnt
                     FROM product
                     WHERE product_name like concat('%',?,'%') `,
     SearchCnt : `SELECT count(*) as count 

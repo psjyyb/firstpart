@@ -256,6 +256,9 @@ export default {
 </script>
 
 <style>
+.card-title {
+    font-size: 25px;
+}
 
 .container {
     width: 100%;

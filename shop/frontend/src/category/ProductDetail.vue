@@ -201,8 +201,8 @@
                         class="form-control"
                         style="width: 40px"
                         v-model.number="total"
-                        @change="stockCnt"
-                      />
+                        @change="calculatePrice(0)"
+                        />
 
                       <span
                         class="input-group-text"
@@ -323,26 +323,26 @@ export default{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
     },
-    stockCnt(){
-      alert(this.total)
-      if(this.productInfo.stock_cnt < this.total ){
-        alert('최대 구매수량입니다')
-      }
-      //console.log('여긴 인포',this.productInfo)
-    },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
     },
       // 메소드 호출
-    calculatePrice(cnt) {
-      if(this.productInfo.stock_cnt < this.total + 1){
+      calculatePrice(cnt) {
+      let total = this.total + cnt;
+
+      // 수량이 0 미만인 경우 0으로 설정
+      if (total < 0) total = 0;
+
+      // 수량이 재고 수량보다 큰 경우 재고 수량으로 설정하고 경고 표시
+      if (total > this.productInfo.stock_cnt) {
+        this.total = this.productInfo.stock_cnt;
         Swal.fire('최대구매수량입니다');
-        return this.total = this.productInfo.stock_cnt;
+      } else {
+        this.total = total;
       }
-      let total = this.total + cnt; 
-      if (total < 0) total = 0; 
-      this.total = total;
-      this.totalPrice = this.productInfo.product_price * this.total; 
+
+      // 총 가격 계산
+      this.totalPrice = this.productInfo.product_price * this.total;
     },
     async wishGo(){
       await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.account}`)

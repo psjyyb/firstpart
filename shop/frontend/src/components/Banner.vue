@@ -10,9 +10,8 @@
                 <img src="images/banner-img.png" class="img-fluid">
               </div>
               <div class="content-wrapper col-md-7 p-5 mb-5">
-                <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                <div class="secondary-font text-primary text-uppercase mb-4">Best destination for your pets</div>
+                <h2 class="banner-title display-1 fw-normal">Going to Check Out <span class="text-primary">Dog Toys</span>
                 </h2>
                 <a href="/category?no=5" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
@@ -28,9 +27,8 @@
                 <img src="images//banner-img2.png" class="img-fluid">
               </div>
               <div class="content-wrapper col-md-7 p-5 mb-5">
-                <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                <div class="secondary-font text-primary text-uppercase mb-4">Best destination for your pets</div>
+                <h2 class="banner-title display-1 fw-normal">Going to Check Out  <span class="text-primary">Dog Food</span>
                 </h2>
                 <a href="/category?no=1" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
@@ -47,9 +45,8 @@
                 <img src="images/banner-img4.png" class="img-fluid">
               </div>
               <div class="content-wrapper col-md-7 p-5 mb-5">
-                <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
-                <h2 class="banner-title display-1 fw-normal">Best destination for <span class="text-primary">your
-                    pets</span>
+                <div class="secondary-font text-primary text-uppercase mb-4">Best destination for your pets</div>
+                <h2 class="banner-title display-1 fw-normal">Going to Check Out <span class="text-primary">living supplies</span>
                 </h2>
                 <a href="/category?no=7" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
                   shop now
