@@ -36,7 +36,6 @@
               <strong>$20</strong>
             </li>
           </ul>
-  
           <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
         </div>
       </div>
@@ -47,7 +46,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-  
         <div class="order-md-last">
           <h4 class="text-primary text-uppercase mb-3">
             Search
@@ -143,8 +141,15 @@
             </div>
             <div class="offcanvas-body justify-content-between">
               <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
-                <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no)">
-                  <a class="nav-link" style="cursor:pointer;" @onclick="clickColor">{{ category.category_name }}</a>
+                <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no); clickColor(i)"
+                :style="{  borderColor: selectedCategoryIndex === i ? 'orange' : '' }">
+
+                <!-- 아제발 -->
+                <!-- :style="{ 'background-color' : selectedCategoryIndex === i ? 'blue' : '' }" > -->
+                <!-- :style="{ color : selectedCategoryIndex === i ? 'rgb(222 173 111)' : '' }" > -->
+                <!-- :style="{ 'color' : selectedCategoryIndex === i ? 'rgb(222 173 111)' : '' }" > -->
+
+                  <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
                 </li>
               </ul>
               <div class="d-none d-lg-flex align-items-end">
@@ -194,6 +199,7 @@
         return {
         categoryList:[],
         keyword: this.$route.query.keyword,
+        selectedCategoryIndex: null,
       };
       },
       created () {
@@ -207,6 +213,9 @@
         ...mapActions(['logoutUser']),
         adminpage(){
         },
+        clickColor(i) {
+          this.selectedCategoryIndex = i;
+      },
         async getCategoryList() {
           let result = await axios.get(`/api/category`);
           this.categoryList = result.data.resultCategory;
@@ -236,27 +245,18 @@
           console.error('Error logging out:', error);
         });
       },
-      clickColor(){
-        let items = document.querySelectorAll(".nav-item");
-          btns.forEach(function (btn, i) {
-          if (e.currentTarget == btn) {
-            btn.classList.add("active");
-          } else {
-            btn.classList.remove("active");
-          }
-        });
-        console.log(e.currentTarget);
-      },
-      }
+    }
   }
   </script>
   
-  <style>
-  button{
+
+  <style scoped>
+    button{
     border: none;
     background-color: white;
   }
-  a:active {
-  background-color: yellow;
+  .nav-item {
+    border: 1px solid transparent;
+    border-radius: 10px;
   }
   </style>

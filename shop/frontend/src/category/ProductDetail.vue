@@ -8,59 +8,12 @@
             class="carousel slide"
             data-bs-ride="carousel"
           >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-            </div>
             <div class="carousel-inner">
                 <div class="d-block w-100">
-                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
-                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image"> -->
                   <img :src="`/api/upload/productImg/${productInfo.product_img}`" class="sub" alt="image">
                 </div>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+          
           </div>
         </div>
         <div class="col-md-6">
@@ -131,17 +84,15 @@
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        <!-- {{ productDetail.product_description }} -->
-                        <br /><br />제조일 <br />
-                        <!-- {{
-                          productDetail.product_color
-                        }} -->
-                        <br /><br />유통기한 <br />
-                        <!-- {{ productDetail.product_fabric}} -->
-                        <br /><br />[Model] <br />
-                        <!-- {{
-                          productDetail.product_model
-                        }} -->
+                        [제조일] 
+                        <br />
+                        {{ getDateFormat(productInfo.product_mfd)}}
+                        <br /><br />
+                        <div v-if="productInfo.category_no <4 ">
+                            [유통기한] 
+                            <br />
+                            {{ getDateFormat(productInfo.product_exp)}}
+                        </div>
                       </div>
                       <div
                         class="tab-pane fade pt-3"
@@ -150,7 +101,6 @@
                         role="tabpanel"
                         aria-labelledby="nav-profile-tab"
                       >
-                        <!-- {{ productDetail.product_sizeGuide }} <br /><br />제품 -->
                         측정에 따라 1-3cm 차이가 있을 수 있습니다.
                       </div>
                       <div
@@ -219,35 +169,35 @@
                   <h3>{{ getCurrencyFormat(totalPrice) }} 원</h3>
                 </div>
               </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="col-12 d-grid p-1">
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-outline-dark"
-                      @click="checkCart"
-                    >
-                    <i class="bi-basket3"></i>
-                      ADD CART
-                    </button>
+                    <div v-if="productInfo.stock_cnt > 0" class="d-flex justify-content-between align-items-center">
+                      <div class="col-12 d-grid p-1">
+                          <button
+                            type="button"
+                            class="btn btn-lg btn-outline-dark"
+                            @click="checkCart"
+                          >
+                          <i class="bi-basket3"></i>
+                            ADD CART
+                          </button>
 
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-outline-dark"
-                      @click="wishGo"
-                    >
-                    <i class="bi-suit-heart" ></i>
-                      WISH LIST
-                    </button>
+                          <button
+                            type="button"
+                            class="btn btn-lg btn-outline-dark"
+                            @click="wishGo"
+                          >
+                          <i class="bi-suit-heart" ></i>
+                            WISH LIST
+                          </button>
 
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-outline-dark"
-                    >
-                    <i class="bi-cart3"></i>
-                      BUY NOW
-                    </button>
-                </div>
-              </div>
+                          <button
+                            type="button"
+                            class="btn btn-lg btn-outline-dark"
+                          >
+                          <i class="bi-cart3"></i>
+                            BUY NOW
+                          </button>
+                      </div>
+                    </div>
             </div>
           </div>
         </div>
@@ -267,13 +217,9 @@
           <div class="img-fluid">
             <img :src="`/api/upload/productdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
-
         </div>
       </div>
-
-      
     </div>
-
     <div>
       <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
       <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
@@ -287,6 +233,7 @@ import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
 import ReviewQnA from '../components/ProductQnAList.vue'
+
 export default{
   mixins : [PageMixin],
   components: {ReviewList,ReviewQnA},
@@ -311,15 +258,22 @@ export default{
   created () {
     this.id=this.$store.getters.getUserInfo.user_id
     this.searchNo = this.$route.query.no;
-   this.proInfo();
+    this.proInfo();
   },
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
-      //console.log('여긴 인포',this.productInfo)
+    },
+    soldOut(){
+      if(this.productInfo.stock_cnt == 0 ){
+        let soldout = document.querySelector('.d-flex');
+      }
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
+    },
+    getDateFormat(date){
+      return this.$dateFormat(date);
     },
       // 메소드 호출
     calculatePrice(cnt) {
