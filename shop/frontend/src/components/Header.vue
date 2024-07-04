@@ -1,5 +1,4 @@
 <template>
-
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
       <div class="offcanvas-header justify-content-center">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -42,7 +41,6 @@
         </div>
       </div>
     </div>
-  
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch"
       aria-labelledby="Search">
       <div class="offcanvas-header justify-content-center">
@@ -239,14 +237,15 @@
         });
       },
       clickColor(){
-        let items = document.querySelectorAll(".nav-link");
-        items.forEach(item => {
-          item.addEventListner('clcik',()=>{
-            items.forEach(e => {
-              
-            });
-          })
+        let items = document.querySelectorAll(".nav-item");
+          btns.forEach(function (btn, i) {
+          if (e.currentTarget == btn) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
         });
+        console.log(e.currentTarget);
       },
       }
   }

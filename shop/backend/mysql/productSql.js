@@ -8,11 +8,11 @@ module.exports = {
                         LIMIT 8`,
     getCategory : `SELECT category_no,category_name 
                         FROM category`,
-    scrollProduct : `SELECT product_no,product_name,product_price,product_img 
+    scrollProduct : `SELECT product_no,product_name,product_price,product_img , storage_cnt,stock_cnt
                         FROM product 
                         WHERE category_no =?
                         LIMIT ?, ?`,
-    categoryProduct : `SELECT product_no,product_name,product_price,product_img 
+    categoryProduct : `SELECT product_no,product_name,product_price,product_img
                         FROM product 
                         WHERE category_no =?`,
     productCnt : `SELECT count(*) as count 
@@ -35,8 +35,6 @@ module.exports = {
                     FROM product  
                     ORDER BY (storage_cnt - stock_cnt) DESC
                     LIMIT 8`,
-    
-                        
     
 }
 
