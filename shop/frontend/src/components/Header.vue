@@ -228,21 +228,23 @@
           }
       },
       handleLogout() {
-        this.logoutUser()
+      // Vuex 스토어에서 로그아웃 액션을 호출하여 사용자 로그아웃 처리
+      this.logoutUser()
         .then(() => {
-          // 로그아웃 성공 시 카카오 API로 인증된 세션도 해제
-          Kakao.Auth.logout(function() {
+          // 카카오 SDK를 사용하여 Kakao 로그아웃 처리
+          Kakao.Auth.logout(function () {
             console.log('카카오 로그아웃 성공');
           });
+          location.reload();
           this.$router.push({ name: 'home' });
           alert('로그아웃되었습니다');
         })
         .catch(error => {
           console.error('Error logging out:', error);
         });
-      },
-      }
+    },
   }
+}
   </script>
   
   <style>

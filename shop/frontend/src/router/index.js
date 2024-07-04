@@ -49,7 +49,13 @@ import FindId from '@/user/FindId.vue'
 import FindPw  from '@/user/FindPw.vue'
 import userInfo from '@/user/ModifyInfo.vue'
 import userDelete from '@/user/userDelete.vue'
+import setPassword from '@/user/changePw.vue'
 const routes = [
+  {
+    path: '/setPassword',
+    name: 'setPassword',
+    component: setPassword
+  },
   {
     path: '/userDelete',
     name: 'userDelete',
