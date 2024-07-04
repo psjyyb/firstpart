@@ -264,16 +264,18 @@ router.post("/QnAUpdate/",upload.array("files"),async (req,res)=>{
     console.log(req.files)
     //const originalname = Buffer.from(req.files.originalname, 'latin1').toString('utf8');
     let qna = 'qna';
+    if(result.length != 0){
     await query("mypageUpdateImg",[qna,data.reviewNo])
-    .then(result=>{console.log('이미지 삭제',result)
-     query("mypageQnAupdate",[data.title,data.content,data.reviewNo])
+    .then(result=>{console.log('이미지 삭제',result)})
+    }
+    await query("mypageQnAupdate",[data.title,data.content,data.reviewNo])
     .then(result=>{console.log(result)
         for(let i=1; i<req.files.length+1; i++){
             query("mypageReviewImg",[req.files[i-1].filename,qna,data.reviewNo,i,req.files[i-1].originalname])
             .then(result=>{console.log(result)})
             .catch(err=>{console.log(err)})
         }})
-    })
+    
     .catch(err=>console.log(err))
     
 });
@@ -299,32 +301,58 @@ router.post("/ReviewUpdate/",upload.array("files"), async (req,res)=>{
     let data = { ...req.body };
     console.log(data,req.files)
     let review = 'review'
-    await query("mypageUpdateImg",[review,data.reviewNo])
-    .then(result=>{console.log('이미지 삭제',result)
-     query("mypageReviewUpdate",[data.score,data.content,data.reviewNo])
+    if(req.files.length!=0){
+        await query("mypageUpdateImg",[review,data.reviewNo])
+        .then(result=>{console.log('이미지 삭제',result)})
+    }
+    await query("mypageReviewUpdate",[data.score,data.content,data.reviewNo])
     .then(result=>{console.log(result)
         for(let i=1; i<req.files.length+1; i++){
             query("mypageReviewImg",[req.files[i-1].filename,review,data.reviewNo,i,req.files[i-1].originalname])
             .then(result=>{console.log(result)})
             .catch(err=>{console.log(err)})
         }})
-    })
+    
     .catch(err=>console.log(err))
 })
 
 router.post("/mywishList/", async (req,res)=>{
     console.log('ㅋㅋㅋ....',req.query.pno)
     console.log('ㅋㅋㅋ....',req.query.id)
-   let chk = await query("mywishList",[req.query.id,req.query.pno])
-    .then(result=>{
+//    let chk = await query("mywishList",[req.query.id,req.query.pno])
+//             .then(result=>{console.log('dkdkdkdk',result)
+//             if(result.length != 0){
+//             query ("mywishInsert",[req.query.id,req.query.pno])
+//             .then(result=>{console.log(result),res.send(result)})
+//         }else{
+//             res.send('none')
+//         }
+//     })
+//     .catch(err=>console.log(err))
+
+        // query("mywishList",[req.query.id,req.query.pno])
+        // .then(result=>{
+        //     if(result.length == 0){
+        //         query ("mywishInsert",[req.query.id,req.query.pno])
+        //         .then(result=>{
+        //             res.send(result)
+        //         })
+        //         .catch(err => console.log(err));
+        //     }else{
+        //         res.send('none')
+        //     }
+        // })
+        // .catch(err=>console.log(err));
+
+        let result = await query("mywishList",[req.query.id,req.query.pno])
+                          .catch(err => console.log(err));
         if(result.length == 0){
-            query ("mywishInsert",[req.query.id,req.query.pno])
-            .then(result=>{console.log(result),res.send(result)})
+            let result = await query ("mywishInsert",[req.query.id,req.query.pno])
+                               .catch(err => console.log(err));
+            res.send(result);
         }else{
-            res.send('none')
+            res.send('none');
         }
-    })
-    .catch(err=>console.log(err))
 })
 module.exports = router;
 

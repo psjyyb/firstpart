@@ -13,9 +13,9 @@
                      <th>리뷰수정</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody v-if=" reviews != ''">
                 <tr :key ="i" v-for ="(review, i) in reviews">
-                      <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
+                      <td><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
                       <td><i :key = "i" v-for="(i) in Number(review.review_score)" class="fa fa-star"></i>
                         <i :key = "i" v-for="(i) in 5- Number(review.review_score)"class="fa fa-star text-secondary"></i></td>
                       <td @click="infoForm(review)">{{ review.product_name }}</td>
@@ -25,6 +25,11 @@
                       <td><button type="button" class="btn btn-warning" @click="modBtn(review.review_no)">리뷰수정</button></td>
                   </tr>
               </tbody>
+              <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
+                    </tr>
+                </tbody>
           </table>
           <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     

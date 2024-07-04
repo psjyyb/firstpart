@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="text-center">
-          <img :src="`/api/upload/${info.product_img}`" class="img-thumbnail" width="128" height="128">
+          <img :src="`/api/readproductImg/${info.product_img}`" class="img-thumbnail" width="128" height="128">
         </div>
       </div>
       

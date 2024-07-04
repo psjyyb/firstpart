@@ -24,11 +24,11 @@
                         <th>주문취소</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="orders != ''">
                     <tr v-for="order in orders" :key="order.order_no">
                         <td @click="orderInfo(order.order_no)" class="clickable">{{ order.product_name }}</td>
                         <td>{{ getDateFormat(order.order_date) }}</td>
-                        <td><img width="64" height="64" :src="`/api/upload/${order.product_image}`" alt="상품 이미지"></td>
+                        <td><img width="64" height="64" :src="`/api/readproductImg/${order.product_image}`" alt="상품 이미지"></td>
                         <td>
                             <span v-if="order.order_status == 1">결제완료</span>
                             <span v-else-if="order.order_status == 2">상품준비중</span>
@@ -43,6 +43,11 @@
                         <td>
                             <button type="button" class="btn btn-warning" v-if="order.order_status == 1" @click="orderDel(order.order_no, order.order_date)">주문취소</button>
                         </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
                     </tr>
                 </tbody>
             </table>

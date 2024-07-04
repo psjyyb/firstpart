@@ -12,7 +12,7 @@
                     <th>답변상태</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="QnAs != ''">
                 <tr v-for="QnA in QnAs" @click="qnaInfo(QnA.qna_no)">
                     <td>{{QnA.qna_no}}</td>
                     <td>{{QnA.qna_title}}</td>
@@ -21,6 +21,11 @@
                     <td v-else>답변완료</td>
                 </tr>
             </tbody>
+            <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
+                    </tr>
+                </tbody>
         </table>
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>

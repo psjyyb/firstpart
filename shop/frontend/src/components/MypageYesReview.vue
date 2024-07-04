@@ -10,14 +10,19 @@
                    <th>리뷰남기기</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="reviews != ''">
                 <tr v-for="review in reviews">
-                    <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
+                    <td><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
                     <td>{{ review.product_name }}</td>
                     <td>{{getcurrencyFormat(review.product_price) }}원</td>
                     <td>{{ getDateFormat(review.order_date) }}</td>
                     <td><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
+            </tbody>
+            <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
+                    </tr>
             </tbody>
         </table>
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
