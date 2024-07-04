@@ -41,7 +41,16 @@ module .exports =	{
   changePw : `UPDATE user 
               SET user_pw = ? 
               WHERE user_id = ?`,
-  kakaoUserInser : `INSERT INTO user user_id,user_email
-                    VALUES (?, ?) 
-                    ON DUPLICATE KEY UPDATE email = VALUES(email)`
+  kakaoUserInsert : `INSERT INTO user user_id,user_email,is_kakao_user
+                    VALUES (?, ?, ?) 
+                    ON DUPLICATE KEY UPDATE email = VALUES(email)`,
+  checkKakaoUser : `SELECT is_kakao_user 
+                    FROM user
+                    WHERE user_id = ?`,
+  // userInsertKakao : `INSERT INTO user user_id,user_name,user_email,is_kakao_user
+  //                    VALUES (?,?,?,?)`,
+  updateUserPassword : `UPDATE user
+                        SET user_pw = ?, salt = ?
+                        WHERE user_id = ?`,
+  getUserPassword : `SELECT user_pw FROM user WHERE user_id = userId`
 };
