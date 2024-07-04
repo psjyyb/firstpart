@@ -299,9 +299,11 @@ export default{
       emits: [],
       isActiveReview: false, // 리뷰 탭 활성화 상태
       isActiveQnA: false,    // Q&A 탭 활성화 상태
+      id:'user00'
   };
   },
   created () {
+    this.id=this.$store.getters.getUserInfo.user_id
     this.searchNo = this.$route.query.no;
    this.proInfo();
   },
@@ -320,14 +322,25 @@ export default{
       this.total = total;
       this.totalPrice = this.productInfo.product_price * this.total; 
     },
-    wishGo(){
-        Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Wish completed",
-        showConfirmButton: false,
-        timer: 1500
-        });
+  async wishGo(){
+      await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.id}`)
+      .then(result=>{console.log(result)
+        if(result.data=='none'){
+          Swal.fire('이미 찜한 상품입니다!')
+        }else{
+          Swal.fire('찜하기 성공!')
+        }
+      })
+      .catch(err=>console.log(err))
+        //console.log(this.productInfo.product_no)
+          // axios.get(`/api/mypage/`)
+        // Swal.fire({
+        // position: "center",
+        // icon: "success",
+        // title: "Wish completed",
+        // showConfirmButton: false,
+        // timer: 1500
+        // });
     },
     cartGo(){
       Swal.fire({

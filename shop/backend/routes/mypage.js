@@ -311,6 +311,21 @@ router.post("/ReviewUpdate/",upload.array("files"), async (req,res)=>{
     })
     .catch(err=>console.log(err))
 })
+
+router.post("/mywishList/", async (req,res)=>{
+    console.log('ㅋㅋㅋ....',req.query.pno)
+    console.log('ㅋㅋㅋ....',req.query.id)
+   let chk = await query("mywishList",[req.query.id,req.query.pno])
+    .then(result=>{
+        if(result.length == 0){
+            query ("mywishInsert",[req.query.id,req.query.pno])
+            .then(result=>{console.log(result),res.send(result)})
+        }else{
+            res.send('none')
+        }
+    })
+    .catch(err=>console.log(err))
+})
 module.exports = router;
 
 

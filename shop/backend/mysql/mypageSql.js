@@ -330,6 +330,12 @@ module.exports = {
     mypageReviewUpdate:`update review
                         set review_score = ?,
                             review_content = ?
-                        where review_no = ?`
+                        where review_no = ?`,
+    mywishList:`select * 
+                from wish 
+                where user_id= ? 
+                and product_no= ? `,
+    mywishInsert:`insert into wish(user_id,product_no)
+                    values(?,?)`           
 
 }
