@@ -8,12 +8,59 @@
             class="carousel slide"
             data-bs-ride="carousel"
           >
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+            </div>
             <div class="carousel-inner">
                 <div class="d-block w-100">
+                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
+                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image"> -->
                   <img :src="`/api/upload/productImg/${productInfo.product_img}`" class="sub" alt="image">
                 </div>
             </div>
-          
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
         <div class="col-md-6">
@@ -84,15 +131,17 @@
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        [제조일] 
-                        <br />
-                        {{ getDateFormat(productInfo.product_mfd)}}
-                        <br /><br />
-                        <div v-if="productInfo.category_no <4 ">
-                            [유통기한] 
-                            <br />
-                            {{ getDateFormat(productInfo.product_exp)}}
-                        </div>
+                        <!-- {{ productDetail.product_description }} -->
+                        <br /><br />제조일 <br />
+                        <!-- {{
+                          productDetail.product_color
+                        }} -->
+                        <br /><br />유통기한 <br />
+                        <!-- {{ productDetail.product_fabric}} -->
+                        <br /><br />[Model] <br />
+                        <!-- {{
+                          productDetail.product_model
+                        }} -->
                       </div>
                       <div
                         class="tab-pane fade pt-3"
@@ -101,6 +150,7 @@
                         role="tabpanel"
                         aria-labelledby="nav-profile-tab"
                       >
+                        <!-- {{ productDetail.product_sizeGuide }} <br /><br />제품 -->
                         측정에 따라 1-3cm 차이가 있을 수 있습니다.
                       </div>
                       <div
@@ -169,30 +219,29 @@
                   <h3>{{ getCurrencyFormat(totalPrice) }} 원</h3>
                 </div>
               </div>
-                    <div v-if="productInfo.stock_cnt > 0" class="d-flex justify-content-between align-items-center">
-                      <div class="col-12 d-grid p-1">
-                          <button
-                            type="button"
-                            class="btn btn-lg btn-outline-dark"
-                            @click="checkCart"
-                          >
-                          <i class="bi-basket3"></i>
-                            ADD CART
-                          </button>
-
-                          <button
-                            type="button"
-                            class="btn btn-lg btn-outline-dark"
-                            @click="wishGo"
-                          >
-                          <i class="bi-suit-heart" ></i>
-                            WISH LIST
-                          </button>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="col-12 d-grid p-1">
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-dark"
+                      @click="cartGo"
+                    >
+                    <i class="bi-basket3"></i>
+                      ADD CART
+                    </button>
 
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
-                      @click="goOrderDirect"
+                      @click="wishGo"
+                    >
+                    <i class="bi-suit-heart" ></i>
+                      WISH LIST
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-dark"
                     >
                     <i class="bi-cart3"></i>
                       BUY NOW
@@ -206,21 +255,29 @@
 
     <div class="fontSize">
     <b-nav tabs align="center" >
-      <b-nav-item  active>상품 상세</b-nav-item>
+      <b-nav-item @click.prevent="noneAll">상품 상세</b-nav-item>
       <b-nav-item @click.prevent="activateReviewTab">상품 리뷰</b-nav-item>
       <b-nav-item @click.prevent="activateQnATab">상품 QnA</b-nav-item>
     </b-nav>
     </div>
 
+    <div>
+      <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
+      <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
+    </div>
     <div class="row-detail">
         <div class="col-6">
 
           <div class="img-fluid">
             <img :src="`/api/upload/productdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
+
         </div>
       </div>
+
+      
     </div>
+
     <div>
       <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
       <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
@@ -234,7 +291,6 @@ import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
 import ReviewQnA from '../components/ProductQnAList.vue'
-
 export default{
   mixins : [PageMixin],
   components: {ReviewList,ReviewQnA},
@@ -249,31 +305,19 @@ export default{
       isActiveQnA: false,    // Q&A 탭 활성화 상태
   };
   },
-  computed: {
-    // 로그인된 회원 아이디
-    account() {
-      return this.$store.state.user.user_id;
-    },
-  },
   created () {
-    this.id=this.$store.getters.getUserInfo.user_id
+    //this.id=this.$store.getters.getUserInfo.user_id
     this.searchNo = this.$route.query.no;
-    this.proInfo();
+   this.proInfo();
+   console.log('fsdfsdf',this.$route.query.no)
   },
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
-    },
-    soldOut(){
-      if(this.productInfo.stock_cnt == 0 ){
-        let soldout = document.querySelector('.d-flex');
-      }
+      //console.log('여긴 인포',this.productInfo)
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
-    },
-    getDateFormat(date){
-      return this.$dateFormat(date);
     },
       // 메소드 호출
     calculatePrice(cnt) {
@@ -283,71 +327,27 @@ export default{
       this.totalPrice = this.productInfo.product_price * this.total; 
     },
     async wishGo(){
-      await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.account}`)
-      .then(result=>{console.log(result)
-        if(result.data=='none'){
-          Swal.fire('이미 찜한 상품입니다!')
-        }else{
-          Swal.fire('찜하기 성공!')
-        }
-      })
-      .catch(err=>console.log(err))
-        //console.log(this.productInfo.product_no)
-          // axios.get(`/api/mypage/`)
-        // Swal.fire({
-        // position: "center",
-        // icon: "success",
-        // title: "Wish completed",
-        // showConfirmButton: false,
-        // timer: 1500
-        // });
-    },
-    checkCart() {
-      if(this.total == 0) {
-        return alert('상품의 수량을 선택해주세요.');
-      }
-      axios.get(`/api/cart/check/${this.account}/${this.productInfo.product_no}`)
-      .then(result => {
-        if(result.data[0].cnt == 1) {
-          alert('이미 장바구니에 담겨있는 상품입니다.');
-        } else {
-          this.cartGo();
-        }
-      })
-    },
-    cartGo() {
-      axios.post('/api/cart', 
-        {
-          user_id: this.account,
-          product_no: this.productInfo.product_no,
-          cart_cnt: this.total
-        }
-      )
-      .then(result => {
-        Swal.fire({
-          title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
-          icon: "success",
-          showCloseButton: true,
-          focusConfirm: false,
-          confirmButtonText: `
-          <a href="/cart">
-            <i class="fa fa-thumbs-up"></i> 장바구니로 이동
-          </a>
-          `,
-        });
-      })
-    },
-    goOrderDirect() {
-      if(this.total == 0) {
-        return alert('상품의 수량을 선택해주세요.');
-      }
-      this.$router.push({
-        name: 'orderDirect', 
-        state: {
-          pno: this.productInfo.product_no,
-          cnt: this.total
-        }
-      })
+        await axios.post(`/api/mypage/mywishList/?pno=${this.$route.query.no}&id=${this.$store.getters.getUserInfo.user_id}`)
+        .then(result=>{console.log(result)
+          if(result.data=='none'){
+            Swal.fire('이미 찜한 상품입니다!')
+          }else{
+            Swal.fire('찜하기 성공!')
+          }
+        })
+      },
+    cartGo(){
+      Swal.fire({
+        title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
+        icon: "success",
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText: `
+        <a href="/cart">
+          <i class="fa fa-thumbs-up"></i> 장바구니로 이동
+        </a>
+        `,
+    });
     },
     shareMessage() {
         if (!window.Kakao) return;
@@ -402,6 +402,10 @@ export default{
       this.$refs.qchild.getData(this.productInfo.product_no);
     });
   },
+  noneAll(){
+    this.isActiveReview = false;
+    this.isActiveQnA = false;
+  }
       // infoForm(){
       //   //console.log(this.productInfo.product_no,'여긴디테일')
       //   this.$refs.child.getData(this.productInfo.product_no)
