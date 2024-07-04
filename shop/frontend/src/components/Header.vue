@@ -234,7 +234,7 @@
           },
         nameSearch(keyword){
           if (this.keyword !== ''){ 
-            this.$router.push({ path: "/search", query: { keyword : this.keyword } });
+            this.$router.push({ path: "/search", query: { keyword : this.keyword }});
           } else {
               alert('검색어를 입력해주세요!')  
           }

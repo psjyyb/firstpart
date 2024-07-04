@@ -5,14 +5,29 @@
         <h2 class="display-3 fw-normal">Category Best</h2>
         <div class="mb-4 mb-md-0">
           <p class="m-0">
-            <button class="filter-button me-4 active" @click="filterProducts(null)">ALL</button>
-            <button class="filter-button me-4" @click="filterProducts(1)">사료</button>
-            <button class="filter-button me-4" @click="filterProducts(2)">간식</button>
-            <button class="filter-button me-4" @click="filterProducts(3)">건강관리</button>
-            <button class="filter-button me-4" @click="filterProducts(4)">배변용품</button>
-            <button class="filter-button me-4" @click="filterProducts(5)">장난감</button>
-            <button class="filter-button me-4" @click="filterProducts(6)">미용/목욕</button>
-            <button class="filter-button me-4" @click="filterProducts(7)">리빙</button>
+            <button class="filter-button me-4 active" 
+            @click="filterProducts(null)" :cla>ALL</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(1)">사료</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(2)">간식</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(3)">건강관리</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(4)">배변용품</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(5)">장난감</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(6)">미용/목욕</button>
+
+            <button class="filter-button me-4" 
+            @click="filterProducts(7)">리빙</button>
           </p>
         </div>
       </div>
@@ -20,25 +35,15 @@
         <div class="item cat col-md-4 col-lg-3 my-4" :key="i" v-for="(product, i) in displayedProducts">
           <div class="card position-relative">
             <a @click="goToDetail(product.product_no)">
-
-              <!-- <img :src="`/api/image/productImg/${product.product_img}`" class="img-fluid rounded-4" alt="image"> -->
               <img :src="`/api/readproductImg/${product.product_img}`" class="img-fluid rounded-4" alt="image">
-
             </a>
             <div class="card-body p-0">
               <a @click="goToDetail(product.product_no)">
                 <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
               </a>
               <div class="card-text">
-                <span class="rating secondary-font">
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                  5.0
-                </span>
-                <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
+              
+                <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
                 <div class="d-flex flex-wrap mt-3">
                   <a class="btn-cart me-3 px-4 pt-3 pb-3">
                     <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
@@ -63,8 +68,11 @@
   import Isotope from 'isotope-layout';
   import axios from 'axios';
   import Swal from 'sweetalert2'
-  
+  import PageMixin from '../mixin.js';
+
   export default {
+    mixins : [PageMixin],
+
     data() {
       return {
         bestAll: [],
@@ -88,6 +96,9 @@
       this.initIsotope();
     },
     methods: {
+      getCurrencyFormat(value) {
+        return this.$currencyFormat(value);
+        },
       initIsotope() {
         this.$nextTick(() => {
           this.isotope = new Isotope(this.$refs.isotopeContainer, {
@@ -133,15 +144,7 @@
           }
         })
         .catch(err=>console.log(err))
-          //console.log(this.productInfo.product_no)
-            // axios.get(`/api/mypage/`)
-          // Swal.fire({
-          // position: "center",
-          // icon: "success",
-          // title: "Wish completed",
-          // showConfirmButton: false,
-          // timer: 1500
-          // });
+
       },
       cartGo(pno) {
         axios.post('/api/cart', 
@@ -172,6 +175,9 @@
   /* Add your styles here */
   #foodies{
     height: 1200px;
+  }
+  .card-title{
+    height: 124.83px;
   }
   </style>
   

@@ -10,7 +10,7 @@
           >
             <div class="carousel-inner">
                 <div class="d-block w-100">
-                  <img :src="`/api/upload/productImg/${productInfo.product_img}`" class="sub" alt="image">
+                  <img :src="`/api/readproductImg/${productInfo.product_img}`" class="sub" alt="image">
                 </div>
             </div>
           
@@ -22,10 +22,14 @@
               <!-- <h5 class="card-title">{{ productDetail.product_name }}</h5> -->
               <h2 class="card-title">{{ productInfo.product_name }}</h2>
               <h3>
-                <p class="card-text pt-3 pb-3">
+                <!-- <p class="card-text pt-3 pb-3"> -->
+                  <div class ="secondary-font text-primary">
                   <!-- {{ getCurrencyFormat(productDetail.product_price) }}원 -->
                   {{ getCurrencyFormat(productInfo.product_price) }} 원
-                </p>
+                  <br><br>
+                  재고 : {{ productInfo.stock_cnt }}
+                </div>
+                <!-- </p> -->
               </h3>
               <div class="card-text pb-3 mb-4">
                 <div class="row">
@@ -131,6 +135,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <label class="col-form-label">구매수량</label>
+                    
                   </div>
                   <div class="col-auto">
                     <div class="input-group" >
@@ -141,11 +146,13 @@
                         >-</span
                       >
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         style="width: 40px"
-                        v-model="total"
+                        v-model.number="total"
+                        @change="stockCnt"
                       />
+
                       <span
                         class="input-group-text"
                         style="cursor: pointer"
@@ -216,7 +223,7 @@
         <div class="col-6">
 
           <div class="img-fluid">
-            <img :src="`/api/upload/productdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
+            <img :src="`/api/readproductdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
         </div>
       </div>
@@ -264,9 +271,10 @@ export default{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
     },
-    soldOut(){
-      if(this.productInfo.stock_cnt == 0 ){
-        let soldout = document.querySelector('.d-flex');
+    stockCnt(){
+      alert(this.total)
+      if(this.productInfo.stock_cnt < this.total ){
+        alert('최대 구매수량입니다')
       }
     },
     getCurrencyFormat(value) {
@@ -277,6 +285,10 @@ export default{
     },
       // 메소드 호출
     calculatePrice(cnt) {
+      if(this.productInfo.stock_cnt < this.total + 1){
+        Swal.fire('최대구매수량입니다');
+        return this.total = this.productInfo.stock_cnt;
+      }
       let total = this.total + cnt; 
       if (total < 0) total = 0; 
       this.total = total;
@@ -292,15 +304,7 @@ export default{
         }
       })
       .catch(err=>console.log(err))
-        //console.log(this.productInfo.product_no)
-          // axios.get(`/api/mypage/`)
-        // Swal.fire({
-        // position: "center",
-        // icon: "success",
-        // title: "Wish completed",
-        // showConfirmButton: false,
-        // timer: 1500
-        // });
+
     },
     checkCart() {
       if(this.total == 0) {
@@ -413,6 +417,9 @@ export default{
 }
 </script>
 <style>
+.swal2-title{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 .fontSize{
   font-size: 30px;
   margin: 50px;
@@ -432,5 +439,12 @@ export default{
 .col-6 {
     flex: 0 0 auto;
     width: 100%;
+}
+.secondary-font{
+  font-size: 35px;
+}
+.card-title{
+  margin-bottom: 30px;
+  /* height: 124.83px; */
 }
 </style>
