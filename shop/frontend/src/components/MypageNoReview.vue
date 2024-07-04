@@ -1,7 +1,6 @@
 <template>
     <div class="row">
         <div class="col-md 12 col-lg-7 border p-5">
-      <h4>작성한 리뷰</h4>
           <table class="table table-bordered border-primary">
               <thead>
                   <tr>
@@ -14,11 +13,12 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="review in reviews">
+                <tr :key ="i" v-for ="(review, i) in reviews">
                       <td><img width="64"height="64":src="`/api/upload/${review.product_img}`"></td>
-                      <td><div><template v-for="star in review.review_score">★</template></div></td>
+                      <td><i :key = "i" v-for="(i) in Number(review.review_score)" class="fa fa-star"></i>
+                        <i :key = "i" v-for="(i) in 5- Number(review.review_score)"class="fa fa-star text-secondary"></i></td>
                       <td @click="infoForm(review)">{{ review.product_name }}</td>
-                      <td>{{ review.product_price }}</td>
+                      <td>{{getcurrencyFormat(review.product_price) }}원</td>
                       <td>{{ getDateFormat(review.review_date) }}</td>
                       <td><button type="button" class="btn btn-danger" @click="delBtn(review.review_no)">리뷰삭제</button></td>
                   </tr>
@@ -77,6 +77,9 @@
         getDateFormat(date) {
       return this.$dateFormat(date);
     },
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
+    }
       }
       }
   </script>

@@ -7,23 +7,27 @@
           <th>Review No</th>
           <th>Content</th>
           <th>Score</th>
+          <!-- <th>Score</th> -->
           <th>Date</th>
           <th>User ID</th>
           <th>Photos</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="review in reviews" :key="review.review_no">
+        <tr :key ="i" v-for ="(review, i) in reviews">
           <td>{{ review.review_no }}</td>
           <td>{{ review.review_content }}</td>
-          <td> <div><template v-for="star in review.review_score">★</template></div></td>
+         <td><i :key = "i" v-for="(i) in Number(review.review_score)" class="fa fa-star"></i>
+                        <i :key = "i" v-for="(i) in 5- Number(review.review_score)"class="fa fa-star text-secondary"></i></td>
+          <!-- <td><div><template v-for="star in review.review_score">★</template></div></td> -->
           <td>{{ getDateFormat(review.review_date) }}</td>
           <td>{{ review.user_id }}</td>
-          <td>
+          <td v-if="review.add_names">
             <div class="photos">
               <img v-for="photo in review.add_names.split(',')" :key="photo" :src="`/api/upload/${photo.trim()}`" :alt="`Photo of review ${review.review_no}`">
             </div>
           </td>
+          <td v-else>사진첨부없음</td>
         </tr>
       </tbody>
     </table>

@@ -71,8 +71,6 @@ app.use('/order', orderRouter)
 // 	next(createError(404));
 //   });
 
-
-
 //admin
 app.use("/adminmember",adminmemberRouter)
 app.use("/adminnotice",adminnoticeRouter)

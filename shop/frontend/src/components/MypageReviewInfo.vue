@@ -86,6 +86,7 @@
         getDateFormat(date) {
       return this.$dateFormat(date);
     },
+    
     }
     }
 </script>

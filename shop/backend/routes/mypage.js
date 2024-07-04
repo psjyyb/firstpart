@@ -283,6 +283,12 @@ router.get("/ProductReview/", async (req,res)=>{
      .then(result=>{console.log('revuwesdae',result),res.send(result)})
     .catch(err=>console.log(err))
     })  
+router.get("/ProductQnA/", async (req,res)=>{
+    console.log('값넘어오는지확인34234324',req.query.pno)
+     await query("mypageProductQnA",req.query.pno)
+     .then(result=>{console.log('revuwesdae',result),res.send(result)})
+    .catch(err=>console.log(err))
+    })  
 
 module.exports = router;
 
