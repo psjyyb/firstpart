@@ -178,6 +178,8 @@
   }
   .card-title{
     height: 124.83px;
+    font-size: 25px;
+
   }
   </style>
   

@@ -86,7 +86,8 @@ export default{
         },
         hotItem(){
             (this.productList).sort((a,b)=>{
-                return b.product_no-a.product_no});
+                return (b.storage_cnt - b.stock_cnt) - (a.storage_cnt - a.stock_cnt);
+            });
         },
         nameItem(){
             (this.productList).sort((a,b)=>{   
@@ -149,4 +150,8 @@ export default{
     }
 }
 </script>
-<style></style>
+<style>
+.card-title {
+    font-size: 25px;
+}
+</style>

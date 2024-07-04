@@ -164,41 +164,12 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="footer-menu">
-            <h3>Help Center</h3>
-              <ul class="menu-list list-unstyled">
-                <li class="menu-item">
-                  <a href="#" class="nav-link">FAQs</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="nav-link">Payment</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="nav-link">Returns & Refunds</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="nav-link">Checkout</a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="nav-link">Delivery Information</a>
-                </li>
-              </ul>
-          </div>
-        </div>
+
         <div class="col-md-3">
           <div>
-            <h3>Our Newsletter</h3>
-            <p class="blog-paragraph fs-6">Subscribe to our newsletter to get updates about our grand offers.</p>
-            <div class="search-bar border rounded-pill border-dark-subtle px-2">
-              <form class="text-center d-flex align-items-center" action="" method="">
-                <input type="text" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
-                <iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon>
-              </form>
-            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10724.942952393954!2d128.58533317720352!3d35.8687775371304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565e3c6d9984085%3A0x82c0dc8aad8c8cca!2z7Y6r66eI7Yq47KSR6rWs7KCQ!5e0!3m2!1sko!2skr!4v1720118778102!5m2!1sko!2skr" width="620" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
-
       </div>
     </div>
   </footer>
@@ -207,27 +178,25 @@
       <hr class="m-0">
       <div class="row mt-3">
         <div class="col-md-6 copyright">
-          <p class="secondary-font">© 2023 Waggy. All rights reserved.</p>
+          <p class="secondary-font" style=" font-size:20px;">© 2023 Waggy. All rights reserved.</p>
         </div>
         <div class="col-md-6 text-md-end">
-          <p class="secondary-font">Free HTML Template by <a href="https://templatesjungle.com/" target="_blank"
+          <p class="secondary-font" style=" font-size:20px;">Free HTML Template by <a href="https://templatesjungle.com/" target="_blank"
               class="text-decoration-underline fw-bold text-black-50"> TemplatesJungle</a> </p>
-          <p class="secondary-font">Distributed by <a href="https://themewagon.com/" target="_blank"
+          <p class="secondary-font" style=" font-size:20px;">Distributed by <a href="https://themewagon.com/" target="_blank"
               class="text-decoration-underline fw-bold text-black-50"> ThemeWagon</a> </p>
         </div>
       </div>
     </div>
   </div> 
 </template>
-<script>
-    export default{
-    data(){
-    return {};
-    },
-    created () {},
-    methods :{}
-        }
-</script>
-<style>
 
+<script>
+// 
+</script>
+
+<style>
+.secondary-font {
+    font-size: 20px;
+}
 </style>
