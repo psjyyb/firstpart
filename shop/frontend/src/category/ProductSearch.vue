@@ -32,8 +32,8 @@
                       <div class="card-text">
                           <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
                           <div class="d-flex flex-wrap mt-3">
-                              <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                                  <h5 class="text-uppercase m-0" @click="cartGo">Add to Cart</h5>
+                              <a class="btn-cart me-3 px-4 pt-3 pb-3">
+                                  <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)">Add to Cart</h5>
                               </a>
                               <a href="#" class="btn-wishlist px-4 pt-3">
                                   <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo"></iconify-icon>
@@ -58,6 +58,12 @@ export default{
             productList: [],
             productCnt : 0,
         };
+    },
+    computed: {
+        // 로그인된 회원 아이디
+        account() {
+        return this.$store.state.user.user_id;
+        },
     },
     created () {
         this.keyword = this.$route.query.keyword;
@@ -104,18 +110,36 @@ export default{
         timer: 1500
         });
         },
-        cartGo(){
-        Swal.fire({
-            title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
-            icon: "success",
-            showCloseButton: true,
-            focusConfirm: false,
-            confirmButtonText: `
-            <a href="/cart">
-            <i class="fa fa-thumbs-up"></i> 장바구니로 이동
-            </a>
-            `,
-        });
+        checkCart(pno) {
+            axios.get(`/api/cart/check/${this.account}/${pno}`)
+            .then(result => {
+                if(result.data[0].cnt == 1) {
+                    alert('이미 장바구니에 담겨있는 상품입니다.');
+                } else {
+                    this.cartGo(pno);
+                }
+            })
+        },
+        cartGo(pno){
+            axios.post('/api/cart', 
+                {
+                    user_id: this.account,
+                    product_no: pno
+                }
+            )
+            .then(result => {
+                Swal.fire({
+                    title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
+                    icon: "success",
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: `
+                    <a href="/cart">
+                    <i class="fa fa-thumbs-up"></i> 장바구니로 이동
+                    </a>
+                    `,
+                });
+            })      
         },
     }
 }

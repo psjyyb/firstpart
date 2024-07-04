@@ -25,8 +25,7 @@
         <tbody>
           <tr v-for="cart in cartlist">
             <td><input type="checkbox" :value="cart.cart_no" v-model="checkedCart"></td>
-            <!-- <td><img :src="cart.product_img"></td> -->
-            <td><img src="../assets/insta4.jpg" width="100px"></td>
+            <td><img :src="`/api/upload/productImg/${cart.product_img}`"></td>
             <td class="text-start">{{ cart.product_name }}</td>
             <td>
               <div class="input-group input-group-sm">
