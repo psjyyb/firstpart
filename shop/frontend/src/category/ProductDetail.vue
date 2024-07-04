@@ -402,15 +402,8 @@ export default{
           cnt: this.total
         }
       })
-        await axios.post(`/api/mypage/mywishList/?pno=${this.$route.query.no}&id=${this.$store.getters.getUserInfo.user_id}`)
-        .then(result=>{console.log(result)
-          if(result.data=='none'){
-            Swal.fire('이미 찜한 상품입니다!')
-          }else{
-            Swal.fire('찜하기 성공!')
-          }
-        })
-      },
+    },
+  
     cartGo(){
       Swal.fire({
         title: "<strong>장바구니에 상품이 담겼습니다.</strong>",
