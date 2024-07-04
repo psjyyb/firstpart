@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         <tr>
-          <td><img :src="`/api/upload/productImg/${productInfo.product_img}`" width="100px"></td>
+          <td><img :src="`/api/readproductImg/${productInfo.product_img}`" width="100px"></td>
           <td class="text-start">{{ productInfo.product_name }}</td>
           <td>{{ product_cnt }}개</td>
           <td>{{ makeComma(productInfo.product_price * product_cnt) }}원</td>
