@@ -162,9 +162,6 @@
                   <li class="">
                     <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                       <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
-                      <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
-                        03
-                      </span>
                     </a>
                   </li>
                   <li>
