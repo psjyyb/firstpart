@@ -48,7 +48,7 @@
                   <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                 </a>
                 <a class="btn-wishlist px-4 pt-3">
-                  <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)"></iconify-icon>
+                  <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)" style="cursor: pointer"></iconify-icon>
                 </a>
               </div>
             </div>
@@ -218,15 +218,7 @@ export default {
         }
       })
       .catch(err=>console.log(err))
-        //console.log(this.productInfo.product_no)
-          // axios.get(`/api/mypage/`)
-        // Swal.fire({
-        // position: "center",
-        // icon: "success",
-        // title: "Wish completed",
-        // showConfirmButton: false,
-        // timer: 1500
-        // });
+
     },
     checkCart(pno) {
       axios.get(`/api/cart/check/${this.account}/${pno}`)
