@@ -211,6 +211,9 @@
       },
       // 결제
       payment() {
+        if(!this.form.user_name || !this.form.user_phone || !this.form.user_post || !this.form.user_address || !this.form.user_detail_addr) {
+          return alert('배송지 정보를 입력해주세요.');
+        }
         const that = this;
         async function requestPayment() {
           const response = await PortOne.requestPayment({
