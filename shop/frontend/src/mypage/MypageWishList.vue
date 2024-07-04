@@ -75,7 +75,7 @@
         this.wishs.forEach(a=>{if(a.selected==true){
             console.log(a.wish_no)
             axios.delete(`/api/mypage/wishDelete/`+a.wish_no)
-            .then(result=>{console.log(result),Swal.fire('삭제완료!')})
+            .then(result=>{console.log(result),Swal.fire('삭제완료!'),this.goPage(1);})
             .catch(err=>console.log(err));
             
             // 선택삭제 포이치 돌려서 선택된 놈들의 번호 가지고 와서 삭제요청
@@ -87,7 +87,7 @@
         this.wishs.forEach(a=>{if(a.selected==true){
             console.log(a.product_no)
             axios.post(`/api/mypage/wishGetCart/?id=${this.id}&pno=${a.product_no}`)
-            .then(result=>{console.log(result),Swal.fire('장바구니에 담기 성공!')})
+            .then(result=>{console.log(result),Swal.fire('장바구니에 담기 성공!'),this.goPage(1);})
             .catch(err=>console.log(err));
         }})
         this.goPage(1);
