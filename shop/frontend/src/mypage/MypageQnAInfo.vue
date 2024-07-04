@@ -3,7 +3,7 @@
         <SideVar></SideVar>
         <div id="padd" class="p-4">
             <div class="resume-section-content">
-                <h1 class="mb-0" v-if="qnas.product_no !== null">
+                <h1 class="mb-0" v-if="qnas.product_no !== 0">
                     {{ qnas.product_no }} 번 상품문의
                     <span class="text-primary">{{ qnas.qna_title }}</span>
                 </h1>

@@ -1,4 +1,5 @@
 <template>
+  <SideVar/>
   <div>
     <img width="120" height="120" :src="`/api/upload/${info.product_img}`">
     <h4>{{ info.product_name }}</h4>
@@ -18,7 +19,7 @@
       <h4>사진첨부</h4>
       <input multiple @change="upload" ref="imageFile" type="file" id="file" accept="image/*">
       <hr />
-      <button type="button" class="btn btn-success" @click="editReview">등록</button>
+      <button type="button" class="btn btn-success" @click="editReview">수정</button>
       <button type="button" class="btn btn-warning" @click="canBtn">취소</button>
     </div>
   </div>
@@ -27,7 +28,9 @@
 <script>
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import SideVar from '../components/SideVar.vue'
 export default {
+  components: { SideVar },
   data() {
     return {
       info: {},
@@ -41,7 +44,7 @@ export default {
   },
   created() {
     this.id=this.$store.getters.getUserInfo.user_id
-    axios.get(`api/mypage/ReviewInsertInfo/` + this.$route.query.no)
+    axios.get(`api/mypage/ReviewInsertInfo/`+ this.$route.query.no)
       .then(result => {
         console.log(result);
         this.info = result.data[0];

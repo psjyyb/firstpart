@@ -21,6 +21,7 @@ import MypageCartList from '../mypage/MypageCartList.vue'
 import MypageOrderInfo from '../mypage/MypageOrderInfo.vue'
 import MypageCancelInfo from '../mypage/MypageCancelInfo.vue'
 import MypageReviewInsert from '../mypage/MypageReviewInsert.vue'
+import MypageReviewUpdate from '../mypage/MypageReviewUpdate.vue'
 import MypageQnAInfo from '../mypage/MypageQnAInfo.vue'
 import MypageQnAInsert from '../mypage/MypageQnAInsert.vue'
 import MypageQnAUpdate from '../mypage/MypageQnAUpdate.vue'
@@ -84,6 +85,11 @@ const routes = [
     path: '/joinForm',
     name: 'joinForm',
     component: joinForm
+  },
+  {
+    path: '/mypageReviewUpdate',
+    name: 'mypageReviewUpdate',
+    component: MypageReviewUpdate
   },
   {
     path: '/mypageQnAUpdate',
