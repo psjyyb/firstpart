@@ -35,8 +35,8 @@
                               <a class="btn-cart me-3 px-4 pt-3 pb-3">
                                   <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)">Add to Cart</h5>
                               </a>
-                              <a href="#" class="btn-wishlist px-4 pt-3">
-                                  <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo"></iconify-icon>
+                              <a class="btn-wishlist px-4 pt-3">
+                                  <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)"></iconify-icon>
                               </a>
                           </div>
                       </div>
@@ -101,15 +101,26 @@ export default{
             (this.productList).sort((a,b)=>{
                 return a.product_price-b.product_price});
         },
-        wishGo(){
-        Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Wish completed",
-        showConfirmButton: false,
-        timer: 1500
-        });
-        },
+        async wishGo(pno){
+            await axios.post(`/api/mypage/mywishList/?pno=${pno}&id=${this.account}`)
+            .then(result=>{console.log(result)
+                if(result.data=='none'){
+                Swal.fire('이미 찜한 상품입니다!')
+                }else{
+                Swal.fire('찜하기 성공!')
+                }
+            })
+            .catch(err=>console.log(err))
+                //console.log(this.productInfo.product_no)
+                // axios.get(`/api/mypage/`)
+                // Swal.fire({
+                // position: "center",
+                // icon: "success",
+                // title: "Wish completed",
+                // showConfirmButton: false,
+                // timer: 1500
+                // });
+            },
         checkCart(pno) {
             axios.get(`/api/cart/check/${this.account}/${pno}`)
             .then(result => {

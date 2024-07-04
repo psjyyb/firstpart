@@ -299,7 +299,6 @@ export default{
       emits: [],
       isActiveReview: false, // 리뷰 탭 활성화 상태
       isActiveQnA: false,    // Q&A 탭 활성화 상태
-      id:'user00'
   };
   },
   computed: {
@@ -328,8 +327,8 @@ export default{
       this.total = total;
       this.totalPrice = this.productInfo.product_price * this.total; 
     },
-  async wishGo(){
-      await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.id}`)
+    async wishGo(){
+      await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.account}`)
       .then(result=>{console.log(result)
         if(result.data=='none'){
           Swal.fire('이미 찜한 상품입니다!')
