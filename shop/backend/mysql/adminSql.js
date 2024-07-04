@@ -32,8 +32,12 @@ module.exports =	{
    `,
    AdminqnaListCount:`select count(*) as cnt 
    from qna`,
-   AdminstateUpdate:`UPDATE orders
+   AdminOrderstateUpdate:`UPDATE orders
    SET order_status =	?	
+   WHERE	order_no	=	 ?
+   `,
+   AdmincancelstateUpdate:`UPDATE cancel
+   SET cancel_state =	?	
    WHERE	order_no	=	 ?
    `,
    AdminproductInsert:`insert into product
@@ -61,8 +65,9 @@ module.exports =	{
    productUpdate:`UPDATE product SET ?
    WHERE	product_no	=	?
    `,
-   qnaInfo:`SELECT qna_no,qna_title,qna_content,qna_date,qna_reply,product_no,user_id
-   FROM qna
+   qnaInfo:`SELECT q.qna_no,q.qna_title,q.qna_content,q.qna_date,q.qna_reply,p.product_name,q.user_id
+   FROM qna q left join product p 
+   on q.product_no = p.product_no 
    WHERE qna_no = ?
    `,
    qnaInsert:`UPDATE qna 

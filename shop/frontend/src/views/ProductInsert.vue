@@ -61,9 +61,9 @@
 			</tr>
 			
 		</table>
-        <div align="center">
-            <button type ="button" class ="text-center" @click ="insertproduct"> 상품등록 </button	>
-            <button type="button" class="text-center" @click="canBtn">취소</button>
+        <div class="productbutton" align="center">
+            <button type ="button" class ="text-center" @click ="insertproduct"> <h3>상품등록</h3> </button	>
+            <button type="button" class="text-center" @click="canBtn"><h3>취소</h3></button>
      </div	>
      </form	>
     </div	>
@@ -151,8 +151,12 @@ export	default {
 
 <style scoped >
 .container {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
+ }
+ .productbutton{
+    margin-top: 20px;
  }
   
 </style	>

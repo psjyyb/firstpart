@@ -66,10 +66,11 @@
 			
 		</table>
 
-    <div align="center">
-      <button type ="button" class ="text-center" @click ="updateProduct"> 상품수정 </button	>
-        <button type ="button" class ="text-center" @click ="resetProduct"> 초기화 </button	>
-        <button type ="button" class ="text-center" @click ="deleteProduct"> 상품삭제 </button	>
+    <div class="productbutton" align="center">
+      <button type ="button" class ="text-center" @click ="updateProduct"> <h2>상품수정</h2> </button	>
+        <button type ="button" class ="text-center" @click ="resetProduct"> <h2>초기화</h2> </button	>
+        <button type ="button" class ="text-center" @click ="deleteProduct"> <h2>상품삭제</h2> </button	>
+          <button type="button" class ="text-center"  @click="canBtn"><h2>취소</h2></button>
     </div>
      </form	>
     </div	>
@@ -173,6 +174,9 @@ export	default {
       this .getProductInfo();
 
     },
+    canBtn(){
+        this.$router.push('/adminproduct');
+    },
 
      
  	},
@@ -186,9 +190,17 @@ export	default {
 
 
 <style scoped >
+button{
+
+  
+}
+
 .container {
+  margin-top: 40px;
     display: flex;
     justify-content: center;
  }
-  
+ .productbutton{
+    margin-top: 20px;
+ }
 </style	>

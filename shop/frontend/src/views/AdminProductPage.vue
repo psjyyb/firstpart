@@ -30,10 +30,10 @@
                     <td>{{ this.$dateFormat(product.product_mfd )}}</td>
                     <td>{{ this.$dateFormat(product.product_exp) }}</td>
                     <td>{{ product.category_name }}</td>
-                    <td>{{ product.product_point }}</td>
-                    <td>{{ product.storage_cnt }}</td>
+                    <td>{{ makeComma(product.product_point) }}</td>
+                    <td>{{ makeComma(product.storage_cnt) }}</td>
                     <td>
-                      <td>{{ product.stock_cnt }}
+                      <td>{{ makeComma(product.stock_cnt) }}
                       <div class="input-group input-group-sm">
                       <button class="btn btn-outline-secondary" @click="outCnt(product,i)">출고</button>
                       <input  type="number" class="form-control text-center" v-model=this.stock_cnt[i]>
@@ -46,18 +46,18 @@
     </tbody	>
    </table	>
    <div>
-    <select v-model="this.seachcatecory">
+    <!-- <select v-model="this.seachcatecory">
                           <option value="product_no">번호</option>
                           <option value="product_name">상품 이름</option>
                           <option value="category_no">카테고리</option>                          
                         </select>
                         <input type ="text" v-model="this.seachname" id ="seachname">
-                        <button @click="">검색</button>
+                        <button @click="">검색</button> -->
 
    </div>
    <PagingComponent v-bind="page" @go-page="goPage" ></PagingComponent>
    
-   <router-link to ="/insertproduct"	class="nav-link">상품 등록</router-link	>
+   <router-link to ="/insertproduct"	class="insert"><h2>상품 등록</h2></router-link	>
   </div	>
 </template	>
 <script	>
@@ -158,5 +158,7 @@ export	default {
 <style scoped >
 table	* {
   text-align:	center ; }
-  
+  .insert{
+    
+  }
 </style	>

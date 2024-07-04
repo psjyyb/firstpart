@@ -30,9 +30,9 @@
             </tr>
 
         </table>
-        <div align="center">
-            <button type="button"  @click="addNotice">등록</button>
-            <button type="button"  @click="canBtn">취소</button>
+        <div class="noticebutton" align="center">
+            <button type="button"  @click="addNotice"><h2>등록</h2></button>
+            <button type="button"  @click="canBtn"><h2>취소</h2></button>
         </div>
     </form>
 </div>
@@ -99,5 +99,7 @@
     height: 50px;
     width: 400px;
 }
-
+.noticebutton{
+    margin-top: 20px;
+ }
 </style>

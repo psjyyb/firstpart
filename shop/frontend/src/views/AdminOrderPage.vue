@@ -18,26 +18,24 @@
       <td	>{{board.no }}</td	>
      </tr	> -->
      <tr :key="i" v-for="(order,i) in orders">
-                    <td>{{ order.order_no }}</td>
+                    <td @click ="goToDetail(order.order_no)">{{ order.order_no }}</td>
                     <td>{{ order.user_id }}</td>
                     <td>{{ this.$dateFormat(order.order_date) }}</td>
                     <td>{{ makeComma(order.pay_price) }}</td>
                     <td>
+
                         <select v-model="order.order_status" @change="change_order_status(i,order.order_status)">
-                          <option value="1">결제완료</option>
-                          <option value="2">상품준비중</option>
-                          <option value="3">배송중</option>
-                          <option value="4">배송완료</option>
-                          <option value="5">구매확정</option>
+                          <option v-if="order.order_status<6" value="1">결제완료</option>
+                          <option v-if="order.order_status<6" value="2">상품준비중</option>
+                          <option v-if="order.order_status<6" value="3">배송중</option>
+                          <option v-if="order.order_status<6" value="4">배송완료</option>
+                          <option v-if="order.order_status<6" value="5">구매확정</option>
+                          <option v-if="order.order_status>=6" value="6">취소요청</option>
+                          <option v-if="order.order_status>=6" value="7">취소완료</option>
                         </select>
 
                     </td>
-                    <!-- 
-                    <td v-if="order.order_status==1">결제완료</td>
-                    <td v-else-if="order.order_status==2">상품준비중</td>
-                    <td v-else-if="order.order_status==3">배송중</td>
-                    <td v-else-if="order.order_status==4">배송완료</td>
-                    <td v-else-if="order.order_status==5">구매확정</td>                                    -->
+                    
                 </tr>
     </tbody	>
    </table	>
@@ -92,7 +90,11 @@ export	default {
       
         let result = (await axios.put(`/api/adminorder/orderstate/`,orderstate)).data;
 
-      }
+      },
+      goToDetail(no){
+
+      this.$router.push({	path:"/orderinfo",	query: {	order_no:no }	});
+}
 
     ,
   },

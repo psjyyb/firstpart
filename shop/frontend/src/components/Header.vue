@@ -189,7 +189,7 @@
                 </li>
                 <li>
                   <!-- 여기 -->
-                  <a href="noticeList" class="nav-link">공지사항</a>
+                  <a href="noticeList" class="nav-link"><iconify-icon icon="mdi-format-align-left" class="fs-4 position-relative"></iconify-icon></a>
 
 
                 </li>

@@ -33,6 +33,7 @@ import ProductInsert from '../views/ProductInsert.vue'
 import NoticeInsert from '../views/NoticeInsert.vue'
 import InfoProduct from '../views/ProductInfo.vue'
 import InsertAnser from '../views/AnserInsert.vue'
+import InfoOrder from '../views/OrderInfo.vue'
 
 import joinForm from '../user/joinForm.vue'
 import loginForm from '../user/loginForm.vue'
@@ -202,6 +203,12 @@ const routes = [
     name: 'InsertAnser',
     component: InsertAnser
   },
+  {
+    path: '/orderinfo',
+    name: 'InfoOrder',
+    component: InfoOrder
+  },
+  
   
 ]
 

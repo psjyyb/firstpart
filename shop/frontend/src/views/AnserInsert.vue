@@ -8,7 +8,7 @@
          <td scope ="col"class ="text-center">{{ this.qnaInfo.qna_no }}</td	>
          <th scope ="col"class ="text-center	table-primary">작성일 </th	>
          <td scope ="col"class ="text-center">
-          {{ this.qnaInfo.qna_date	}}
+          {{ this.$dateFormat(this.qnaInfo.qna_date)	}}
          </td	>
          <th scope ="col"class ="text-center	table-primary">아이디 </th	>
          <td scope ="col"class ="text-center">{{ this.qnaInfo.user_id}}</td	>
@@ -16,7 +16,7 @@
         <tr	>
          <th colspan = "2" class ="text-center	table-primary">제목 </th	>
          <td colspan = "2" class ="text-center">{{this.qnaInfo.qna_title }}</td	>
-            <th scope ="col"class ="text-center	table-primary">상품 번호 </th	>
+            <th scope ="col"class ="text-center	table-primary">상품 이름 </th	>
             <td scope ="col"class ="text-center">{{this.qnaInfo.product_no }}</td>	
         </tr>
         
@@ -48,8 +48,8 @@
       </table>
      </div	>
      <div align="center">
-        <button  @click ="insertanser(this .qna_no)">등록</button>
-        <button type="button"  @click="canBtn">취소</button>
+        <button  @click ="insertanser(this .qna_no)"><h2>등록</h2></button>
+        <button type="button"  @click="canBtn"><h2>취소</h2></button>
      </div	>
     </div	>
 </template	>
@@ -103,6 +103,10 @@ export	default {
 </script>
 
 <style scoped >
+
+.container{
+margin-top: 40px;
+}
      input{
         height: 250px;
         width: 400px;
