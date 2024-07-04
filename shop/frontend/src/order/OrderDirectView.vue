@@ -19,12 +19,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="order in orderlist">
-          <td><img :src="`/api/upload/productImg/${order.product_img}`" width="100px"></td>
-          <td class="text-start">{{ order.product_name }}</td>
-          <td>{{ order.cart_cnt }}개</td>
-          <td>{{ makeComma(order.product_price * order.cart_cnt) }}원</td>
-          <td>+{{ makeComma(order.product_point * order.cart_cnt) }}점</td>
+        <tr>
+          <td><img :src="`/api/upload/productImg/${productInfo.product_img}`" width="100px"></td>
+          <td class="text-start">{{ productInfo.product_name }}</td>
+          <td>{{ product_cnt }}개</td>
+          <td>{{ makeComma(productInfo.product_price * product_cnt) }}원</td>
+          <td>+{{ makeComma(productInfo.product_point * product_cnt) }}점</td>
         </tr>
       </tbody>
     </table>
@@ -90,7 +90,7 @@
         </tr>
         <tr>
           <th>총 적립 예정 포인트</th>
-          <td>{{ makeComma(totalPoint) }}점</td>
+          <td>{{ makeComma(productInfo.product_point * product_cnt) }}점</td>
         </tr>
         <tr>
           <th>보유 포인트</th>
@@ -127,15 +127,16 @@
     mixins: [mixin],
     data() {
       return {
-        cartNoList: history.state.cartNo.split(','),
-        orderlist: [],
+        product_no: history.state.pno,
+        product_cnt: history.state.cnt,
+        productInfo: {},
         sameInfo: true,
         form: {},
         point: {
           using: false,
           amount: 0
         },
-        totalPay: 0,
+        totalPay: 0
       }
     },
     watch: {
@@ -157,33 +158,21 @@
       // 총 상품 금액
       totalPrice() {
         let result = 0;
-        this.orderlist.forEach((order) => {
-          result += order.product_price * order.cart_cnt;
-        })
+        result += this.productInfo.product_price * this.product_cnt;
         this.totalPay = result;
-        return result;
-      },
-      // 총 적립 포인트
-      totalPoint() {
-        let result = 0;
-        this.orderlist.forEach((order) => {
-          result += order.product_point * order.cart_cnt;
-        })
         return result;
       },
     },
     created() {
-      this.getOrderList();
+      this.getOrderProd();
       this.getUserInfo();
     },
     methods: {
       // 주문 상품 불러오기
-      getOrderList() {
-        this.cartNoList.forEach(no => {
-          axios.get(`/api/order/${no}`)
-          .then(result => {
-            this.orderlist.push(result.data[0])
-          })
+      getOrderProd() {
+        axios.get(`api/order/direct/${this.product_no}`)
+        .then(result => {
+          this.productInfo = result.data[0]
         })
       },
       // 주소 api
@@ -231,7 +220,7 @@
             storeId: "store-40bbe7f1-02aa-486e-8049-26324a1a258f",
             channelKey: "channel-key-7dc5a544-efa0-4e55-af07-a7209657747c",
             paymentId: `payment-${v4()}`,
-            orderName: that.orderlist.length > 1 ? `${that.orderlist[0].product_name} 외 ${that.orderlist.length - 1}건` : `${that.orderlist[0].product_name}`,
+            orderName: `${that.productInfo.product_name}`,
             totalAmount: that.totalPay,
             currency: "CURRENCY_KRW",
             payMethod: "EASY_PAY",
@@ -258,26 +247,19 @@
             const result = await axios.get(`/api/order/detail/${that.account}`)
             const orderNo = result.data[0].order_no
             // 주문상세 테이블에 주문상세 추가
-            that.orderlist.forEach(e => {
-              axios.post('/api/order/detail', 
-                {
-                  order_cnt: e.cart_cnt,
-                  order_no: orderNo,
-                  product_no: e.product_no,
-                  product_price: e.product_price,
-                  point: e.product_point
-                }
-              )
-            })
+            axios.post('/api/order/detail', 
+              {
+                order_cnt: that.product_cnt,
+                order_no: orderNo,
+                product_no: that.productInfo.product_no,
+                product_price: that.productInfo.product_price,
+                point: that.productInfo.product_point
+              }
+            )
             // 회원 포인트 수정
             await axios.put(`api/order/info/${that.account}`, {user_point: that.form.user_point - that.point.amount})
             // 주문 성공 페이지로 이동
-            that.$router.push({
-              name: 'orderSuccess',
-              state: {
-                cartNo: history.state.cartNo
-              }
-            });
+            that.$router.push('/orderDirectSuccess');
           }
         }
         requestPayment();

@@ -1,4 +1,7 @@
 module.exports = {
+  orderDirect: `select product_no, product_name, product_price, product_img, product_point
+  from product
+  where product_no = ?`,
   orderList: `select c.cart_cnt, p.product_no, p.product_name, p.product_price, p.product_img, p.product_point
   from cart c join product p
   on c.product_no = p.product_no
