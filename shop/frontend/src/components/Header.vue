@@ -89,8 +89,9 @@
               <a v-if="isLoggedIn" @click="handleLogout" class="nav-link">로그아웃</a>
               <router-link v-else to="/loginForm" class="nav-link">로그인</router-link>
             </div>
-            <div class="support-box text-end d-none d-xl-block">
-              <a href="/joinForm" class="nav-link">회원가입</a>
+            <div class="support-box text-end d-none d-xl-block" v-if="!isLoggedIn">
+  <a href="/joinForm" class="nav-link">회원가입</a>
+
             </div>
           </div>
         </div>
@@ -150,17 +151,20 @@
               <div class="d-none d-lg-flex align-items-end">
                 <ul class="d-flex justify-content-end list-unstyled m-0">
                   <li>
-                    <a href="/mypage" class="mx-3">
+                    <a v-if="isLoggedIn" href="/mypage" class="mx-3"></a>
+                    <a v-else href="/loginForm" class="mx-3">
                       <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
                     </a>
                   </li>
                   <li>
-                    <a href="/mypageWishList" class="mx-3">
+                    <a v-if="isLoggedIn" href="/mypageWishList" class="mx-3"></a>
+                    <a v-else href="/loginForm" class="mx-3">
                       <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
-                    </a>
+                 </a>
                   </li>
                   <li class="">
-                    <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                    <a v-if="isLoggedIn" href="/cart" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"></a>
+                    <a v-else href="/loginForm" class="mx-3" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                       <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                       <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
                         03

@@ -9,7 +9,7 @@
       </div>
       <div class="form-group">
         <label for="user_name">이름</label>
-        <input type="text" id="user_name" v-model="userInfo.user_name" readonly class="form-control readonly" />
+        <input type="text" id="user_name" v-model="userInfo.user_name"  class="form-control" />
       </div>
 
       <div class="form-group">

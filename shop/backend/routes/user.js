@@ -238,7 +238,7 @@ router.put('/updateUser', async (req, res) => {
       user_email: user_email
     };
     
-    const result = await query('updateUser', [user_name, user_post, user_address, user_detail_addr, user_phone, user_email, user_id]);
+    const result = await query('updateUser', [user_name, user_post, user_address, user_detail_addr, user_phone, user_email, user_id.toString()]);
     
     res.status(200).send('사용자 정보가 업데이트되었습니다.');
   } catch (error) {
@@ -251,7 +251,6 @@ router.put('/updateUser', async (req, res) => {
 //회원탈퇴
 router.post('/delete', async (req, res) => {
   const userId = req.session.user_id;
-  console.log(userId)
   if (!userId) {
     return res.status(401).json({ success: false, message: '로그인이 필요합니다.' });
   }
@@ -276,7 +275,7 @@ router.post('/delete', async (req, res) => {
 
 // 카카오 로그인 회원가입 및 세션 처리
 router.post('/kakao-register', async (req, res) => {
-  const { kakao_id, email } = req.body;
+  const { kakao_id, user_email } = req.body;
 
   try {
     let result = await query('checkId', [kakao_id.toString()]);
@@ -293,8 +292,13 @@ router.post('/kakao-register', async (req, res) => {
       const user = {
         user_id: kakao_id.toString(),
         user_name: "카카오 사용자",
-        user_email: email,
+        user_email: user_email,
+        user_point: 0,
         is_kakao_user: true, // 카카오 사용자일 경우 TRUE로 설정
+        user_post:'',
+        user_address:'',
+        user_detail_addr:'',
+        user_phone:'',
       };
 
       result = await query('userInsert', user);
@@ -314,13 +318,17 @@ router.post('/kakao-register', async (req, res) => {
 
 //카카오사용자 정보 등록
 router.post('/insertKakaoUser', async (req, res) => {
-  const { user_id, email } = req.body;
+  const { user_id, user_email } = req.body;
   try {
     const user = {
       user_id: user_id.toString(), // user_id는 문자열로 저장
-      user_name: "카카오 사용자",
-      user_email: email,
+      user_name: '',
+      user_email: user_email,
       is_kakao_user: true, // 카카오 사용자일 경우 TRUE로 설정
+      user_post:'',
+      user_address:'',
+      user_detail_addr:'',
+      user_phone:'',
     };
 
     let result = await query('checkId', [user.user_id]);
