@@ -1,41 +1,51 @@
 <template>
   <div class="container" >
-    <div>category</div>
     <div class="offcanvas-body justify-content-between">
       상품갯수 :  {{ productCnt }}
     </div>
     <div class="offcanvas-body justify-content-between">
       <b-breadcrumb>
-        <b-breadcrumb-item @click="newItem">신상품순</b-breadcrumb-item>
-        <b-breadcrumb-item @click="nameItem">상품 이름순</b-breadcrumb-item>
-        <b-breadcrumb-item @click="hotItem"><i class="bi-fire"></i>상품 판매순</b-breadcrumb-item>
-        <b-breadcrumb-item @click="highItem"><i class="bi bi-file-arrow-up"></i>가격 높은순</b-breadcrumb-item>
-        <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
-      </b-breadcrumb>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'new' }" 
+        @click="handleClick('new', newItem)">신상품순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'name' }" 
+        @click="handleClick('name', nameItem)">상품 이름순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'hot' }" 
+        @click="handleClick('hot', hotItem)"><i class="bi-fire"></i>상품 판매순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'high' }" 
+        @click="handleClick('high', highItem)"><i class="bi bi-file-arrow-up"></i>가격 높은순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'row' }" 
+        @click="handleClick('row', rowItem)"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
+    </b-breadcrumb>
     </div>
-    <!-- <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10" v-if="productList"> -->
       <div class="product-list" v-infinite-scroll="loadMoreProducts" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-      <!-- <div class="product-list" > -->
       <div class="product-card" :key="product.product_no" v-for="product in productList">
        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
           no. {{ product.product_no }}
         </div>
         <div class="card position-relative">
           <a @click="goToDetail(product.product_no)">
-            <!-- <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
             <img :src="`/api/upload/productImg/${product.product_img}`" class="sub" alt="image">
-
           </a>
           <div class="card-body p-0">
             <a @click="goToDetail(product.product_no)">
               <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
             </a>
             <div class="card-text">
-              <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
+              <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
               현재 재고 : {{ product.stock_cnt }}
-              <div class="d-flex flex-wrap mt-3">
+              <div class="d-flex flex-wrap mt-3" v-if="product.stock_cnt > 0">
                 <a class="btn-cart me-3 px-4 pt-3 pb-3">
-                  <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)">Add to Cart</h5>
+                  <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                 </a>
                 <a class="btn-wishlist px-4 pt-3">
                   <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)"></iconify-icon>
@@ -57,9 +67,12 @@
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2'
-// import InfiniteScroll from 'vue-infinite-scroll';
+import PageMixin from '../mixin.js';
+
 
 export default {
+  mixins : [PageMixin],
+
   data() {
     return {
       searchNo: "",
@@ -71,6 +84,9 @@ export default {
       busy: false,  //true면 스크롤 안보임
       noMoreProducts: false,
       isLoading: false,
+      selectedSort: '',
+
+      // selectedCategoryIndex: null,
     };
   },
   computed: {
@@ -90,6 +106,28 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    handleClick(sortType, method) {
+      this.selectedSort = sortType;
+      method();
+    },
+    getCurrencyFormat(value) {
+      return this.$currencyFormat(value);
+    },
+    clickColor(){
+      const nonClick = document.querySelectorAll(".non-click");
+      function handleClick(event) {
+        // div에서 모든 "click" 클래스 제거
+        nonClick.forEach((e) => {
+          e.classList.remove("click");
+        });
+        // 클릭한 div만 "click"클래스 추가
+        event.target.classList.add("click");
+      }
+      nonClick.forEach((e) => {
+        e.addEventListener("click", handleClick);
+      });
+      
+    },
     async getProductList() {
       this.pno = 1;
       this.productList = [];
@@ -132,10 +170,9 @@ export default {
       this.busy = false; 
     }
 },
-
     async handleScroll() {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 50 && !this.isLoading) {
+      if (scrollTop + clientHeight >= scrollHeight - 1000 && !this.isLoading) {
         this.page++;
         await this.loadMoreProducts();
       }
@@ -238,7 +275,8 @@ export default {
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
+
 }
 
 .product-card {
@@ -276,4 +314,62 @@ export default {
     background: #eceef0;
     border-radius: 10px;
   }
+  .box {
+  width: 140px;
+  height: 40px;
+  border: 0;
+}
+
+.non-click {
+  /* background-color: gold; */
+}
+
+.click {
+  background-color: orchid;
+}
+
+</style>
+
+<style scoped>
+.active {
+  border: 1px solid rgb(222 173 111);
+  border-radius: 20px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  flex: 0 0 calc(25% - 10px); /* 한 줄에 4개씩 */
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.product-card:nth-child(4n) {
+  margin-right: 0; /* 4번째마다 오른쪽 마진 제거 */
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+
+.product-card .card {
+  position: relative;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 </style>

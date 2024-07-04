@@ -20,20 +20,19 @@
                   New
               </div>
               <div class="card position-relative">
-                  <a href="single-product.html">
-                    <!-- <img :src="require(`../../../backend/upload/productImg/${product.product_img}`)" class="sub" alt="image"> -->
+                  <a @click="goToDetail(product.product_no)">
                     <img :src="`/api/upload/productImg/${product.product_img}`" class="sub" alt="image">
-
                 </a>
                   <div class="card-body p-0">
                       <a @click="goToDetail(product.product_no)" >
                           <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
-                      </a>
-                      <div class="card-text">
-                          <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
-                          <div class="d-flex flex-wrap mt-3">
+                        </a>
+                        <div class="card-text">
+                            <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
+                            현재 재고 : {{ product.stock_cnt }}
+                          <div class="d-flex flex-wrap mt-3" v-if="product.stock_cnt > 0">
                               <a class="btn-cart me-3 px-4 pt-3 pb-3">
-                                  <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)">Add to Cart</h5>
+                                  <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                               </a>
                               <a class="btn-wishlist px-4 pt-3">
                                   <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)"></iconify-icon>
@@ -50,8 +49,10 @@
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2'
+import PageMixin from '../mixin.js';
 
 export default{
+    mixins : [PageMixin],
     data(){
         return {
             keyword : {},
@@ -74,6 +75,9 @@ export default{
             let result = await axios.get(`/api/category/search?keyword=${this.keyword}`);
             this.productList = result.data.products;
             this.productCnt = result.data.total;
+        },
+        getCurrencyFormat(value) {
+        return this.$currencyFormat(value);
         },
         goToDetail(no) {
             this.$router.push({ path: "/detail", query: { no: no } });
