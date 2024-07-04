@@ -47,6 +47,7 @@ router.get("/:no", async (req, res) => {
   console.log('page :' , pno)
   console.log('perPage : ', perPage)
   console.log('현재 : ' , (startIdx + perPage - 1));
+  console.log('전체수량 : ', categoryProducts)
   res.json({
     total: productTotal[0].count,
     products: categoryProducts,
@@ -54,7 +55,6 @@ router.get("/:no", async (req, res) => {
     perPage,
     hasNextPage: !((startIdx + perPage - 1) >= productTotal[0].count),
   });
-
 });
 
   module.exports = router;

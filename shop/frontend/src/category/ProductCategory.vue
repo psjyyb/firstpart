@@ -32,6 +32,7 @@
             </a>
             <div class="card-text">
               <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
+              현재 재고 : {{ product.stock_cnt }}
               <div class="d-flex flex-wrap mt-3">
                 <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
                   <h5 class="text-uppercase m-0" @click="cartGo">Add to Cart</h5>
@@ -144,7 +145,7 @@ export default {
     },
     hotItem(){
       this.productList.sort((a,b)=>{
-        return b.product_no - a.product_no;
+        return (b.storage_cnt - b.stock_cnt) - (a.storage_cnt - a.stock_cnt);
       });
     },
     nameItem(){
