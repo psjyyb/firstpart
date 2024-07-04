@@ -37,7 +37,9 @@ import AdminQaPage from '../views/AdminQaPage.vue'
 // 주문결제
 import CartView from '../order/CartView.vue'
 import OrderView from '../order/OrderView.vue'
+import OrderDirectView from '../order/OrderDirectView.vue'
 import OrderSuccessView from '../order/OrderSuccessView.vue'
+import OrderDirectSuccessView from '../order/OrderDirectSuccessView.vue'
 
 
 import ProductInsert from '../views/ProductInsert.vue'
@@ -203,9 +205,19 @@ const routes = [
     component: OrderView
   },
   {
+    path: '/orderDirect',
+    name: 'orderDirect',
+    component: OrderDirectView
+  },
+  {
     path: '/orderSuccess',
     name: 'orderSuccess',
     component: OrderSuccessView
+  },
+  {
+    path: '/orderDirectSuccess',
+    name: 'orderDirectSuccess',
+    component: OrderDirectSuccessView
   },
   {
     path: '/cart',

@@ -2,12 +2,12 @@
   <div class="container">
     <div class="fs-2">장바구니</div>
     <div v-if="this.cartlist.length > 0">
-      <table class="table align-middle">
+      <table class="align-middle" width="100%">
         <colgroup>
           <col width="50">
           <col width="150">
           <col width="*">
-          <col width="120">
+          <col width="100">
           <col width="200">
           <col width="100">
           <col width="150">
@@ -25,7 +25,7 @@
         <tbody>
           <tr v-for="cart in cartlist">
             <td><input type="checkbox" :value="cart.cart_no" v-model="checkedCart"></td>
-            <td><img :src="`/api/upload/productImg/${cart.product_img}`"></td>
+            <td><img :src="`/api/upload/productImg/${cart.product_img}`" width="100px"></td>
             <td class="text-start">{{ cart.product_name }}</td>
             <td>
               <div class="input-group input-group-sm">

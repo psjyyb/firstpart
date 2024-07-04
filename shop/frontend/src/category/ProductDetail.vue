@@ -242,6 +242,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
+                      @click="goOrderDirect"
                     >
                     <i class="bi-cart3"></i>
                       BUY NOW
@@ -380,6 +381,18 @@ export default{
           </a>
           `,
         });
+      })
+    },
+    goOrderDirect() {
+      if(this.total == 0) {
+        return alert('상품의 수량을 선택해주세요.');
+      }
+      this.$router.push({
+        name: 'orderDirect', 
+        state: {
+          pno: this.productInfo.product_no,
+          cnt: this.total
+        }
       })
     },
     shareMessage() {
