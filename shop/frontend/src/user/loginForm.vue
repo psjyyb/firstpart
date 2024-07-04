@@ -20,7 +20,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import kakaoLogin from '@/components/kakaoLogin.vue';
+import kakaoLogin from '@/components/kakaoLogin.vue'; // 카카오 로그인 컴포넌트 임포트
 import axios from 'axios';
 
 export default {
@@ -60,9 +60,18 @@ export default {
     },
     async logoutHandler() {
       try {
+        // 클라이언트 측에서 Kakao SDK 로그아웃 처리
+        window.Kakao.Auth.logout(function() {
+          console.log('Kakao SDK에서 로그아웃 완료');
+        });
+
+        // 서버 측 로그아웃 요청
         await axios.post('/api/user/logout');
+        
+        // 클라이언트 세션 데이터 초기화
         this.logoutUser();
-        alert('로그아웃');
+        alert('로그아웃 완료');
+        this.$router.push('/home');
       } catch (err) {
         console.error('로그아웃 실패:', err);
       }

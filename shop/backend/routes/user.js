@@ -160,6 +160,11 @@ router.post('/pwCheck', async (req, res) => {
   }
 });
 
+// 카카오 로그인 시 비밀번호 확인 필요 없음을 의미하는 수정된 코드
+router.post('/pwCheck', async (req, res) => {
+  res.sendStatus(200); // 항상 인증 성공으로 응답
+});
+
 //아이디 찾기
 router.post("/FindId",async (req, res) =>{
 	const username = req.body.user_name;
@@ -233,7 +238,7 @@ router.put('/updateUser', async (req, res) => {
       user_email: user_email
     };
     
-    const result = await query('updateUser', [user_name, user_post, user_address, user_detail_addr, user_phone, user_email, user_id]);
+    const result = await query('updateUser', [user_name, user_post, user_address, user_detail_addr, user_phone, user_email, user_id.toString()]);
     
     res.status(200).send('사용자 정보가 업데이트되었습니다.');
   } catch (error) {
@@ -270,25 +275,9 @@ router.post('/delete', async (req, res) => {
 
 // 카카오 로그인 회원가입 및 세션 처리
 router.post('/kakao-register', async (req, res) => {
-  const { kakao_id, email } = req.body;
+  const { kakao_id, user_email } = req.body;
 
   try {
-    const salt = await generateSalt();
-    const hashedPassword = await hashPassword(kakao_id.toString(), salt); // Convert kakao_id to string
-
-    const user = {
-      user_id: kakao_id.toString(), // Convert kakao_id to string
-      user_pw: hashedPassword,
-      user_name: "카카오 사용자", // 
-      user_post: "",
-      user_address: "",
-      user_detail_addr: "",
-      user_phone: "",
-      user_email: email,
-      salt: salt 
-    };
-
-    // 존재여부파악
     let result = await query('checkId', [kakao_id.toString()]);
     const exists = result[0].count > 0;
 
@@ -300,7 +289,18 @@ router.post('/kakao-register', async (req, res) => {
         res.send({ success: true, message: "이미 가입된 사용자입니다." });
       });
     } else {
-     //db저장
+      const user = {
+        user_id: kakao_id.toString(),
+        user_name: "카카오 사용자",
+        user_email: user_email,
+        user_point: 0,
+        is_kakao_user: true, // 카카오 사용자일 경우 TRUE로 설정
+        user_post:'',
+        user_address:'',
+        user_detail_addr:'',
+        user_phone:'',
+      };
+
       result = await query('userInsert', user);
       req.session.user_id = kakao_id.toString();
       req.session.is_logined = true;
@@ -315,23 +315,26 @@ router.post('/kakao-register', async (req, res) => {
   }
 });
 
+
 //카카오사용자 정보 등록
 router.post('/insertKakaoUser', async (req, res) => {
-  const { user_id, email } = req.body;
+  const { user_id, user_email } = req.body;
   try {
-    // 사용자 정보 준비
     const user = {
       user_id: user_id.toString(), // user_id는 문자열로 저장
-      user_name: "카카오 사용자",
-      user_email: email,
+      user_name: '',
+      user_email: user_email,
+      is_kakao_user: true, // 카카오 사용자일 경우 TRUE로 설정
+      user_post:'',
+      user_address:'',
+      user_detail_addr:'',
+      user_phone:'',
     };
 
-    // DB에 사용자 정보 저장 (이미 존재하는지 체크 후 처리)
     let result = await query('checkId', [user.user_id]);
     const exists = result[0].count > 0;
 
     if (exists) {
-      // 이미 존재하는 사용자일 경우 세션 설정
       req.session.user_id = user.user_id;
       req.session.is_logined = true;
       req.session.save(err => {
@@ -339,7 +342,6 @@ router.post('/insertKakaoUser', async (req, res) => {
         res.send({ success: true, message: "이미 가입된 사용자입니다." });
       });
     } else {
-      // 존재하지 않는 사용자일 경우 새로 등록
       result = await query('userInsert', user);
       req.session.user_id = user.user_id;
       req.session.is_logined = true;

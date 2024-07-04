@@ -5,11 +5,11 @@
 
       <div class="form-group">
         <label for="user_id">아이디</label>
-        <input type="text" id="user_id" v-model="userInfo.user_id" readonly class="form-control readonly" />
+        <input type="text" id="user_id" v-model="userInfo.user_id" class="form-control readonly" />
       </div>
       <div class="form-group">
         <label for="user_name">이름</label>
-        <input type="text" id="user_name" v-model="userInfo.user_name" readonly class="form-control readonly" />
+        <input type="text" id="user_name" v-model="userInfo.user_name"  class="form-control" />
       </div>
 
       <div class="form-group">

@@ -41,10 +41,10 @@
                 <h3 class="secondary-font text-primary">{{ product.product_price }}</h3>
                 <div class="d-flex flex-wrap mt-3">
                   <a class="btn-cart me-3 px-4 pt-3 pb-3">
-                    <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)">Add to Cart</h5>
+                    <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                   </a>
                   <a class="btn-wishlist px-4 pt-3">
-                    <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)"></iconify-icon>
+                    <iconify-icon icon="fluent:heart-28-filled" class="fs-5" @click="wishGo(product.product_no)" style="cursor: pointer"></iconify-icon>
                   </a>
                 </div>
               </div>
