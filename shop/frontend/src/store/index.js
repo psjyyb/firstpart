@@ -32,6 +32,7 @@ const store = createStore({
     isLoggedIn: state => !!state.user,
     getUserInfo: state => state.user,
     isKakaoUser: state => state.user && state.user.is_kakao_user,
+    isAdmin: state => state.user && state.user.user_resp === 'admin',
   },
   plugins: [persistedstate({ paths: ['user'] })],
 });
