@@ -93,6 +93,7 @@ module.exports = {
                             MAX(d.product_no) AS product_no,
                             c.order_no,
                             c.order_date,
+                            sum(p.product_price*d.order_cnt) as pay_price,
                             MAX(p.product_name) AS product_name,
 	                        MAX(p.product_img) AS product_img
                         FROM 

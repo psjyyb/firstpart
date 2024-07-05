@@ -6,10 +6,10 @@
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성일</th>
-                    <th>답변상태</th>
+                    <th style="text-align: center;">번호</th>
+                    <th style="text-align: center;">제목</th>
+                    <th style="text-align: center;">작성일</th>
+                    <th style="text-align: center;">답변상태</th>
                 </tr>
             </thead>
             <tbody v-if="QnAs != ''">

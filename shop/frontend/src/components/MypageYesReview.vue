@@ -3,20 +3,20 @@
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
-                   <th>이미지</th>
-                   <th>상품명</th>
-                   <th>상품가격</th>
-                   <th>주문일</th>
-                   <th>리뷰남기기</th>
+                   <th style="text-align: center;">이미지</th>
+                   <th style="text-align: center;">상품명</th>
+                   <th style="text-align: center;">상품가격</th>
+                   <th style="text-align: center;">주문일</th>
+                   <th style="text-align: center;">리뷰남기기</th>
                 </tr>
             </thead>
             <tbody v-if="reviews != ''">
                 <tr v-for="review in reviews">
-                    <td><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
+                    <td style="text-align: center;"><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
                     <td>{{ review.product_name }}</td>
-                    <td>{{getcurrencyFormat(review.product_price) }}원</td>
+                    <td style="text-align: right;">{{getcurrencyFormat(review.product_price) }}원</td>
                     <td>{{ getDateFormat(review.order_date) }}</td>
-                    <td><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
+                    <td style="text-align: center;"><button type="button" class="btn btn-primary" @click="addReview(review.product_no)">리뷰쓰기</button></td>
                 </tr>
             </tbody>
             <tbody v-else>
