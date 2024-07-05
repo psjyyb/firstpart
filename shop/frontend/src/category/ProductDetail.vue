@@ -470,6 +470,11 @@ export default{
 }
 </script>
 <style>
+.nav-tabs {
+  --bs-nav-tabs-link-active-bg: #ffecc8;
+  --bs-nav-tabs-link-active-border-color: #ff7f21 #ff7f21 #ff7f21;
+  border-bottom: var(--bs-nav-tabs-border-width) solid #ff7f21
+}
 h4 {
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
