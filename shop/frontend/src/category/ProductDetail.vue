@@ -249,6 +249,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
+                      @click="goOrderDirect"
                     >
                     <i class="bi-cart3"></i>
                       BUY NOW
