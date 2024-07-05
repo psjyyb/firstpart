@@ -78,5 +78,17 @@ module.exports =	{
    (notice_title,notice_content,notice_picture)
    values(?,?,?)
    `,
+   AdminproductSeachList:`select p.product_no,p.product_name,p.product_price,p.product_img,p.product_mfd,p.product_exp,c.category_name,p.storage_cnt,p.stock_cnt,p.product_point
+   from product p 
+   LEFT JOIN category c ON p.category_no = c.category_no
+   WHERE	??	=	?
+   order by p.product_no desc 
+   limit ?,?
+   `,
+   AdminproductSeachListCount:`select count(*) as cnt 
+   from product p 
+   LEFT JOIN category c ON p.category_no = c.category_no
+   WHERE	?	=	?
+   `,
     
 };

@@ -46,14 +46,21 @@
     </tbody	>
    </table	>
    <div>
-    <!-- <select v-model="this.seachcatecory">
-                          <option value="product_no">번호</option>
-                          <option value="product_name">상품 이름</option>
-                          <option value="category_no">카테고리</option>                          
+     <table >
+     <tr>
+    <label >분류</label>
+    <select v-model="this.seachcatecory">
+      <option value="product_no">번호</option>
+      <option value="product_name">상품 이름</option>
+                              
                         </select>
-                        <input type ="text" v-model="this.seachname" id ="seachname">
-                        <button @click="">검색</button> -->
 
+                        <label >검색어</label>
+                        <input type ="text" v-model="this.seachname" id ="seachname">
+                      </tr>
+                      <tr	><input type ="date"id ="start" v-model ="this.start "/><input type ="date"id ="end" v-model ="this.end "/></tr>
+                      <tr	>    <button @click="seach(1)">검색</button></tr>
+                      </table>
    </div>
    <PagingComponent v-bind="page" @go-page="goPage" ></PagingComponent>
    
@@ -72,6 +79,8 @@ export	default {
    return {
     seachcatecory:'',
     seachname:'',
+    start:'',
+    end:'',
     products:{},
     stock_cnt:[],
     pageUnit:5,
@@ -88,7 +97,8 @@ export	default {
 
       let result = await axios.get(`/api/adminproduct/productList/seach/?seachcatecory=${this.seachcatecory}&seachname=${this.seachname}&pageUnit=${pageUnit}&page=${page}`);
       this.products = result.data.list;
-
+      this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
+      console.log(this.page)
     },
     async goPage(page){
         let pageUnit =this.pageUnit;

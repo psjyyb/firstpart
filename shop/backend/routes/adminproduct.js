@@ -32,10 +32,28 @@ const moveFile = async (filename,destfilename) => {
     return true;
   }
 
-//   //검색
-//   router.get("/productList/seach",async(req,res )=> {
-    
-// });
+  //검색
+  router.get("/productList/seach",async(req,res )=> {
+    let seachcatecory=req.query.seachcatecory;
+    let seachname =req.query.seachname;
+    console.log(seachcatecory);
+    console.log(seachname);
+
+    let page = Number(req.query.page);
+    let pageUnit =Number(req.query.pageUnit);
+  
+    if(!page){page = 1; }
+    if(!pageUnit){ pageUnit = 5; }
+
+    let offset = (page-1)*pageUnit;
+
+    console.log(offset);
+    console.log(pageUnit);
+   let list = await query("AdminproductSeachList",[seachcatecory,seachname,offset,pageUnit])
+   let count = await query("AdminproductSeachListCount",[seachcatecory,seachname])
+   console.log(list);
+    res.send({list,count})
+});
 
 
 //목록
@@ -49,6 +67,7 @@ router.get("/productList/",async(req,res )=> {
    let offset = (page-1)*pageUnit;
    let list = await query("AdminproductList",[offset,pageUnit])
    let count = await query("AdminproductListCount")
+   console.log(list);
     res.send({list,count})
 });
 
