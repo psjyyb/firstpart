@@ -470,6 +470,9 @@ export default{
 }
 </script>
 <style>
+[type=button]:not(:disabled){
+  margin: 0;
+}
 .nav-tabs {
   --bs-nav-tabs-link-active-bg: #ffecc8;
   --bs-nav-tabs-link-active-border-color: #ff7f21 #ff7f21 #ff7f21;
