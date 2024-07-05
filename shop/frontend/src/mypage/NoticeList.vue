@@ -8,9 +8,9 @@
         <table class="table table-success table-striped-columns">
             <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성일</th>
+                    <th style="text-align: center;">번호</th>
+                    <th style="text-align: center;">제목</th>
+                    <th style="text-align: center;">작성일</th>
                 </tr>
             </thead>
             <tbody>

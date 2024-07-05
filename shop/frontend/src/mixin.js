@@ -28,6 +28,7 @@ export default {
           }
         },
         
+        
         $currencyFormat(value, format = "#,###") {
             
             if (value == 0 || value == null) return 0;

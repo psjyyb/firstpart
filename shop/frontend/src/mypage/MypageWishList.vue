@@ -9,22 +9,22 @@
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
-                    <th>남바</th>
-                    <th scope="col"><input type="checkbox" v-model="allChecked" @click="checkedAll($event.target.checked)"></th>
-                    <th>상품이미지</th>
-                    <th>상품명</th>
-                    <th>상품가격</th>
+                    <th style="text-align: center;">남바</th>
+                    <th style="text-align: center;" scope="col"><input type="checkbox" v-model="allChecked" @click="checkedAll($event.target.checked)"></th>
+                    <th style="text-align: center;">상품이미지</th>
+                    <th style="text-align: center;">상품명</th>
+                    <th style="text-align: center;">상품가격</th>
                 </tr>
             </thead>
             <tbody v-if="wishs != ''">
                 <tr v-for="wish in wishs">
                     <td>{{wish.wish_no}}</td>
-                    <td>
+                    <td style="text-align: center;">
                         <p class="mb-0 mt-4"><input type="checkbox" v-model="wish.selected" @change="AllChecked"></p>
                     </td>
-                    <td><img width="64"height="64":src="`/api/readproductImg/${wish.product_img}`"></td>
+                    <td style="text-align: center;"><img width="64"height="64":src="`/api/readproductImg/${wish.product_img}`"></td>
                     <td>{{wish.product_name}}</td>
-                    <td>{{getcurrencyFormat(wish.product_price)}}원</td>
+                    <td style="text-align: right;">{{getcurrencyFormat(wish.product_price)}}원</td>
                 </tr>
             </tbody>
             <tbody v-else>

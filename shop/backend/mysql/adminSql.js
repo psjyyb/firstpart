@@ -32,8 +32,12 @@ module.exports =	{
    `,
    AdminqnaListCount:`select count(*) as cnt 
    from qna`,
-   AdminstateUpdate:`UPDATE orders
+   AdminOrderstateUpdate:`UPDATE orders
    SET order_status =	?	
+   WHERE	order_no	=	 ?
+   `,
+   AdmincancelstateUpdate:`UPDATE cancel
+   SET cancel_state =	?	
    WHERE	order_no	=	 ?
    `,
    AdminproductInsert:`insert into product
@@ -48,7 +52,43 @@ module.exports =	{
    SET stock_cnt = stock_cnt + ? , storage_cnt = storage_cnt +?
    WHERE product_no = ?
    `,
-   AdminuserDelete : `DELETE user
+   AdminuserDelete : `DELETE FROM user
    WHERE user_id = ? 
    `,
+   productInfo : `SELECT product_no,product_name,product_price,product_img,product_detail_img, product_mfd,product_exp,category_no 
+                        FROM product 
+                        WHERE product_no = ?
+   `,
+   productDelete:`DELETE FROM product 
+   WHERE product_no = ? 
+   `,
+   productUpdate:`UPDATE product SET ?
+   WHERE	product_no	=	?
+   `,
+   qnaInfo:`SELECT q.qna_no,q.qna_title,q.qna_content,q.qna_date,q.qna_reply,p.product_name,q.user_id
+   FROM qna q left join product p 
+   on q.product_no = p.product_no 
+   WHERE qna_no = ?
+   `,
+   qnaInsert:`UPDATE qna 
+   SET qna_reply = ?
+   WHERE	qna_no	=	?
+   `,
+   noticeInsert:`insert into notice
+   (notice_title,notice_content,notice_picture)
+   values(?,?,?)
+   `,
+   AdminproductSeachList:`select p.product_no,p.product_name,p.product_price,p.product_img,p.product_mfd,p.product_exp,c.category_name,p.storage_cnt,p.stock_cnt,p.product_point
+   from product p 
+   LEFT JOIN category c ON p.category_no = c.category_no
+   WHERE	??	LIKE	?
+   order by p.product_no desc 
+   limit ?,?
+   `,
+   AdminproductSeachListCount:`select count(*) as cnt 
+   from product p 
+   LEFT JOIN category c ON p.category_no = c.category_no
+   WHERE	?	=	?
+   `,
+    
 };

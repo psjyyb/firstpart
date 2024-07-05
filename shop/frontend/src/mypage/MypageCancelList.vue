@@ -15,13 +15,13 @@
             <table class="table table-bordered border-primary">
                 <thead>
                     <tr>
-                        <th>주문번호</th>
-                        <th>주문일자</th>
-                        <th>상품명</th>
-                        <th>이미지</th>
-                        <th>주문가격</th>
-                        <th>취소일자</th>
-                        <th>취소상태</th>
+                        <th style="text-align: center;">주문번호</th>
+                        <th style="text-align: center;">주문일자</th>
+                        <th style="text-align: center;">상품명</th>
+                        <th style="text-align: center;">이미지</th>
+                        <th style="text-align: center;">주문가격</th>
+                        <th style="text-align: center;">취소일자</th>
+                        <th style="text-align: center;">취소상태</th>
                     </tr>
                 </thead>
                 <tbody v-if="cancels!=''">
@@ -29,8 +29,8 @@
                         <td>{{ cancel.order_no }}</td>
                         <td>{{ getDateFormat(cancel.order_date) }}</td>
                         <td  @click="goInfo(cancel.cancel_no)">{{ cancel.product_name }}</td>
-                        <td><img width="64" height="64" :src="`/api/readproductImg/${cancel.product_img}`" alt="상품 이미지"></td>
-                        <td>{{ cancel.pay_price }}</td>
+                        <td style="text-align: center;"><img width="64" height="64" :src="`/api/readproductImg/${cancel.product_img}`" alt="상품 이미지"></td>
+                        <td style="text-align: right;">{{ getcurrencyFormat(cancel.pay_price) }}원</td>
                         <td>{{ getDateFormat(cancel.cancel_date) }}</td>
                         <td>
                             <span v-if="cancel.cancel_state == 1">취소요청</span>
@@ -96,6 +96,9 @@
     },
     getDateFormat(date) {
       return this.$dateFormat(date);
+    },
+    getcurrencyFormat(value){
+        return this.$currencyFormat(value);
     },
     }
     }

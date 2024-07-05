@@ -35,6 +35,7 @@ module.exports = {
                     FROM product  
                     ORDER BY (storage_cnt - stock_cnt) DESC
                     LIMIT 8`,
+                   
     
 }
 

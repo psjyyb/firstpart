@@ -331,7 +331,7 @@ export default{
       this.totalPrice = this.productInfo.product_price * this.total;
     },
     async wishGo(){
-      await axios.post(`/api/mypage/mywishList/?pno=${this.productInfo.product_no}&id=${this.account}`)
+      await axios.post(`/api/mypage/mywishList/?pno=${this.$route.query.no}&id=${this.$store.getters.getUserInfo.user_id}`)
       .then(result=>{console.log(result)
         if(result.data=='none'){
           Swal.fire('이미 찜한 상품입니다!')

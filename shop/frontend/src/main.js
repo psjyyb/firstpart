@@ -35,7 +35,7 @@ $.fn.isotope = function (options) {
 
 
 
-createApp(App).use(store).use(router).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
+createApp(App).use(store).use(router).use(vuetify).use(BootstrapVue3).use(VueSweetalert2).use(InfiniteScroll).mount('#app')
 
 // component('InfiniteLoading', InfiniteLoading)
 
