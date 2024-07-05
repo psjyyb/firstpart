@@ -205,6 +205,9 @@ export default {
     ...mapGetters(['isLoggedIn', 'getUserInfo', 'isAdmin']),
   },
   methods: {
+    clickColor(i) {
+          this.selectedCategoryIndex = i;
+      },
     ...mapActions(['logoutUser']),
     async getCategoryList() {
       let result = await axios.get(`/api/category`);
