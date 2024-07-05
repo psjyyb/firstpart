@@ -33,9 +33,6 @@
             <div class="carousel-inner">
                 <div class="d-block w-100">
                   <img :src="`/api/readproductImg/${productInfo.product_img}`" class="sub" alt="image">
-                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image"> -->
-                  <!-- <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="sub" alt="image"> -->
-                  
                 </div>
             </div>
             <button
@@ -258,7 +255,6 @@
           </div>
         </div>
       </div>
-
     <div class="fontSize">
     <b-nav tabs align="center" >
       <b-nav-item @click.prevent="noneAll">상품 상세</b-nav-item>
@@ -273,15 +269,11 @@
     </div>
     <div class="row-detail">
         <div class="col-6">
-
           <div class="img-fluid" v-if="isActiveDetail">
             <img :src="`/api/readproductdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
-
         </div>
       </div>
-
-      
     </div>
   </main>
 </template>
@@ -325,22 +317,17 @@ export default{
     getDateFormat(date){
       return this.$dateFormat(date);
     },
-      // 메소드 호출
       calculatePrice(cnt) {
       let total = this.total + cnt;
 
-      // 수량이 0 미만인 경우 0으로 설정
       if (total < 0) total = 0;
 
-      // 수량이 재고 수량보다 큰 경우 재고 수량으로 설정하고 경고 표시
       if (total > this.productInfo.stock_cnt) {
         this.total = this.productInfo.stock_cnt;
         Swal.fire('최대구매수량입니다');
       } else {
         this.total = total;
       }
-
-      // 총 가격 계산
       this.totalPrice = this.productInfo.product_price * this.total;
     },
     async wishGo(){
@@ -419,16 +406,12 @@ export default{
     shareMessage() {
         if (!window.Kakao) return;
         let productImageElement  = $('.carousel-inner').find('img').attr('src');
-        // let productImageUrl = productImageElement ? productImageElement.getAttribute('src') : '';
         
         window.Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
             title: this.productInfo.product_name,
             description: `${this.productInfo.product_price} 원`,
-            // <img :src="require(`../../../backend/upload/productImg/${productInfo.product_img}`)" class="img-fluid rounded-4" alt="image">
-            // imageUrl: `http://localhost:8080/img/${this.productInfo.product_img}`,
-            // `http://localhost:8080/img/9935_web_list_L1_1695271064438511.5aab711d.jpg`
             imageUrl: productImageElement,
             link: {
               mobileWebUrl: `http://localhost:8080/detail?no=${this.searchNo}`,

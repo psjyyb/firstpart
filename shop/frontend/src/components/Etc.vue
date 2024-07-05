@@ -109,11 +109,11 @@
       },
       async filterProducts(categoryNo) {
         this.currentCategory = categoryNo;
-        if (categoryNo === null) {
-          let response = await axios.get(`/api/category`);
+        if (categoryNo === null) { //카테고리 번호 없으면 전체데이터중 best8 가져옴
+          let response = await axios.get(`/api/category`);  
           this.bestAll = response.data.best8;
           this.bestCategory = [];
-        } else {
+        } else {  //카테고리 번호가 있으면 선택된 카테고리별 best8 가져옴
           let response = await axios.get(`/api/category/best/${categoryNo}`);
           this.bestCategory = response.data;
         }

@@ -27,7 +27,6 @@ router.get("/search", async (req, res) => {
   console.log("검색어",key);
   let result = await query("productSearch", key);
   let searchCnt = await query("SearchCnt", key);
- 
   res.json({
       products : result,
       total: searchCnt[0].count

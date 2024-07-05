@@ -178,7 +178,6 @@
                     <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                   </router-link>
                 </li>
-
                   <li>
                     <!-- 여기 -->
                     <a href="noticeList" class="nav-link">공지사항</a>
@@ -226,7 +225,6 @@
         async getCategoryList() {
           let result = await axios.get(`/api/category`);
           this.categoryList = result.data.resultCategory;
-          // this.bestAll = result.data.best8;
               },
         goToCategory(no) {
               this.$router.push({ path: "/category", query: { no: no } });
