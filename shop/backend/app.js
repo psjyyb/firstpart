@@ -57,7 +57,8 @@ app.use("/category",categoryRouter)
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
 
-app.use('/upload', express.static('d:/upload'));
+// app.use('/upload', express.static('d:/upload'));
+app.use('/upload', express.static('C:/Users/admin/git/firstpart/shop/backend/upload/parkseongjun'));
 app.use('/user', (req, res, next) => {
   // 여기에 crypto 모듈을 사용하는 코드 추가
   next();

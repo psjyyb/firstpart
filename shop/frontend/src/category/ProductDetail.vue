@@ -276,7 +276,7 @@
     <div class="row-detail">
         <div class="col-6">
 
-          <div class="img-fluid">
+          <div class="img-fluid" v-if="isActiveDetail">
             <img :src="`/api/readproductdetailimg/${productInfo.product_detail_img}`" class="img-fluid rounded-4" alt="image">
           </div>
 
@@ -306,6 +306,7 @@ export default{
       emits: [],
       isActiveReview: false, // 리뷰 탭 활성화 상태
       isActiveQnA: false,    // Q&A 탭 활성화 상태
+      isActiveDetail: true
   };
   },
   created () {
@@ -452,6 +453,7 @@ export default{
       activateReviewTab() {
     this.isActiveReview = true;
     this.isActiveQnA = false;
+    this.isActiveDetail =false;
     // 리뷰 탭이 활성화되었을 때 자식 컴포넌트에 데이터 전달
     this.$nextTick(() => {
   this.$refs.child.getData(this.productInfo.product_no);
@@ -460,12 +462,14 @@ export default{
   activateQnATab() {
     this.isActiveQnA = true;
     this.isActiveReview = false;
+    this.isActiveDetail =false;
     // Q&A 탭이 활성화되었을 때 자식 컴포넌트에 데이터 전달
     this.$nextTick(() => {
       this.$refs.qchild.getData(this.productInfo.product_no);
     });
   },
   noneAll(){
+    this.isActiveDetail =true;
     this.isActiveReview = false;
     this.isActiveQnA = false;
   }
