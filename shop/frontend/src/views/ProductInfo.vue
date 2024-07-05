@@ -192,7 +192,7 @@ export	default {
 <style scoped >
 button{
 
-  
+all: initial;
 }
 
 .container {

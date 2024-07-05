@@ -175,4 +175,8 @@ table	* {
   .seachdiv{
     width: 100%;
   }
+  button{
+
+all: initial;
+}
 </style	>

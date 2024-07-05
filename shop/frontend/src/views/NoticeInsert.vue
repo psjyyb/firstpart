@@ -102,4 +102,10 @@
 .noticebutton{
     margin-top: 20px;
  }
+
+ button + button {
+
+margin-left: 30px
+
+}
 </style>

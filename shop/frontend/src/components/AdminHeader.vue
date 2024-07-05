@@ -40,7 +40,10 @@ export default {
 margin-top: 10px;
 
 }
+button{
 
+	all: initial;
+}
 </style>
 
 

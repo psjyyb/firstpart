@@ -158,5 +158,13 @@ export	default {
  .productbutton{
     margin-top: 20px;
  }
-  
+ button{
+
+all: initial;
+}
+button + button {
+
+margin-left: 30px
+
+}
 </style	>

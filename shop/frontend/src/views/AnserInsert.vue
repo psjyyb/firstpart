@@ -111,5 +111,9 @@ margin-top: 40px;
         height: 250px;
         width: 400px;
      }
-  
+     button + button {
+
+margin-left: 30px
+
+}
 </style	>
