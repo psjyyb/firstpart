@@ -81,7 +81,7 @@ module.exports =	{
    AdminproductSeachList:`select p.product_no,p.product_name,p.product_price,p.product_img,p.product_mfd,p.product_exp,c.category_name,p.storage_cnt,p.stock_cnt,p.product_point
    from product p 
    LEFT JOIN category c ON p.category_no = c.category_no
-   WHERE	??	=	?
+   WHERE	??	LIKE	?
    order by p.product_no desc 
    limit ?,?
    `,

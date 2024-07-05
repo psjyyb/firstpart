@@ -34,6 +34,7 @@
                 </tr>
     </tbody	>
    </table	>
+   
    <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
   </div	>
 </template	>

@@ -45,8 +45,8 @@
                 </tr>
     </tbody	>
    </table	>
-   <div>
-     <table >
+   <div >
+     <table class =seachdiv>
      <tr>
     <label >분류</label>
     <select v-model="this.seachcatecory">
@@ -58,8 +58,9 @@
                         <label >검색어</label>
                         <input type ="text" v-model="this.seachname" id ="seachname">
                       </tr>
-                      <tr	><input type ="date"id ="start" v-model ="this.start "/><input type ="date"id ="end" v-model ="this.end "/></tr>
-                      <tr	>    <button @click="seach(1)">검색</button></tr>
+                      <!-- <tr	><input type ="date"id ="start" v-model ="this.start "/><input type ="date"id ="end" v-model ="this.end "/></tr> -->
+                      <tr	>    <button @click="seach(1)"><h3>검색</h3></button></tr>
+                      <tr	>    <button @click="goPage(1)"><h3>검색초기화</h3></button></tr>
                       </table>
    </div>
    <PagingComponent v-bind="page" @go-page="goPage" ></PagingComponent>
@@ -170,5 +171,8 @@ table	* {
   text-align:	center ; }
   .insert{
     
+  }
+  .seachdiv{
+    width: 100%;
   }
 </style	>

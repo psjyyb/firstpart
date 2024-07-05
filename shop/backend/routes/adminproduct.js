@@ -35,7 +35,7 @@ const moveFile = async (filename,destfilename) => {
   //검색
   router.get("/productList/seach",async(req,res )=> {
     let seachcatecory=req.query.seachcatecory;
-    let seachname =req.query.seachname;
+    let seachname ='%'+req.query.seachname+'%';
     console.log(seachcatecory);
     console.log(seachname);
 
