@@ -236,7 +236,7 @@ export default {
         });
     },
     adminpage() {
-      this.$router.push({ path: '/admin' });
+      this.$emit("change",true)
     },
   },
 };

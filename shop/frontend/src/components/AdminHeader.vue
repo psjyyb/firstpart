@@ -24,7 +24,7 @@ export default {
 	props: ["isAdmin"],
 	methods: {
 		adminpage() {
-			this.$emit("change", false)
+			this.$emit("change",false)
 		}
 	}
 }
