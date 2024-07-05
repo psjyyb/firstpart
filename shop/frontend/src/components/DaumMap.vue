@@ -1,11 +1,11 @@
 <template>
   <div class="daum-map-container">
     <div class="input-group">
-      <input type="text" id="user_post" v-model="postcode" required readonly placeholder="우편번호" class="form-control" />
+      <input type="text" id="user_post" v-model="postcode" required readonly placeholder="우편번호" class="form-control postcode-input" />
       <button type="button" @click="openDaumPostcode" class="btn btn-secondary">우편번호 검색</button>
     </div>
     <br />
-    <input type="text" id="user_address" v-model="fullAddress" required readonly placeholder="주소" class="form-control" />
+    <input type="text" id="user_address" v-model="fullAddress" required readonly placeholder="주소" class="form-control address-input" />
   </div>
 </template>
 
@@ -42,34 +42,36 @@ export default {
 }
 
 .btn {
-  padding: 10px 15px;
-  background-color: #5bc0de;
+  padding: 10px 20px;
+  background-color: #ff725e; /* 살색 계열의 버튼 배경색 */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #31b0d5;
+  background-color: #f24c2e; /* 버튼 호버 시 배경색 변경 */
 }
 
 .form-control {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #797979;
+  color: #797979; /* 살색 계열의 입력 필드 텍스트 색상 */
   border: none;
   border-bottom: 1px solid #cfcfcf;
   width: 100%;
-  padding: 5px 10px;
+  padding: 8px 10px;
 }
 
-.input-field {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.postcode-input {
+  width: 40%; /* 우편번호 입력 필드 너비 조정 */
+}
+
+.address-input {
+  width: 100%; /* 주소 입력 필드 너비 조정 */
 }
 
 .daum-map-container {
