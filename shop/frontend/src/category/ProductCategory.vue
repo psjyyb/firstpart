@@ -77,7 +77,7 @@ export default {
       searchNo: "",
       productList: [],
       productCnt: 0,
-      displayedProducts: [], 
+      // displayedProducts: [], 
       initialDisplayCount: 12,
       pno: 1,
       busy: false,  //true면 스크롤 안보임
@@ -122,12 +122,11 @@ export default {
       nonClick.forEach((e) => {
         e.addEventListener("click", handleClick);
       });
-      
     },
     async getProductList() {
       this.pno = 1;
       this.productList = [];
-      this.displayedProducts = []; //새로 담김
+      // this.displayedProducts = []; 
       this.busy = false;
       this.noMoreProducts = false;
       this.initialDisplayCount = 12;
@@ -135,7 +134,7 @@ export default {
       await this.loadMoreProducts();
       this.isLoading = false;
     },
-    async loadMoreProducts() {
+    async loadMoreProducts() { // busy속성이 true면 더이상 스크롤 안됨
       if (this.busy || this.noMoreProducts) return;
       this.busy = true;
 
@@ -147,12 +146,11 @@ export default {
         }
       });
       if (response.data.products.length) {
-        this.displayedProducts.push(...response.data.products);
-        this.productList.push(...response.data.products);
+        // this.displayedProducts.push(...response.data.products); //새로운 리스트에 담김
+        this.productList.push(...response.data.products); 
         this.productCnt = response.data.total;
 
-        // 다음 페이지 여부 판단
-        if (!response.data.hasNextPage) {
+        if (!response.data.hasNextPage) { //다음페이지 여부 확인
           this.noMoreProducts = true;
           } else {
             this.pno++;
@@ -166,7 +164,7 @@ export default {
       this.busy = false; 
     }
 },
-    async handleScroll() {
+    async handleScroll() {  //스크롤 위치 계산해서 다음 페이지 불러옴
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 1000 && !this.isLoading) {
         this.page++;
@@ -330,7 +328,7 @@ export default {
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  height: ;
+  /* height: ; */
 }
 
 .product-card {
