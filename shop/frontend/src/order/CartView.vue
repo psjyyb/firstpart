@@ -25,8 +25,8 @@
         <tbody>
           <tr v-for="cart in cartlist">
             <td><input type="checkbox" :value="cart.cart_no" v-model="checkedCart"></td>
-            <td><img :src="`/api/upload/productImg/${cart.product_img}`" width="100px"></td>
-            <td class="text-start">{{ cart.product_name }}</td>
+            <td><img :src="`/api/readproductImg/${cart.product_img}`" width="100px"></td>
+            <td class="text-start"><a :href="`/detail?no=${cart.product_no}`">{{ cart.product_name }}</a></td>
             <td>
               <div class="input-group input-group-sm">
                 <button class="btn btn-outline-secondary" @click="minusCnt(cart)">－</button>

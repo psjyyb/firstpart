@@ -13,7 +13,7 @@
           <th>Photos</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="reviews !=''">
         <tr :key ="i" v-for ="(review, i) in reviews">
           <td>{{ review.review_no }}</td>
           <td>{{ review.review_content }}</td>
@@ -30,6 +30,11 @@
           <td v-else>사진첨부없음</td>
         </tr>
       </tbody>
+      <tbody v-else">
+            <tr>
+                <td colspan="8">조회한 결과가 없습니다</td>
+            </tr>
+        </tbody>
     </table>
   </div>
 </template>

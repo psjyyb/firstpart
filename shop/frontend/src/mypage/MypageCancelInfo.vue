@@ -26,7 +26,7 @@
             <tbody>
                 <tr v-for="item in cancels" :key="item.id">
                     <td>
-                        <img :src="`/api/upload/${item.product_img}`" alt="상품 이미지없음 /">
+                        <img :src="`/api/readproductImg/${item.product_img}`" alt="상품 이미지없음 /">
                         {{ item.product_name }}
                     </td>
                     <td>{{ item.product_price }}원</td>

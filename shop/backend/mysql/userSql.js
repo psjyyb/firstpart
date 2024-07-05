@@ -19,11 +19,11 @@ module .exports =	{
               WHERE user_pw = ?`,
   updateUser:`UPDATE user 
               SET user_name = ?, 
-              user_post = ?, 
-              user_address = ?, 
-              user_detail_addr = ?, 
-              user_phone = ?, 
-              user_email = ?
+                  user_post = ?, 
+                  user_address = ?, 
+                  user_detail_addr = ?, 
+                  user_phone = ?, 
+                  user_email = ?
               WHERE user_id = ?`,
   userFindId:`SELECT user_id 
               FROM user 
@@ -31,9 +31,6 @@ module .exports =	{
               AND user_phone =?`,
   deleteUser:`DELETE FROM	user	
               WHERE	user_id	= ?`,
-  //  checkUserByEmail :`SELECT COUNT(*) AS count 
-  //                     FROM user 
-  //                     WHERE user_email = ?`,
   userFindPw : `SELECT * FROM user
                 WHERE user_name = ? 
                 AND user_phone =? 
@@ -41,16 +38,16 @@ module .exports =	{
   changePw : `UPDATE user 
               SET user_pw = ? 
               WHERE user_id = ?`,
-  kakaoUserInsert : `INSERT INTO user user_id,user_email,is_kakao_user
-                    VALUES (?, ?, ?) 
-                    ON DUPLICATE KEY UPDATE email = VALUES(email)`,
+  kakaoUserInsert : `INSERT INTO user user_id,user_email,is_kakao_user,user_point,user_resp
+                    VALUES (?, ?, ?,?,?) 
+                    ON DUPLICATE KEY UPDATE email = VALUES(user_email)`,
   checkKakaoUser : `SELECT is_kakao_user 
                     FROM user
                     WHERE user_id = ?`,
-  // userInsertKakao : `INSERT INTO user user_id,user_name,user_email,is_kakao_user
-  //                    VALUES (?,?,?,?)`,
   updateUserPassword : `UPDATE user
                         SET user_pw = ?, salt = ?
                         WHERE user_id = ?`,
-  getUserPassword : `SELECT user_pw FROM user WHERE user_id = userId`
+  getUserPassword : `SELECT user_pw 
+                     FROM user 
+                     WHERE user_id = userId`
 };

@@ -24,18 +24,23 @@
                         <th>취소상태</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="cancels!=''">
                     <tr v-for="cancel in cancels" :key="cancel.cancel_no">
                         <td>{{ cancel.order_no }}</td>
                         <td>{{ getDateFormat(cancel.order_date) }}</td>
                         <td  @click="goInfo(cancel.cancel_no)">{{ cancel.product_name }}</td>
-                        <td><img width="64" height="64" :src="`/api/upload/${cancel.product_img}`" alt="상품 이미지"></td>
+                        <td><img width="64" height="64" :src="`/api/readproductImg/${cancel.product_img}`" alt="상품 이미지"></td>
                         <td>{{ cancel.pay_price }}</td>
                         <td>{{ getDateFormat(cancel.cancel_date) }}</td>
                         <td>
                             <span v-if="cancel.cancel_state == 1">취소요청</span>
                             <span v-else>취소완료</span>
                         </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
                     </tr>
                 </tbody>
             </table>

@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         <tr v-for="order in orderlist">
-          <td><img :src="`/api/upload/productImg/${order.product_img}`" width="100px"></td>
+          <td><img :src="`/api/readproductImg/${order.product_img}`" width="100px"></td>
           <td class="text-start">{{ order.product_name }}</td>
           <td>{{ order.cart_cnt }}개</td>
           <td>{{ makeComma(order.product_price * order.cart_cnt) }}원</td>
@@ -222,6 +222,9 @@
       },
       // 결제
       payment() {
+        if(!this.form.user_name || !this.form.user_phone || !this.form.user_post || !this.form.user_address || !this.form.user_detail_addr) {
+          return alert('배송지 정보를 입력해주세요.');
+        }
         const that = this;
         async function requestPayment() {
           const response = await PortOne.requestPayment({

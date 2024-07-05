@@ -16,17 +16,22 @@
                     <th>상품가격</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="wishs != ''">
                 <tr v-for="wish in wishs">
                     <td>{{wish.wish_no}}</td>
                     <td>
                         <p class="mb-0 mt-4"><input type="checkbox" v-model="wish.selected" @change="AllChecked"></p>
                     </td>
-                    <td><img width="64"height="64":src="`/api/upload/${wish.product_img}`"></td>
+                    <td><img width="64"height="64":src="`/api/readproductImg/${wish.product_img}`"></td>
                     <td>{{wish.product_name}}</td>
                     <td>{{getcurrencyFormat(wish.product_price)}}원</td>
                 </tr>
             </tbody>
+            <tbody v-else>
+                    <tr>
+                        <td colspan="8">조회한 결과가 없습니다</td>
+                    </tr>
+                </tbody>
         </table>
         <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     </div>

@@ -30,6 +30,11 @@
             <td colspan="6"> ┖≫ {{ qna.qna_reply }}</td>
           </tr>
         </tbody>
+        <tbody v-if="qnas==''">
+            <tr>
+                <td colspan="8">조회한 결과가 없습니다</td>
+            </tr>
+        </tbody>
       </table>
     </div>
     <div><button type="button" class="btn btn-primary" @click="addBtn">QnA등록</button></div>
