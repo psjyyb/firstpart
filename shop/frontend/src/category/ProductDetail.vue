@@ -285,11 +285,6 @@
 
       
     </div>
-
-    <div>
-      <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
-      <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
-    </div>
   </main>
 </template>
 
