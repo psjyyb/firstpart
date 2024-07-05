@@ -69,7 +69,6 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 import PageMixin from '../mixin.js';
 
-
 export default {
   mixins : [PageMixin],
 
@@ -85,7 +84,6 @@ export default {
       noMoreProducts: false,
       isLoading: false,
       selectedSort: '',
-
       // selectedCategoryIndex: null,
     };
   },
@@ -116,11 +114,9 @@ export default {
     clickColor(){
       const nonClick = document.querySelectorAll(".non-click");
       function handleClick(event) {
-        // div에서 모든 "click" 클래스 제거
         nonClick.forEach((e) => {
           e.classList.remove("click");
         });
-        // 클릭한 div만 "click"클래스 추가
         event.target.classList.add("click");
       }
       nonClick.forEach((e) => {

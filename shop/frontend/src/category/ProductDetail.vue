@@ -135,17 +135,15 @@
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        <!-- {{ productDetail.product_description }} -->
-                        <br /><br />제조일 <br />
-                        <!-- {{
-                          productDetail.product_color
-                        }} -->
-                        <br /><br />유통기한 <br />
-                        <!-- {{ productDetail.product_fabric}} -->
-                        <br /><br />[Model] <br />
-                        <!-- {{
-                          productDetail.product_model
-                        }} -->
+                        [제조일] 
+                        <br />
+                        {{ getDateFormat(productInfo.product_mfd)}}
+                        <br /><br />
+                        <div v-if="productInfo.category_no <4 ">
+                            [유통기한] 
+                            <br />
+                            {{ getDateFormat(productInfo.product_exp)}}
+                        </div>
                       </div>
                       <div
                         class="tab-pane fade pt-3"
@@ -293,6 +291,8 @@ import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
 import ReviewQnA from '../components/ProductQnAList.vue'
+
+
 export default{
   mixins : [PageMixin],
   components: {ReviewList,ReviewQnA},
@@ -320,6 +320,9 @@ export default{
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
+    },
+    getDateFormat(date){
+      return this.$dateFormat(date);
     },
       // 메소드 호출
       calculatePrice(cnt) {
