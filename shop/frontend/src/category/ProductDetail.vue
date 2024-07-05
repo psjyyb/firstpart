@@ -445,7 +445,9 @@ export default{
   font-size: 35px;
 }
 .card-title{
-  margin-bottom: 30px;
+  /* margin-bottom: 15px; */
+  font-weight: bold;
+  font-size: 30px;
   /* height: 124.83px; */
 }
 </style>
