@@ -232,7 +232,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
-                      @click="cartGo"
+                      @click="checkCart"
                     >
                     <i class="bi-basket3"></i>
                       ADD CART
