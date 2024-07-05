@@ -34,9 +34,10 @@
           <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
     
       <div class="col-md 12 col-lg-5 border">
-            <ReviewInfo ref="child" :review="review"></ReviewInfo>
+            <ReviewInfo ref="child" :review="review" v-show="watchRe"></ReviewInfo>
         </div>
     </div>
+    <div><a class="btn btn-light" href="#">Top</a></div>
   </template>
   <script>
       import pageCalcMixin from '../mixin.js'
@@ -53,7 +54,8 @@
           reviews:{},
           pageUnit:5,
           page:{},
-          review:{}
+          review:{},
+          watchRe:false
        }; 
       },
       created(){
@@ -78,6 +80,7 @@
             .catch(err=>{console.log(err),Swal.fire('삭제실패!')})
         },
         infoForm(review){
+          this.watchRe=true;
             //this.review=review;
             this.$refs.child.getData(review)
         },
@@ -93,4 +96,22 @@
       }
       }
   </script>
-  <style></style>
+  <style>
+ /* a {
+            text-decoration: none;
+            color: white;
+            background-color: #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        a:active {
+            background-color: #1abc9c;
+        } */
+</style>
