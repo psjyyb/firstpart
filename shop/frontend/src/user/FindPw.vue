@@ -1,19 +1,24 @@
 <template>
   <div class="reset-password-container">
-    <h2>비밀번호 찾기</h2>
-    <form @submit.prevent="resetPassword">
-      <label for="user_name">이름</label>
-      <input type="text" id="user_name" v-model="userInfo.user_name" required />
-      <br>
-      <label for="user_phone">전화번호</label>
-      <input type="text" id="user_phone" v-model="userInfo.user_phone" required />
-      <br>
-      <label for="user_id">아이디</label>
-      <input type="text" id="user_id" v-model="userInfo.user_id" required />
-      <br>
-      <button class="btn reset-btn">비밀번호 초기화 및 수정</button>
-      <button class="btn cancel-btn" @click="cancel">취소</button>
-    </form>
+    <div class="card">
+      <h2>FIND PASSWORD</h2>
+      <img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fpng.pngtree.com%2Fpng-clipart%2F20231214%2Fourlarge%2Fpngtree-cute-cat-pet-illustration-png-image_11285605.png&type=sc960_832" alt="Cute Cat" class="cat-img" />
+      <form @submit.prevent="resetPassword">
+        <label for="user_id">아이디</label>
+        <input type="text" id="user_id" v-model="userInfo.user_id" required />
+        <br>
+        <label for="user_name">이름</label>
+        <input type="text" id="user_name" v-model="userInfo.user_name" required />
+        <br>
+        <label for="user_phone">전화번호</label>
+        <input type="text" id="user_phone" v-model="userInfo.user_phone" required />
+        <br>
+        <div class="button-group">
+          <button class="btn reset-btn">비밀번호 초기화 및 변경</button>
+          <button class="btn cancel-btn" @click="cancel">취소</button>
+        </div>
+      </form>
+    </div>
 
     <!-- 비밀번호 수정 모달 -->
     <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
@@ -47,9 +52,9 @@ export default {
   data() {
     return {
       userInfo: {
+        user_id: '',
         user_name: '',
-        user_phone: '',
-        user_id: ''
+        user_phone: ''
       },
       newPassword: ''
     };
@@ -57,8 +62,8 @@ export default {
   methods: {
     async resetPassword() {
       try {
-        const { user_name, user_phone, user_id } = this.userInfo;
-        const response = await axios.post('/api/user/FindPw', { user_name, user_phone, user_id });
+        const { user_id, user_name, user_phone } = this.userInfo;
+        const response = await axios.post('/api/user/FindPw', { user_id, user_name, user_phone });
         
         if (response.data) {
           // 사용자 정보가 정확할 경우, 비밀번호 수정 모달을 열어 새로운 비밀번호를 입력할 수 있도록 함
@@ -86,6 +91,8 @@ export default {
         if (changePasswordResponse.status === 200) {
           alert('비밀번호가 성공적으로 변경되었습니다.');
           $('#passwordModal').modal('hide');
+          // 성공적으로 변경되면 로그인 페이지로 이동
+          this.$router.push({ name: 'loginForm' });
         } else {
           alert('비밀번호 변경에 실패했습니다.');
         }
@@ -115,15 +122,35 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  min-height: 70vh;
+  background-color: #f8f9fa;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.cat-img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 form {
-  width: 300px;
-  margin-top: 20px;
+  width: 100%;
 }
 
 label {
+  display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input {
@@ -133,24 +160,32 @@ input {
   font-size: 16px;
   width: 100%;
   margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
 }
 
 .btn {
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 10px;
+  width: 48%;
 }
 
 .reset-btn {
-  background-color: #007bff;
+  background-color: #f5deb3; 
   color: white;
 }
 
 .reset-btn:hover {
-  background-color: #0056b3;
+  background-color: #f5deb3; 
 }
 
 .cancel-btn {

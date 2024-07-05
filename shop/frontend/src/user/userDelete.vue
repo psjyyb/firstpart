@@ -1,13 +1,20 @@
 <template>
   <div class="withdrawal-page">
     <h2>회원 탈퇴</h2>
-    
-    <p v-if="user" class="user-info">로그인한 사용자 아이디: {{ user.user_id }}</p>
-    
+    <div>
+      <img
+        src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20190130%2Fourlarge%2Fpngtree-ancient-hand-drawn-man-and-pet-warm-illustration-elements-paintedman-and-png-image_592492.jpg&type=sc960_832"
+        alt="Hand-drawn man and pet illustration" style="max-width: 100%; height: auto; border-radius: 10px;">
+    </div>
+    <p v-if="user" class="user-info">" {{ user.user_id }} " 님 </p>
+
     <p class="confirmation-msg">정말 회원탈퇴 하시겠습니까?</p>
-    
-    <button class="btn" @click="confirmDeletion">회원 탈퇴</button>
-    
+
+    <div class="btn-group">
+      <button class="btn btn-danger" @click="confirmDeletion">회원 탈퇴</button>
+      <button class="btn btn-cancel" @click="goHome">취소</button>
+    </div>
+
     <p v-if="error" class="error-msg">{{ error }}</p>
 
     <!-- 확인 모달 -->
@@ -19,6 +26,17 @@
           <button class="btn btn-confirm" @click="deleteAccountConfirmed">확인</button>
           <button class="btn btn-cancel" @click="closeModal">취소</button>
         </div>
+      </div>
+    </div>
+
+    <!-- 탈퇴 완료 모달 -->
+    <div v-if="showSuccessModal" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="closeSuccessModal">&times;</span>
+        <img
+          src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn-icons-png.freepik.com%2F256%2F9490%2F9490025.png&type=a340"
+          alt="Success icon" class="success-icon">
+        <p class="modal-msg">회원 탈퇴가 완료되었습니다.</p>
       </div>
     </div>
   </div>
@@ -38,7 +56,8 @@ export default {
   data() {
     return {
       error: '',
-      showConfirmModal: false
+      showConfirmModal: false,
+      showSuccessModal: false
     };
   },
   methods: {
@@ -51,24 +70,29 @@ export default {
     },
     deleteAccountConfirmed() {
       const userId = this.user.user_id; // 로그인한 사용자의 user_id를 가져옵니다.
-      
+
       axios.post('/api/user/delete', { userId })
         .then(response => {
-          alert(response.data.message);
-          if (response.data.success) {
+            if (response.data.success) {
+            this.showConfirmModal = false; // 확인 모달은 닫기
+            this.showSuccessModal = true; // 성공 모달 열기
             this.$store.dispatch('logoutUser');
-            this.$router.push('/'); // 홈 페이지로 이동
           }
         })
         .catch(error => {
           console.error('Error deleting account:', error);
           this.error = '회원 탈퇴 중 오류가 발생했습니다.';
         });
-      
-      this.showConfirmModal = false;
     },
     closeModal() {
       this.showConfirmModal = false;
+    },
+    closeSuccessModal() {
+      this.showSuccessModal = false;
+      this.$router.push('/'); 
+    },
+    goHome() {
+      this.$router.push('/'); 
     }
   }
 }
@@ -89,16 +113,22 @@ h2 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
+  font-family: 'Arial', sans-serif;
+  /* 원하는 글꼴로 변경 */
 }
 
 .user-info {
   font-size: 16px;
   margin-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+  /* 원하는 글꼴로 변경 */
 }
 
 .confirmation-msg {
   font-size: 18px;
   margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  /* 원하는 글꼴로 변경 */
 }
 
 .btn {
@@ -108,7 +138,6 @@ h2 {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-right: 10px;
 }
 
 .btn-confirm {
@@ -117,12 +146,24 @@ h2 {
 }
 
 .btn-cancel {
-  background-color: #dc3545;
+  background-color: #ccc;
   color: white;
 }
 
 .btn:hover {
   opacity: 0.8;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #c82333;
 }
 
 .modal {
@@ -164,11 +205,20 @@ h2 {
 .modal-msg {
   font-size: 18px;
   margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  /* 원하는 글꼴로 변경 */
 }
 
 .btn-group {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.success-icon {
+  width: 80px;
+  /* 이미지 크기 조정 */
+  height: auto;
+  margin-bottom: 10px;
 }
 </style>

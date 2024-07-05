@@ -88,8 +88,7 @@
               <router-link v-else to="/loginForm" class="nav-link">로그인</router-link>
             </div>
             <div class="support-box text-end d-none d-xl-block" v-if="!isLoggedIn">
-  <a href="/joinForm" class="nav-link">회원가입</a>
-
+              <a href="/joinForm" class="nav-link">회원가입</a>
             </div>
           </div>
         </div>
@@ -240,24 +239,23 @@
           }
       },
       handleLogout() {
-      // Vuex 스토어에서 로그아웃 액션을 호출하여 사용자 로그아웃 처리
       this.logoutUser()
         .then(() => {
-          // 카카오 SDK를 사용하여 Kakao 로그아웃 처리
-          Kakao.Auth.logout(function () {
-            console.log('카카오 로그아웃 성공');
-          });
-          location.reload();
+          if (window.Kakao) {
+            window.Kakao.Auth.logout(() => {
+              console.log('카카오 로그아웃 성공');
+            });
+          }
           this.$router.push({ name: 'home' });
           alert('로그아웃되었습니다');
         })
         .catch(error => {
           console.error('Error logging out:', error);
         });
-      },
-    }
-  }
-  </script>
+    },
+  },
+}
+</script>
   
 
   <style scoped>
