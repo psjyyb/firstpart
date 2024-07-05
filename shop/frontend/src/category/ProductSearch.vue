@@ -6,12 +6,27 @@
       </div>
       <div class="offcanvas-body justify-content-between">
         <b-breadcrumb>
-            <b-breadcrumb-item @click="newItem">신상품순</b-breadcrumb-item>
-            <b-breadcrumb-item @click="nameItem">상품 이름순</b-breadcrumb-item>
-            <b-breadcrumb-item @click="hotItem"><i class="bi-fire"></i>상품 판매순</b-breadcrumb-item>
-            <b-breadcrumb-item @click="highItem"><i class="bi bi-file-arrow-up"></i>가격 높은순</b-breadcrumb-item>
-            <b-breadcrumb-item @click="rowItem"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
-        </b-breadcrumb>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'new' }" 
+        @click="handleClick('new', newItem)">신상품순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'name' }" 
+        @click="handleClick('name', nameItem)">상품 이름순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'hot' }" 
+        @click="handleClick('hot', hotItem)"><i class="bi-fire"></i>상품 판매순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'high' }" 
+        @click="handleClick('high', highItem)"><i class="bi bi-file-arrow-up"></i>가격 높은순</b-breadcrumb-item>
+      <b-breadcrumb-item 
+        class="box non-click" 
+        :class="{ active: selectedSort === 'row' }" 
+        @click="handleClick('row', rowItem)"><i class="bi bi-file-arrow-down"></i>가격 낮은순</b-breadcrumb-item>
+    </b-breadcrumb>
       </div>
       <div class="product-list">
           <div class="product-card" :key="i" v-for="(product, i) in productList" >
@@ -24,7 +39,7 @@
                 </a>
                   <div class="card-body p-0">
                       <a @click="goToDetail(product.product_no)" >
-                          <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
+                          <h3 class="card-title pt-4 m-0" style="line-height: 1.5">{{ product.product_name }}</h3>
                         </a>
                         <div class="card-text">
                             <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
@@ -56,6 +71,8 @@ export default{
             keyword : {},
             productList: [],
             productCnt : 0,
+            selectedSort: '',
+
         };
     },
     computed: {
@@ -69,6 +86,10 @@ export default{
         this.searchProductList();
     },
     methods :{
+        handleClick(sortType, method) {
+        this.selectedSort = sortType;
+        method();
+        },
         async searchProductList(){
             let result = await axios.get(`/api/category/search?keyword=${this.keyword}`);
             this.productList = result.data.products;
@@ -150,8 +171,19 @@ export default{
     }
 }
 </script>
+
 <style>
 .card-title {
     font-size: 25px;
+}
+</style>
+
+<style scoped>
+.card-title {
+    font-size: 25px;
+}
+.active {
+  border: 1px solid rgb(222 173 111);
+  border-radius: 20px;
 }
 </style>
