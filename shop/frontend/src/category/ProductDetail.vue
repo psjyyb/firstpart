@@ -72,11 +72,10 @@
               <h3>
                 <!-- <p class="card-text pt-3 pb-3"> -->
                   <div class ="secondary-font text-primary">
-                  <!-- {{ getCurrencyFormat(productDetail.product_price) }}원 -->
                   {{ getCurrencyFormat(productInfo.product_price) }} 원
                   <br><br>
-                  재고 : {{ productInfo.stock_cnt }}
                 </div>
+                <h4>재고 : {{ productInfo.stock_cnt }}</h4>
                 <!-- </p> -->
               </h3>
               <div class="card-text pb-3 mb-4">
@@ -484,6 +483,10 @@ export default{
 }
 </script>
 <style>
+h4 {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+
 .swal2-title{
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
@@ -514,6 +517,8 @@ export default{
   /* margin-bottom: 15px; */
   font-weight: bold;
   font-size: 30px;
+  /* line-height: 124px; */
+  line-height: 50px;
   /* height: 124.83px; */
 }
 </style>
