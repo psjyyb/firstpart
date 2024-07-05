@@ -4,25 +4,25 @@
           <table class="table table-bordered border-primary">
               <thead>
                   <tr>
-                     <th>이미지</th>
-                     <th>별점</th>
-                     <th>상품명</th>
-                     <th>상품가격</th>
-                     <th>작성일</th>
-                     <th>리뷰삭제</th>
-                     <th>리뷰수정</th>
+                     <th style="text-align: center;">이미지</th>
+                     <th style="text-align: center;">별점</th>
+                     <th style="text-align: center;">상품명</th>
+                     <th style="text-align: center;">상품가격</th>
+                     <th style="text-align: center;">작성일</th>
+                     <th style="text-align: center;">리뷰수정</th>
+                     <th style="text-align: center;">리뷰삭제</th>
                   </tr>
               </thead>
               <tbody v-if=" reviews != ''">
                 <tr :key ="i" v-for ="(review, i) in reviews">
-                      <td><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
-                      <td><i :key = "i" v-for="(i) in Number(review.review_score)" class="fa fa-star"></i>
+                      <td style="text-align: center;"><img width="64"height="64":src="`/api/readproductImg/${review.product_img}`"></td>
+                      <td style="text-align: center;"><i :key = "i" v-for="(i) in Number(review.review_score)" class="fa fa-star"></i>
                         <i :key = "i" v-for="(i) in 5- Number(review.review_score)"class="fa fa-star text-secondary"></i></td>
                       <td @click="infoForm(review)">{{ review.product_name }}</td>
-                      <td>{{getcurrencyFormat(review.product_price) }}원</td>
+                      <td style="text-align: right;">{{getcurrencyFormat(review.product_price) }}원</td>
                       <td>{{ getDateFormat(review.review_date) }}</td>
-                      <td><button type="button" class="btn btn-danger" @click="delBtn(review.review_no)">리뷰삭제</button></td>
-                      <td><button type="button" class="btn btn-warning" @click="modBtn(review.review_no)">리뷰수정</button></td>
+                      <td style="text-align: center;"><button type="button" class="btn btn-warning" @click="modBtn(review.review_no)">리뷰수정</button></td>
+                      <td style="text-align: center;"><button type="button" class="btn btn-danger" @click="delBtn(review.review_no)">리뷰삭제</button></td>
                   </tr>
               </tbody>
               <tbody v-else>
