@@ -42,10 +42,10 @@
             <table class="table table-bordered border-primary">
               <thead>
                 <tr>
-                  <th>주문일</th>
-                  <th>주문내역</th>
-                  <th>주문상태</th>
-                  <th>주문갯수</th>
+                  <th style="text-align: center;">주문일</th>
+                  <th style="text-align: center;">주문내역</th>
+                  <th style="text-align: center;">주문상태</th>
+                  <th style="text-align: center;">주문갯수</th>
                 </tr>
               </thead>
               <tbody>
