@@ -143,7 +143,7 @@
               <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                 <li class="nav-item" :key="i" v-for="(category, i) in categoryList" @click="goToCategory(category.category_no); clickColor(i)"
                 :style="{  borderColor: selectedCategoryIndex === i ? 'orange' : '' }">
-                </li>
+                
 
                 <!-- 아제발 -->
                 <!-- :style="{ 'background-color' : selectedCategoryIndex === i ? 'blue' : '' }" > -->
