@@ -150,6 +150,24 @@
                 <!-- :style="{ 'color' : selectedCategoryIndex === i ? 'rgb(222 173 111)' : '' }" > -->
 
                   <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
+                <li class="">
+                  <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                    <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
+                      03
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <!-- 여기 -->
+                  <a href="noticeList" class="nav-link"><iconify-icon icon="mdi-format-align-left" class="fs-4 position-relative"></iconify-icon></a>
+
+
+                </li>
+                <li>
+                  <button type ="button"  @click="adminpage">
+                    <iconify-icon icon="mdi-account-convert" class="fs-4"></iconify-icon>
+                  </button>
                 </li>
               </ul>
               <div class="d-none d-lg-flex align-items-end">

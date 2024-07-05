@@ -18,7 +18,11 @@ router.get("/orderList/",async(req,res )=> {
 
 router.put("/orderstate/",	async (req ,	res )	=> {
     
-    let result =	await query("AdminstateUpdate",	[req.body.state,req.body.no]);
+    let result =	await query("AdminOrderstateUpdate",	[req.body.state,req.body.no]);
+    
+    if(req.body.state>=6){
+    let result2 =	await query("AdmincancelstateUpdate",	[req.body.state,req.body.no]);
+    }
     res.send(result);
 });
 

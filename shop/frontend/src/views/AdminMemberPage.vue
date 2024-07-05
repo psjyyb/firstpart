@@ -4,7 +4,6 @@
     <thead	>
      <tr	>
       <th	>회원 아이디</th	>
-      <th	>회원 비밀번호 </th	>
       <th	>회원 이름 </th	>
       <th	>우편 번호</th	>
       <th	>주소 </th	>
@@ -24,7 +23,6 @@
      </tr	> -->
      <tr v-for="user in users">
                     <td>{{ user.user_id }}</td>
-                    <td>{{ user.user_pw }}</td>
                     <td>{{ user.user_name }}</td>            
                     <td>{{ user.user_post }}</td>
                     <td>{{ user.user_address }}</td>
@@ -36,6 +34,7 @@
                 </tr>
     </tbody	>
    </table	>
+   
    <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
   </div	>
 </template	>
@@ -79,7 +78,7 @@ export	default {
     },
 
     async removeUser(user_id) {
-      let result =	(await axios .delete(`/api/adminmember/${user_id }`)).data
+      let result =	(await axios .delete(`/api/adminmember/useDelete/${user_id }`)).data
  	   .affectedRows ;
  	  if (result ==	1 )	{
  	   alert("정상적으로	삭제되었습니다.");

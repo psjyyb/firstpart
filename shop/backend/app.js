@@ -67,6 +67,8 @@ app.use('/user', (req, res, next) => {
 // app.use('/upload', express.static('upload/productImg'));
 // app.use('/upload', express.static('upload'));
 // app.use('/image', express.static('upload'));
+app.use('/readproductImg', express.static('upload/productImg'));
+app.use('/readproductdetailimg', express.static('upload/productdetailimg'));
 app.use('/user',userRouter)
 app.use('/cart', cartRouter)
 app.use('/order', orderRouter)

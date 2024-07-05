@@ -22,18 +22,18 @@
       @click ="goToDetail(board.no )" 	   >
       <td	>{{board.no }}</td	>
      </tr	> -->
-     <tr :key="i" v-for="(product,i) in products">
-                    <td>{{ product.product_no }}</td>
-                    <td>{{ product.product_name }}</td>
-                    <td>{{ product.product_price }}</td>            
-                    <td><img :src="`/api/upload/${product.product_img}`" height="180" width="180"></td>
-                    <td>{{ product.product_mfd }}</td>
-                    <td>{{ product.product_exp }}</td>
+     <tr :key="i" v-for="(product,i) in products"  >
+                    <td >{{ product.product_no }}</td>
+                    <td @click ="goToDetail(product.product_no)">{{ product.product_name }}</td>
+                    <td>{{ makeComma(product.product_price) }}</td>            
+                    <td><img :src="`/api/readproductImg/${product.product_img}`" height="180" width="180"></td>
+                    <td>{{ this.$dateFormat(product.product_mfd )}}</td>
+                    <td>{{ this.$dateFormat(product.product_exp) }}</td>
                     <td>{{ product.category_name }}</td>
-                    <td>{{ product.product_point }}</td>
-                    <td>{{ product.storage_cnt }}</td>
+                    <td>{{ makeComma(product.product_point) }}</td>
+                    <td>{{ makeComma(product.storage_cnt) }}</td>
                     <td>
-                      <td>{{ product.stock_cnt }}
+                      <td>{{ makeComma(product.stock_cnt) }}
                       <div class="input-group input-group-sm">
                       <button class="btn btn-outline-secondary" @click="outCnt(product,i)">출고</button>
                       <input  type="number" class="form-control text-center" v-model=this.stock_cnt[i]>
@@ -45,8 +45,27 @@
                 </tr>
     </tbody	>
    </table	>
-   <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
-   <router-link to ="/insertproduct"	class="nav-link">상품 등록</router-link	>
+   <div >
+     <table class =seachdiv>
+     <tr>
+    <label >분류</label>
+    <select v-model="this.seachcatecory">
+      <option value="product_no">번호</option>
+      <option value="product_name">상품 이름</option>
+                              
+                        </select>
+
+                        <label >검색어</label>
+                        <input type ="text" v-model="this.seachname" id ="seachname">
+                      </tr>
+                      <!-- <tr	><input type ="date"id ="start" v-model ="this.start "/><input type ="date"id ="end" v-model ="this.end "/></tr> -->
+                      <tr	>    <button @click="seach(1)"><h3>검색</h3></button></tr>
+                      <tr	>    <button @click="goPage(1)"><h3>검색초기화</h3></button></tr>
+                      </table>
+   </div>
+   <PagingComponent v-bind="page" @go-page="goPage" ></PagingComponent>
+   
+   <router-link to ="/insertproduct"	class="insert"><h2>상품 등록</h2></router-link	>
   </div	>
 </template	>
 <script	>
@@ -59,6 +78,10 @@ export	default {
     components: {PagingComponent },
   data ()	{
    return {
+    seachcatecory:'',
+    seachname:'',
+    start:'',
+    end:'',
     products:{},
     stock_cnt:[],
     pageUnit:5,
@@ -67,33 +90,29 @@ export	default {
   },
   created()	{
     this.goPage(1);
-  //  this.getBoardList();
+    
   },
   methods: {
+    async seach(page){
+      let pageUnit =this.pageUnit;
 
+      let result = await axios.get(`/api/adminproduct/productList/seach/?seachcatecory=${this.seachcatecory}&seachname=${this.seachname}&pageUnit=${pageUnit}&page=${page}`);
+      this.products = result.data.list;
+      this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
+      console.log(this.page)
+    },
     async goPage(page){
         let pageUnit =this.pageUnit;
         let result = await axios.get(`/api/adminproduct/productList/?pageUnit=${pageUnit}&page=${page}`);
-        this.products = result.data.list;
-
-        this.stock_cnt=[];
-        this.products.forEach(product => this.stock_cnt.push(0));
-        console.log(this.stock_cnt);
-
-        
-        this.products
+        this.products = result.data.list;        
         this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
         console.log(this.page)
-  //  async getBoardList()	{
-  //   let result =	await axios.get(`/api/board`);
-  //   this.boardList =	result.data ;
-  //  },
-  //  goToDetail(no )	{
-  //   this.$router.push({	path:"/info",	query: {	no:no }	});
-  //  },
-  //  getDateFormat(date )	{
-  //   return this.$dateFormat(date );
+  
     },
+    goToDetail(no )	{
+ 	  this.$router.push({	path:"/infoproduct",	query: {	product_no:no }	});
+ 	 },
+
     async outCnt(product,i) {
         if(this.stock_cnt[i] > product.stock_cnt) {
 
@@ -130,6 +149,17 @@ export	default {
       this.goPage(this.page);
         
       },
+      change_product_img(file)	{
+        const fileData = (data) => {
+        this.p_product_img = data
+      }
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.addEventListener("load", function () {
+        fileData(reader.result)
+      }, false);
+      console.log(this. product_img);
+    },
 
 
     
@@ -139,5 +169,10 @@ export	default {
 <style scoped >
 table	* {
   text-align:	center ; }
-  
+  .insert{
+    
+  }
+  .seachdiv{
+    width: 100%;
+  }
 </style	>
