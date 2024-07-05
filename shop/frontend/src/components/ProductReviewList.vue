@@ -30,7 +30,7 @@
           <td v-else>사진첨부없음</td>
         </tr>
       </tbody>
-      <tbody v-else">
+      <tbody v-else>
             <tr>
                 <td colspan="8">조회한 결과가 없습니다</td>
             </tr>

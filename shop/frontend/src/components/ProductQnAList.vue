@@ -12,7 +12,7 @@
             <th>Photos</th>
           </tr>
         </thead>
-        <tbody  v-for="qna in qnas" :key="qna.qna_id">
+        <tbody v-for="qna in qnas" :key="qna.qna_id">
           <tr>
             <td>{{ qna.qna_no }}</td>
             <td>{{ qna.qna_title }}</td>
