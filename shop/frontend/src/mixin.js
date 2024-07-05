@@ -39,7 +39,6 @@ export default {
             } else {
               currency = "";
             }
-      
             var groupingSeparator = ",";
             var maxFractionDigits = 0;
             var decimalSeparator = ".";
@@ -56,10 +55,8 @@ export default {
                 maxFractionDigits = format.length - format.indexOf(",") - 1;
               }
             }
-      
             var prefix = "";
             var d = "";
-            // v = String(parseFloat(value).toFixed(maxFractionDigits));
       
             var dec = 1;
             for (var i = 0; i < maxFractionDigits; i++) {
