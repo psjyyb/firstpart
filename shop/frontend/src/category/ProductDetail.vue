@@ -72,11 +72,10 @@
               <h3>
                 <!-- <p class="card-text pt-3 pb-3"> -->
                   <div class ="secondary-font text-primary">
-                  <!-- {{ getCurrencyFormat(productDetail.product_price) }}원 -->
                   {{ getCurrencyFormat(productInfo.product_price) }} 원
                   <br><br>
-                  재고 : {{ productInfo.stock_cnt }}
                 </div>
+                <h4>재고 : {{ productInfo.stock_cnt }}</h4>
                 <!-- </p> -->
               </h3>
               <div class="card-text pb-3 mb-4">
@@ -136,17 +135,15 @@
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        <!-- {{ productDetail.product_description }} -->
-                        <br /><br />제조일 <br />
-                        <!-- {{
-                          productDetail.product_color
-                        }} -->
-                        <br /><br />유통기한 <br />
-                        <!-- {{ productDetail.product_fabric}} -->
-                        <br /><br />[Model] <br />
-                        <!-- {{
-                          productDetail.product_model
-                        }} -->
+                        [제조일] 
+                        <br />
+                        {{ getDateFormat(productInfo.product_mfd)}}
+                        <br /><br />
+                        <div v-if="productInfo.category_no <4 ">
+                            [유통기한] 
+                            <br />
+                            {{ getDateFormat(productInfo.product_exp)}}
+                        </div>
                       </div>
                       <div
                         class="tab-pane fade pt-3"
@@ -232,7 +229,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
-                      @click="cartGo"
+                      @click="checkCart"
                     >
                     <i class="bi-basket3"></i>
                       ADD CART
@@ -250,6 +247,7 @@
                     <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
+                      @click="goOrderDirect"
                     >
                     <i class="bi-cart3"></i>
                       BUY NOW
@@ -294,6 +292,8 @@ import PageMixin from '../mixin.js';
 import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
 import ReviewQnA from '../components/ProductQnAList.vue'
+
+
 export default{
   mixins : [PageMixin],
   components: {ReviewList,ReviewQnA},
@@ -321,6 +321,9 @@ export default{
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
+    },
+    getDateFormat(date){
+      return this.$dateFormat(date);
     },
       // 메소드 호출
       calculatePrice(cnt) {
@@ -484,6 +487,10 @@ export default{
 }
 </script>
 <style>
+h4 {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+
 .swal2-title{
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
@@ -514,6 +521,8 @@ export default{
   /* margin-bottom: 15px; */
   font-weight: bold;
   font-size: 30px;
+  /* line-height: 124px; */
+  line-height: 50px;
   /* height: 124.83px; */
 }
 </style>

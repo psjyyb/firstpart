@@ -69,7 +69,6 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 import PageMixin from '../mixin.js';
 
-
 export default {
   mixins : [PageMixin],
 
@@ -85,7 +84,6 @@ export default {
       noMoreProducts: false,
       isLoading: false,
       selectedSort: '',
-
       // selectedCategoryIndex: null,
     };
   },
@@ -116,11 +114,9 @@ export default {
     clickColor(){
       const nonClick = document.querySelectorAll(".non-click");
       function handleClick(event) {
-        // div에서 모든 "click" 클래스 제거
         nonClick.forEach((e) => {
           e.classList.remove("click");
         });
-        // 클릭한 div만 "click"클래스 추가
         event.target.classList.add("click");
       }
       nonClick.forEach((e) => {
@@ -256,22 +252,23 @@ export default {
 </script>
 
 <style>
+/* .card-body{
+  height: 500px;
+} */
+
 .card-title {
     font-size: 25px;
 }
-
 .container {
     width: 100%;
 }
 .breadcrumb {
     display: inline-flex;
 }
-
 .product-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-
 }
 
 .product-card {
@@ -315,10 +312,6 @@ export default {
   border: 0;
 }
 
-.non-click {
-  /* background-color: gold; */
-}
-
 .click {
   background-color: orchid;
 }
@@ -326,6 +319,9 @@ export default {
 </style>
 
 <style scoped>
+ h3{
+  line-height: 1.5;
+ }
 .active {
   border: 1px solid rgb(222 173 111);
   border-radius: 20px;
@@ -334,6 +330,7 @@ export default {
 .product-list {
   display: flex;
   flex-wrap: wrap;
+  height: ;
 }
 
 .product-card {

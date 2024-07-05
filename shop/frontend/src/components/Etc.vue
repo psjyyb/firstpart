@@ -39,7 +39,7 @@
             </a>
             <div class="card-body p-0">
               <a @click="goToDetail(product.product_no)">
-                <h3 class="card-title pt-4 m-0">{{ product.product_name }}</h3>
+                <h3 class="card-title pt-4 m-0" style="line-height: 1.5">{{ product.product_name }}</h3>
               </a>
               <div class="card-text">
               
@@ -181,5 +181,8 @@
     font-size: 25px;
 
   }
+  h3{
+  line-height: 1.5;
+ }
   </style>
   

@@ -19,8 +19,8 @@
      </tr	> -->
      <tr v-for="qna in qnas">
                     <td>{{ qna.qna_no }}</td>
-                    <td>{{ qna.qna_title }}</td>
-                    <td>{{ qna.qna_date }}</td>            
+                    <td @click ="goToAnswer(qna.qna_no)">{{ qna.qna_title }}</td>
+                    <td>{{ this.$dateFormat(qna.qna_date) }}</td>            
                     <td v-if="qna.qna_reply==null">답변대기중</td>
                     <td v-else>답변완료</td>
                     <td>{{ qna.user_id }}</td>
@@ -68,6 +68,11 @@ export	default {
   //  getDateFormat(date )	{
   //   return this.$dateFormat(date );
     },
+    goToAnswer(no){
+
+      this.$router.push({	path:"/insertanser",	query: {	qna_no:no }	});
+    }
+
   },
 };
 </script	>

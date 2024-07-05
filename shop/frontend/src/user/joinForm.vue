@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <form @submit.prevent="joinUser" class="member-container">
-      <div class="header">회원 가입</div>
+      <div class="header">Join</div>
 
       <div class="user-info">
         <div class="form-group">
           <div class="input-group">
             <input type="text" id="user_id" v-model="userInfo.user_id" placeholder="아이디" autofocus required class="form-control" />
-            <button type="button" class="btn btn-secondary" @click="checkUserId">중복 체크</button>
+            <button type="button" id="check-user-id-btn" class="btn btn-secondary small-btn-check" @click="checkUserId">중복 체크</button>
           </div>
           <span v-if="userIdError" class="error">{{ userIdError }}</span>
           <span v-if="userIdSuccess" class="success">사용 가능한 아이디입니다.</span>
@@ -44,12 +44,12 @@
       </div>
 
       <div class="button-group">
-        <button type="submit" class="btn btn-info small-btn" :disabled="!isFormValid">회원 가입</button>
-        <button type="button" class="btn btn-cancel small-btn" @click="cancelJoin">취소</button>
-        <span v-if="!userIdSuccess" class="error">중복 체크를 해주세요.</span>
-        <span v-if="passwordError">{{ passwordError }}</span>
+        <button type="submit" class="btn btn-primary small-btn">가입하기</button>
+        <button type="button" class="btn btn-secondary small-btn" @click="cancelJoin">취소</button>
       </div>
 
+      <span v-if="!userIdSuccess" class="error message">중복 체크를 해주세요.</span>
+      
       <!-- 카카오 로그인 컴포넌트 -->
       <kakaoLogin />
     </form>
@@ -177,48 +177,32 @@ export default {
 * {
   box-sizing: border-box;
   font-family: "Noto Sans CJK KR";
-  font-style: normal;
 }
 
 body {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  background-color: #f5f5f5; /* 배경색상 변경 */
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 670px;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  background: #ffffff;
-  border: 1px solid #aacdff;
-  box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
-  border-radius: 20px;
-  padding: 20px;
-}
-
-.member-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
+  max-width: 670px; /* 컨테이너 최대 너비 설정 */
+  padding: 20px;
+  background-color: #ffffff; /* 배경색상 변경 */
+  border-radius: 10px; /* 테두리 둥글게 처리 */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
 
 .header {
-  width: 100%;
-  font-weight: 700;
   font-size: 32px;
-  line-height: 47px;
-  color: #0068ff;
+  font-weight: 700;
+  color: #000000; /* 헤더 색상 변경 */
   text-align: center;
   margin-bottom: 20px;
 }
 
 .user-info {
-  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -236,57 +220,71 @@ body {
 }
 
 .form-control {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #797979;
-  border: none;
-  border-bottom: 1px solid #cfcfcf;
   width: 100%;
-  padding: 5px 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: none; /* 입력 필드 테두리 제거 */
+  border-bottom: 1px solid #e0e0e0; /* 밑줄 테두리 추가 */
+  border-radius: 0; /* 입력 필드 둥글게 처리 제거 */
+  transition: border-color 0.3s ease; /* 테두리 색상 변화 효과 추가 */
 }
 
 .user-info-email input {
-  border-bottom: 1px solid #0068ff;
+  border-bottom-color: #ff725e; /* 이메일 입력 필드 밑줄 테두리 색상 변경 */
 }
 
 .button-group {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   margin-top: 20px;
-  width: 100%;
-  align-items: center;
 }
 
 .btn {
-  width: auto;
+  width: 49%; /* 버튼 너비 조정 */
   height: 40px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
   color: #ffffff;
-  background: #0068ff;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px; /* 버튼 둥글게 처리 */
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center; /* 텍스트 가운데 정렬 추가 */
+  align-items: center; /* 텍스트 가운데 정렬 추가 */
+}
+
+.btn-primary {
+  background-color: #ff8474; /* 주 버튼 연한 색상으로 변경 */
+}
+
+.btn-secondary {
+  background-color: #6abf69; /* 보조 버튼 연한 색상으로 변경 */
 }
 
 .btn:hover {
-  background-color: #0056e0;
-}
-
-.small-btn {
-  height: 35px;
-  font-size: 16px;
+  opacity: 0.9; /* 버튼 호버 시 투명도 변경 */
 }
 
 .error {
-  color: red;
+  color: #ff725e; /* 에러 메시지 색상 변경 */
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .success {
-  color: green;
+  color: #4caf50; /* 성공 메시지 색상 변경 */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.message {
+  font-size: 14px;
+  color: #ff725e; /* 메시지 색상 변경 */
+  margin-top: 5px;
+}
+
+.small-btn-check {
+  width: 30%; /* 중복 체크 버튼 너비 조정 */
 }
 </style>

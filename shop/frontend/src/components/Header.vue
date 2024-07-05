@@ -88,8 +88,7 @@
               <router-link v-else to="/loginForm" class="nav-link">로그인</router-link>
             </div>
             <div class="support-box text-end d-none d-xl-block" v-if="!isLoggedIn">
-  <a href="/joinForm" class="nav-link">회원가입</a>
-
+              <a href="/joinForm" class="nav-link">회원가입</a>
             </div>
           </div>
         </div>
@@ -151,6 +150,24 @@
                 <!-- :style="{ 'color' : selectedCategoryIndex === i ? 'rgb(222 173 111)' : '' }" > -->
 
                   <a class="nav-link" style="cursor:pointer;">{{ category.category_name }}</a>
+                <li class="">
+                  <a href="/cart" class="mx-3"  data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                    <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
+                      03
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <!-- 여기 -->
+                  <a href="noticeList" class="nav-link"><iconify-icon icon="mdi-format-align-left" class="fs-4 position-relative"></iconify-icon></a>
+
+
+                </li>
+                <li>
+                  <button type ="button"  @click="adminpage">
+                    <iconify-icon icon="mdi-account-convert" class="fs-4"></iconify-icon>
+                  </button>
                 </li>
               </ul>
               <div class="d-none d-lg-flex align-items-end">
@@ -240,24 +257,23 @@
           }
       },
       handleLogout() {
-      // Vuex 스토어에서 로그아웃 액션을 호출하여 사용자 로그아웃 처리
       this.logoutUser()
         .then(() => {
-          // 카카오 SDK를 사용하여 Kakao 로그아웃 처리
-          Kakao.Auth.logout(function () {
-            console.log('카카오 로그아웃 성공');
-          });
-          location.reload();
+          if (window.Kakao) {
+            window.Kakao.Auth.logout(() => {
+              console.log('카카오 로그아웃 성공');
+            });
+          }
           this.$router.push({ name: 'home' });
           alert('로그아웃되었습니다');
         })
         .catch(error => {
           console.error('Error logging out:', error);
         });
-      },
-    }
-  }
-  </script>
+    },
+  },
+}
+</script>
   
 
   <style scoped>

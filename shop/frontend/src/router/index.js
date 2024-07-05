@@ -43,6 +43,10 @@ import OrderDirectSuccessView from '../order/OrderDirectSuccessView.vue'
 
 
 import ProductInsert from '../views/ProductInsert.vue'
+import NoticeInsert from '../views/NoticeInsert.vue'
+import InfoProduct from '../views/ProductInfo.vue'
+import InsertAnser from '../views/AnserInsert.vue'
+import InfoOrder from '../views/OrderInfo.vue'
 
 
 import joinForm from '../user/joinForm.vue'
@@ -260,6 +264,27 @@ const routes = [
     name: 'ProductInsert',
     component: ProductInsert
   },
+  {
+    path: '/insertnotice',
+    name: 'NoticeInsert',
+    component: NoticeInsert
+  },
+  {
+    path: '/infoproduct',
+    name: 'InfoProduct',
+    component: InfoProduct
+  },
+  {
+    path: '/insertanser',
+    name: 'InsertAnser',
+    component: InsertAnser
+  },
+  {
+    path: '/orderinfo',
+    name: 'InfoOrder',
+    component: InfoOrder
+  },
+  
   
 ]
 

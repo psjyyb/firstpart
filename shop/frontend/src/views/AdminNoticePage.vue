@@ -18,11 +18,12 @@
      <tr v-for="notice in notices">
                     <td>{{ notice.notice_no }}</td>
                     <td>{{ notice.notice_title }}</td>
-                    <td>{{ notice.notice_date }}</td>                                
+                    <td>{{ this.$dateFormat(notice.notice_date) }}</td>                                
                 </tr>
     </tbody	>
    </table	>
    <PagingComponent v-bind="page" @go-page="goPage"></PagingComponent>
+   <router-link to ="/insertnotice"	class="nav-link"><h1>공지사항 등록</h1></router-link	>
   </div	>
 </template	>
 <script	>

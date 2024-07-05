@@ -16,5 +16,14 @@ router.get("/qnaList/",async(req,res )=> {
     res.send({list,count})
 });
 
+router.get("/qnaList/:no",async(req,res )=> {
+    let result =	await query("qnaInfo",	req.params.no );
+       res.send(result);
+  });
+
+  router.put("/insertqna/:no",	async (req ,	res )	=> {
+    let result =	await query("qnaInsert",	[req.body.qna_reply,	req.params.no]);
+    res.send(result);
+});
 
 module.exports =router ;
