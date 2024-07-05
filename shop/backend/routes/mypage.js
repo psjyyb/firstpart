@@ -264,7 +264,7 @@ router.post("/QnAUpdate/",upload.array("files"),async (req,res)=>{
     console.log(req.files)
     //const originalname = Buffer.from(req.files.originalname, 'latin1').toString('utf8');
     let qna = 'qna';
-    if(result.length != 0){
+    if(req.files.length != 0){
     await query("mypageUpdateImg",[qna,data.reviewNo])
     .then(result=>{console.log('이미지 삭제',result)})
     }
