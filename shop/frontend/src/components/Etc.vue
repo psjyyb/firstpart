@@ -185,4 +185,9 @@
   line-height: 1.5;
  }
   </style>
-  
+  <style scoped>
+  .text-primary {
+      --bs-text-opacity: 1;
+      color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+  }
+  </style>

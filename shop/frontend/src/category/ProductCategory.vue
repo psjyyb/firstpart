@@ -54,6 +54,9 @@
             </div>
           </div>
         </div>
+        <a style="display:scroll;position:fixed;bottom:100px;right:100px;" href="#" title="top">
+          <img src="../assets/icons8-top-100.png" style="width: 70px; height: 70px;">
+        </a> 
       </div>
       <!-- 상품1개 끝-->
       <div v-if="busy" class="text-center mt-3">
@@ -77,14 +80,12 @@ export default {
       searchNo: "",
       productList: [],
       productCnt: 0,
-      // displayedProducts: [], 
       initialDisplayCount: 12,
       pno: 1,
-      busy: false,  //true면 스크롤 안보임
+      busy: false,  
       noMoreProducts: false,
       isLoading: false,
       selectedSort: '',
-      // selectedCategoryIndex: null,
     };
   },
   computed: {
@@ -126,7 +127,6 @@ export default {
     async getProductList() {
       this.pno = 1;
       this.productList = [];
-      // this.displayedProducts = []; 
       this.busy = false;
       this.noMoreProducts = false;
       this.initialDisplayCount = 12;
@@ -134,9 +134,9 @@ export default {
       await this.loadMoreProducts();
       this.isLoading = false;
     },
-    async loadMoreProducts() { // busy속성이 true면 더이상 스크롤 안됨
+    async loadMoreProducts() { 
       if (this.busy || this.noMoreProducts) return;
-      this.busy = true;
+      this.busy = true;// busy속성이 true면 더이상 스크롤 안됨
 
     try {
       const response = await axios.get(`/api/category/${this.searchNo}`, {
@@ -146,7 +146,6 @@ export default {
         }
       });
       if (response.data.products.length) {
-        // this.displayedProducts.push(...response.data.products); //새로운 리스트에 담김
         this.productList.push(...response.data.products); 
         this.productCnt = response.data.total;
 
@@ -288,7 +287,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #191d03;
     margin-top: 60px;
   }
 
@@ -337,9 +336,7 @@ export default {
   margin-right: 10px;
 }
 
-.product-card:nth-child(4n) {
-  margin-right: 0; /* 4번째마다 오른쪽 마진 제거 */
-}
+
 
 .product-card img {
   width: 100%;
@@ -362,4 +359,10 @@ export default {
   height: 100%;
 }
 
+</style>
+<style scoped>
+.text-primary {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
 </style>

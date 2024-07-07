@@ -18,7 +18,6 @@ const userRouter =	require("./routes/user.js");
 const cartRouter = require('./routes/cart.js')
 const orderRouter = require('./routes/order.js')
 
-const mainRouter = require('./routes/main.js')
 const categoryRouter = require('./routes/category.js')
 // const productRouter = require('./routes/product.js')
 
@@ -49,10 +48,7 @@ app.get("/", (req, res) => {
     res.send("Hello World!~~");
 });
 
-// app.use("/",mainRouter)
-// app.use("/category",categoryRouter,mainRouter)
 app.use("/category",categoryRouter)
-// app.use("/detail",productRouter)
 
 app.use("/mypage/",mypageRouter)
 //app.use('/api/upload', express.static('d:/upload'));
