@@ -64,7 +64,7 @@ export default {
 .notice-title {
     font-weight: bold;
     color: #333;
-    border-bottom: 2px solid #007bff;
+    /* border-bottom: 2px solid #007bff; */
     padding-bottom: 10px;
     margin-bottom: 20px;
 }

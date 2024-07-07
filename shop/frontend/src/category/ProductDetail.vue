@@ -77,8 +77,8 @@
               </h3>
               <div class="card-text pb-3 mb-4">
                 <div class="row">
-                  <div class="col-auto">
-                    <nav style="padding-left: 0px">
+                  <div class="col-auto" >
+                    <nav style="padding-left: 0px" class="ProductPage">
                       <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button
                           class="nav-link active text-body"
@@ -119,6 +119,11 @@
                         
                         <button 
                         class="nav-link text-body"
+                        data-bs-toggle="tab"
+                          data-bs-target="#nav-contact"
+                          type="button"
+                          role="tab"
+                        aria-selected="false"
                         @click="shareMessage">
                           카카오 공유
                         </button>
@@ -307,6 +312,9 @@ export default{
    this.proInfo();
    console.log('fsdfsdf',this.$route.query.no)
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods :{
     async proInfo() {
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
@@ -473,7 +481,7 @@ export default{
 [type=button]:not(:disabled){
   margin: 0;
 }
-.nav-tabs {
+.ProductPage .nav-tabs {
   --bs-nav-tabs-link-active-bg: #ffecc8;
   --bs-nav-tabs-link-active-border-color: #ff7f21 #ff7f21 #ff7f21;
   border-bottom: var(--bs-nav-tabs-border-width) solid #ff7f21
@@ -509,11 +517,14 @@ h4 {
   font-size: 35px;
 }
 .card-title{
-  /* margin-bottom: 15px; */
   font-weight: bold;
   font-size: 30px;
-  /* line-height: 124px; */
   line-height: 50px;
-  /* height: 124.83px; */
+}
+</style>
+<style scoped>
+.text-primary {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
 }
 </style>
