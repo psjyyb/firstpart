@@ -1,7 +1,7 @@
 <template>
     <SideVar/>
     <div>
-      <img width="120" height="120" :src="`/api/upload/${review.product_img}`">
+      <img width="120" height="120" :src="`/api/readproductImg/${review.product_img}`">
       <h4>{{ review.product_name}}</h4>
       <div class="inner">
         <div class="star-rating">
