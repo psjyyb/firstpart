@@ -63,6 +63,8 @@
         this.$router.push('/adminnotice');
     },
     async addNotice(){
+
+        if((this.notice_title!='')&(this.notice_content!='')&(this.notice_picture!='')){
         let data = new FormData();
         data.append("notice_title",this.notice_title)
             data.append("notice_content",this.notice_content)
@@ -77,6 +79,7 @@
      }	else {
       alert("정상적으로	저장되지	않았습니다.");
      }
+        }
     },
     change_notice_picture(file)	{
         const fileData = (data) => {
