@@ -43,8 +43,8 @@
             <div class="card-text">
               <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
               현재 재고 : {{ product.stock_cnt }}
-              <div class="d-flex flex-wrap mt-3" v-if="product.stock_cnt > 0">
-                <a class="btn-cart me-3 px-4 pt-3 pb-3">
+              <div class="d-flex flex-wrap mt-3">
+                <a class="btn-cart me-3 px-4 pt-3 pb-3"  v-if="product.stock_cnt > 0">
                   <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                 </a>
                 <a class="btn-wishlist px-4 pt-3">
@@ -54,9 +54,9 @@
             </div>
           </div>
         </div>
-        <a style="display:scroll;position:fixed;bottom:100px;right:100px;" href="#" title="top">
+        <!-- <a style="display:scroll;position:fixed;bottom:100px;right:100px;" href="#" title="top">
           <img src="../assets/icons8-top-100.png" style="width: 70px; height: 70px;">
-        </a> 
+        </a>  -->
       </div>
       <!-- 상품1개 끝-->
       <div v-if="busy" class="text-center mt-3">
@@ -136,32 +136,30 @@ export default {
     },
     async loadMoreProducts() { 
       if (this.busy || this.noMoreProducts) return;
-      this.busy = true;// busy속성이 true면 더이상 스크롤 안됨
-
-    try {
-      const response = await axios.get(`/api/category/${this.searchNo}`, {
-        params: {
-          pno: this.pno,
-          perPage: 12,
-        }
-      });
-      if (response.data.products.length) {
-        this.productList.push(...response.data.products); 
-        this.productCnt = response.data.total;
-
-        if (!response.data.hasNextPage) { //다음페이지 여부 확인
-          this.noMoreProducts = true;
-          } else {
-            this.pno++;
+      this.busy = true;// busy속성이 true면 더이상 스크롤 비활성화
+      try {
+        const response = await axios.get(`/api/category/${this.searchNo}`, {
+          params: {
+            pno: this.pno,
+            perPage: 12,
           }
-      } else {
-        this.noMoreProducts = true;
+        });
+        if (response.data.products.length) {
+          this.productList.push(...response.data.products); 
+          this.productCnt = response.data.total;
+          if (!response.data.hasNextPage) { //다음페이지 여부 확인
+            this.noMoreProducts = true;
+            } else {
+              this.pno++;
+            }
+        } else {
+          this.noMoreProducts = true;
+        }
+      } catch (error) {
+        console.error('데이터 가져오기 오류:', error);
+      } finally {
+        this.busy = false; 
       }
-    } catch (error) {
-      console.error('데이터 가져오기 오류:', error);
-    } finally {
-      this.busy = false; 
-    }
 },
     async handleScroll() {  //스크롤 위치 계산해서 다음 페이지 불러옴
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;

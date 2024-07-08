@@ -27,12 +27,8 @@ export default {
             return 0;
           }
         },
-        
-        
         $currencyFormat(value, format = "#,###") {
-            
             if (value == 0 || value == null) return 0;
-      
             var currency = format.substring(0, 1);
             if (currency === "$" || currency === "₩") {
               format = format.substring(1, format.length);
@@ -100,7 +96,16 @@ export default {
             let minutes = ('0' + date.getMinutes()).slice(-2);
             return `${year}-${month}-${day} ${hours}:${minutes}`;
             // return `${year}-${month}-${day} ${hours}:${minutes}`;
-          }     
+          },
+          $dateFormat2(val ){
+            let date =	val ==	'' ?	new Date():	new Date(val );
+            let year =	date.getFullYear();
+            let month =	('0' +	(date.getMonth ()	+	1 )).slice (-2 );
+            let day = ('0' + date.getDate()).slice(-2);
+            let hours = ('0' + date.getHours()).slice(-2);
+            let minutes = ('0' + date.getMinutes()).slice(-2);
+            return `${year}-${month}-${day}`;
+          }      
 
     }
 }

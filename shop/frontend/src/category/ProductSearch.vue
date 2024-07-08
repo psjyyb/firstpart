@@ -44,8 +44,8 @@
                         <div class="card-text">
                             <h3 class="secondary-font text-primary">{{ getCurrencyFormat(product.product_price) }} 원</h3>
                             현재 재고 : {{ product.stock_cnt }}
-                          <div class="d-flex flex-wrap mt-3" v-if="product.stock_cnt > 0">
-                              <a class="btn-cart me-3 px-4 pt-3 pb-3">
+                          <div class="d-flex flex-wrap mt-3">
+                              <a class="btn-cart me-3 px-4 pt-3 pb-3"  v-if="product.stock_cnt > 0">
                                   <h5 class="text-uppercase m-0" @click="checkCart(product.product_no)" style="cursor: pointer">Add to Cart</h5>
                               </a>
                               <a class="btn-wishlist px-4 pt-3">
@@ -171,13 +171,11 @@ export default{
     }
 }
 </script>
-
 <style>
 .card-title {
     font-size: 25px;
 }
 </style>
-
 <style scoped>
 .card-title {
     font-size: 25px;

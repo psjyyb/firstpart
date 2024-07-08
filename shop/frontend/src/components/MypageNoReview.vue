@@ -97,21 +97,8 @@
       }
   </script>
   <style>
- /* a {
-            text-decoration: none;
-            color: white;
-            background-color: #3498db;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
+  .nav-tabs {
+    style: none;
+  }
 
-        a:hover {
-            background-color: #2980b9;
-        }
-
-        a:active {
-            background-color: #1abc9c;
-        } */
 </style>
