@@ -56,7 +56,7 @@ module.exports = {
                                     o.order_status,
                                     p.product_name,
                                     o.order_no 
-                        order by order_date`,
+                        order by order_no desc`,
 
     mypageOrderList : `SELECT
                             o.order_no,
