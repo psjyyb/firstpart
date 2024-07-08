@@ -98,6 +98,8 @@ export	default {
  	},
  	methods: {
         async insertproduct()	{
+		
+		if((this.product_name!='')&(this.product_price!='')&(this.product_mfd!='')&(this.product_exp!='')&(this.category_no!='')&(this.storage_cnt!='')&(this.product_img!='')&(this.product_detail_img!='')){
             console.log(this.productInfo);
             let data = new FormData();
             data.append("product_name",this.product_name)
@@ -119,6 +121,8 @@ export	default {
  	    alert("정상적으로	저장되지	않았습니다.");
  	   }
         //  this.$emit("changeRouter","/adminproduct");
+
+		}
     },
     change_product_img(file)	{
         const fileData = (data) => {
