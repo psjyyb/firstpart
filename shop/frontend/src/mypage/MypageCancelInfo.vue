@@ -4,8 +4,8 @@
         <h2 class="mb-5">주문상세</h2>
   
         <div class="order-info">
-            <p>주문일자: {{ getDateFormat(fcancel.order_date) }}</p>
             <p>주문번호: {{ fcancel.order_no }}</p>
+            <p>주문일자: {{ getDateFormat(fcancel.order_date) }}</p>
             <div class="subheading mb-3">
                 <p v-if="fcancel.cancel_state==1">취소 상태 : 취소요청</p>
                 <p v-if="fcancel.cancel_state==2">취소 상태 : 취소완료</p>

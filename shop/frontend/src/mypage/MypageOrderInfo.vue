@@ -4,8 +4,8 @@
       <h2 class="mb-5">주문상세</h2>
 
       <div class="order-info">
-          <p>주문일자: {{ getDateFormat(order.order_date) }}</p>
           <p>주문번호: {{ order.order_no }}</p>
+          <p>주문일자: {{ getDateFormat(order.order_date) }}</p>
           <div class="subheading mb-3">
                     <p v-if="order.order_status==1">주문 상태 : 결제완료</p>
                     <p v-if="order.order_status==2">주문 상태 : 상품준비중</p>
