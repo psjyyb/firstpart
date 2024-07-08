@@ -15,7 +15,6 @@ const getHtml = async () => {
   try {
     const response = await axios.get("https://www.dogpang.com/shop/goods/goods_list.php?category=002001"
       , { responseType: 'arraybuffer' });
-
     const decodedHtml = iconv.decode(response.data, 'euc-kr');  //한글깨짐방지
     const $ = cheerio.load(decodedHtml);
     const bodyList = $("div.flex-root");

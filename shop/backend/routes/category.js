@@ -40,9 +40,9 @@ router.get("/:no", async (req, res) => {
   let startIdx = (Number(pno) - 1)  * perPage;
   let categoryProducts = await query("scrollProduct",[no, startIdx, perPage]);
   let productTotal = await query("productCnt", req.params.no); 
+  // console.log("data : ", categoryProducts)
   console.log("category_no : " , no)
   console.log("total : ", productTotal[0].count)
-  // console.log("data : ", categoryProducts)
   console.log('page :' , pno)
   console.log('perPage : ', perPage)
   console.log('현재 : ' , (startIdx + perPage - 1));
@@ -55,7 +55,6 @@ router.get("/:no", async (req, res) => {
     hasNextPage: !((startIdx + perPage - 1) >= productTotal[0].count),
   });
 });
-
 
 
   module.exports = router;
