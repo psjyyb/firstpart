@@ -21,7 +21,7 @@
             <td>{{ qna.user_id }}</td>
             <td v-if="qna.add_names">
                 <div class="photos">
-              <img v-for="photo in qna.add_names.split(',')" :key="photo" :src="`/api/upload/${photo.trim()}`" :alt="`Photo of review ${qna.qna_no}`">
+              <img width="64" height="64" v-for="photo in qna.add_names.split(',')" :key="photo" :src="`/api/upload/${photo.trim()}`" :alt="`Photo of review ${qna.qna_no}`">
             </div>
             </td>
             <td v-else>사진첨부없음</td>

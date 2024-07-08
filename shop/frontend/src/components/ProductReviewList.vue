@@ -24,7 +24,7 @@
           <td>{{ review.user_id }}</td>
           <td v-if="review.add_names">
             <div class="photos">
-              <img v-for="photo in review.add_names.split(',')" :key="photo" :src="`/api/upload/${photo.trim()}`" :alt="`Photo of review ${review.review_no}`">
+              <img width="64" height="64" v-for="photo in review.add_names.split(',')" :key="photo" :src="`/api/upload/${photo.trim()}`" :alt="`Photo of review ${review.review_no}`">
             </div>
           </td>
           <td v-else>사진첨부없음</td>

@@ -28,7 +28,6 @@
     </form>
 </div>
 </div>
-{{ prodNo }}
 </template>
 <script>
     import axios from 'axios' 
