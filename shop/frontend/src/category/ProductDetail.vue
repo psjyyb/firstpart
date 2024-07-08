@@ -64,13 +64,16 @@
         <div class="col-md-6">
           <div class="card border-0 text-start">
             <div class="card-body">
+              <!-- <h5 class="card-title">{{ productDetail.product_name }}</h5> -->
               <h2 class="card-title">{{ productInfo.product_name }}</h2>
               <h3>
+                <!-- <p class="card-text pt-3 pb-3"> -->
                   <div class ="secondary-font text-primary">
                   {{ getCurrencyFormat(productInfo.product_price) }} 원
                   <br><br>
                 </div>
                 <h4>재고 : {{ productInfo.stock_cnt }}</h4>
+                <!-- </p> -->
               </h3>
               <div class="card-text pb-3 mb-4">
                 <div class="row">
@@ -151,6 +154,7 @@
                         role="tabpanel"
                         aria-labelledby="nav-profile-tab"
                       >
+                        <!-- {{ productDetail.product_sizeGuide }} <br /><br />제품 -->
                         측정에 따라 1-3cm 차이가 있을 수 있습니다.
                       </div>
                       <div
@@ -181,6 +185,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <label class="col-form-label">구매수량</label>
+                    
                   </div>
                   <div class="col-auto">
                     <div class="input-group" >
@@ -197,6 +202,7 @@
                         v-model.number="total"
                         @change="calculatePrice(0)"
                         />
+
                       <span
                         class="input-group-text"
                         style="cursor: pointer"
@@ -222,7 +228,7 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="col-12 d-grid p-1">
-                    <button  v-if="productInfo.stock_cnt > 0"
+                    <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
                       @click="checkCart"
@@ -240,7 +246,7 @@
                       WISH LIST
                     </button>
 
-                    <button  v-if="productInfo.stock_cnt > 0"
+                    <button
                       type="button"
                       class="btn btn-lg btn-outline-dark"
                       @click="goOrderDirect"
@@ -261,6 +267,7 @@
       <b-nav-item @click.prevent="activateQnATab">상품 QnA</b-nav-item>
     </b-nav>
     </div>
+
     <div>
       <ReviewList ref="child" v-if="isActiveReview"></ReviewList>
       <ReviewQnA ref="qchild" v-if="isActiveQnA"></ReviewQnA>
@@ -283,6 +290,7 @@ import Swal from 'sweetalert2'
 import ReviewList from '../components/ProductReviewList.vue'
 import ReviewQnA from '../components/ProductQnAList.vue'
 
+
 export default{
   mixins : [PageMixin],
   components: {ReviewList,ReviewQnA},
@@ -303,25 +311,25 @@ export default{
     this.searchNo = this.$route.query.no;
    this.proInfo();
    console.log('fsdfsdf',this.$route.query.no)
-   this.proInfo();
   },
   mounted() {
     window.scrollTo(0, 0);
   },
   methods :{
     async proInfo() {
-      this.productInfo = [];
       this.productInfo = (await axios.get(`/api/category/detail/${this.searchNo}`)).data[0];
     },
     getCurrencyFormat(value) {
       return this.$currencyFormat(value);
     },
     getDateFormat(date){
-      return this.$dateFormat2(date);
+      return this.$dateFormat(date);
     },
       calculatePrice(cnt) {
       let total = this.total + cnt;
+
       if (total < 0) total = 0;
+
       if (total > this.productInfo.stock_cnt) {
         this.total = this.productInfo.stock_cnt;
         Swal.fire('최대구매수량입니다');
@@ -406,6 +414,7 @@ export default{
     shareMessage() {
         if (!window.Kakao) return;
         let productImageElement  = $('.carousel-inner').find('img').attr('src');
+        
         window.Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
