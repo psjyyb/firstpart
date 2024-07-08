@@ -94,12 +94,14 @@ export	default {
   },
   methods: {
     async seach(page){
+      if((this.seachcatecory!='')&(this.seachname!='')){
       let pageUnit =this.pageUnit;
 
       let result = await axios.get(`/api/adminproduct/productList/seach/?seachcatecory=${this.seachcatecory}&seachname=${this.seachname}&pageUnit=${pageUnit}&page=${page}`);
       this.products = result.data.list;
       this.page =this.pageCalc(page,result.data.count[0].cnt,5,pageUnit);
       console.log(this.page)
+      }
     },
     async goPage(page){
         let pageUnit =this.pageUnit;
