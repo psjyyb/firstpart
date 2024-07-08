@@ -72,7 +72,6 @@ export default{
             productList: [],
             productCnt : 0,
             selectedSort: '',
-
         };
     },
     computed: {

@@ -228,7 +228,7 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="col-12 d-grid p-1">
-                    <button
+                    <button v-if="productInfo.stock_cnt > 0"
                       type="button"
                       class="btn btn-lg btn-outline-dark"
                       @click="checkCart"
@@ -246,7 +246,7 @@
                       WISH LIST
                     </button>
 
-                    <button
+                    <button v-if="productInfo.stock_cnt > 0"
                       type="button"
                       class="btn btn-lg btn-outline-dark"
                       @click="goOrderDirect"
