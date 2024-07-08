@@ -307,7 +307,7 @@ export default{
   };
   },
   created () {
-    //this.id=this.$store.getters.getUserInfo.user_id
+    this.id=this.$store.getters.getUserInfo.user_id
     this.searchNo = this.$route.query.no;
    this.proInfo();
    console.log('fsdfsdf',this.$route.query.no)
@@ -366,7 +366,7 @@ export default{
     cartGo() {
       axios.post('/api/cart', 
         {
-          user_id: this.account,
+          user_id: this.id,
           product_no: this.productInfo.product_no,
           cart_cnt: this.total
         }
